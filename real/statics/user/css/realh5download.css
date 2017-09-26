@@ -1,0 +1,296 @@
+/*基本样式*/
+body{
+	font-family: "Helvetica Neue",Verdana,Arial,"Hiragino Sans GB","WenQuanYi Micro Hei","Heiti SC","STHeiti","Microsoft Yahei","SimSun",sans-serif;
+}
+input,button,input:focus,button:focus{
+	outline:none;
+}
+a,a:hover,a:visited,a:focus{
+  text-decoration: none;
+  outline:none;
+}
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn.active.focus {
+  outline:none;
+}
+p{
+	margin:0;
+}
+html,body{
+	height:100%;
+}
+.wrapper{
+	height:100%;
+	width:100%;
+}
+/*@font-face {font-family: 'myfont';
+  src: url('SingleMalta.ttf');
+}
+/*头部的样式*/
+.head{
+	position:fixed;
+	z-index:10;
+	top:0;
+	width:100%;
+	background-color:#ffffff;
+	position:fixed;
+	-webkit-box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.1);  
+  	-moz-box-shadow:    0px 2px 4px 0px rgba(0,0,0,0.1);  
+  	box-shadow:         0px 2px 4px 0px rgba(0,0,0,0.1);
+}
+.headInner{
+	width:1280px;
+	height:60px;
+	margin:0 auto;
+}
+.logo{
+	float:left;
+	display:block;
+	margin-top:14px;
+}
+.headList{
+	float:right;
+	list-style-type:none;
+	margin:0 0 0 0;
+	padding:0;
+	height:60px;
+	line-height:60px;
+}
+.headList > li{
+	min-width:48px;
+	float:left;
+	margin-left:45px;
+	height:60px;
+}
+.headList .itemShow{
+    margin-left:45px;
+}
+.headList > li > a {
+	display:block;
+	width:100%;
+	height:100%;
+	font-size:12px;
+	text-align: center;
+	color:#858b99;
+	-webkit-transition: all 0.2s ease-in-out; 
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out; 
+}
+.headList > li .nav-userLink{
+    display: block;
+    width: 48px;
+    height: 48px;
+    margin-left: 57px;
+    margin-top: 6px;
+}
+.headList>li>a.active{
+	color:#2eafeb;
+}
+.headList > li:hover > a{
+	color:#2eafeb;
+}
+.headList>li>.build{
+	display:none;
+}
+.headList>.building:hover a:first-child{
+	display:none;
+}
+.headList>.building:hover .build{
+	display:block;
+}
+/*.headList > .itemShow{
+	margin-left:0;
+}*/
+.headList > .register{
+	margin-left:80px;
+}
+.headList > .register > a{
+	color:#2eafeb;
+}
+/*.headList > .toolDownload > a{
+	color:#2eafeb;
+}*/
+.headList > .logon > button{
+	display:block;
+	width:77px;
+	height:30px;
+	line-height:0;
+	border:1px solid #2eafeb;
+	border-radius:3px;
+	margin-top:15px;
+	background-color:#ffffff;
+	font-size:12px;
+	color:#2eafeb;
+	-webkit-transition: all 0.2s ease-in-out; 
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out; 
+}
+.headList > .logon > button:hover{
+	background-color:#2eafeb;
+	color:#fff;
+}
+/*工具下载样式*/
+.dl-show{
+	margin-top:60px;
+	width:100%;
+	height:574px;
+	background-color:#ecf1f5;
+}
+.dl-show-inner{
+	width:1280px;
+	height:574px;
+	margin:0 auto;
+	/*background-color:pink;*/
+}
+.dl-show-imgsection{
+	float:left;
+	width:794px;
+	height:464px;
+	background-image:url('../images/dl-show-pcimg.jpg');
+	background-repeat:no-repeat;
+	margin-left:-60px;
+	margin-top:62px;
+}
+.dl-show-explain{
+	float:right;
+	width:440px;
+	padding-top:116px;
+}
+.dl-show-explain > p{
+	margin-bottom:0px;
+}
+.dl-show-p1{
+	font-size:30px;
+	height:42px;
+	line-height:42px;
+	color:#43494c;
+}
+.dl-show-p2{
+	font-size:42px;
+	height:54px;
+	line-height:54px;
+	color:#43494c;
+}
+.dl-show-p3{
+	font-size:16px;
+	height:28px;
+	line-height:28px;
+	color:#7c878b;
+	margin-top:6px;
+}
+.dl-show-p4{
+	font-size:16px;
+	height:28px;
+	line-height:28px;
+	color:#7c878b;
+}
+.dl-show-button{
+	display:block;
+	width:220px;
+	height:50px;
+	background-color:#2eafeb;
+	font-size:20px;
+	color:#fff;
+	border:none;
+	border-radius:3px;
+	margin-top:36px;
+	line-height:50px;
+	text-align: center
+}
+.dl-show-p5{
+	margin-top:14px;
+}
+.dl-show-p5,.dl-show-p6,.dl-show-p7{
+	font-size:12px;
+	color:#43494c;
+	height:24px;
+	line-height:24px;
+}
+/*安装步骤*/
+.dl-setup{
+	width:100%;
+}
+.dl-setup-inner{
+	margin:0 auto;
+	width:1280px;
+	height:480px;
+	padding-top:76px;
+	background-image:url('../images/dl-setup-backimg.png');
+	background-repeat:no-repeat;
+	background-position:150px 244px;
+}
+.dl-setup-head{
+	color:#3d3f45;
+	font-size:40px;
+	font-weight:lighter;
+	height:40px;
+	line-height:40px;
+	text-align:center;
+}
+.dl-setup-stepbox{
+	margin-top:80px;
+}
+.dl-setup-step{
+	float:left;
+	width:25%;
+}
+.dl-setup-stepmain{
+	color:#3c4042;
+	font-size:20px;
+	height:20px;
+	line-height:20px;
+	text-align:center;
+	margin-bottom:75px;
+}
+.dl-setup-stepdes{
+	color:#868a98;
+	font-size:16px;
+	text-align:center;
+	height:26px;
+	line-height:26px;
+}
+/*底部*/
+.footer{
+	height:140px;
+	background-color:#2d3c4a;
+	padding-top:23px;
+	min-width:1280px;
+}
+.index-footer-logo{
+	width:118px;
+	height:34px;
+	margin:0 auto;
+	background-image:url('../images/index-footer-logo.png');
+}
+.footer p{
+	color:#e0e0e0;
+	font-size:12px;
+	height:20px;
+	line-height:20px;
+	text-align:center;
+}
+.index-footer-connect{
+	margin-top:15px;
+	margin-bottom:0px;
+}
+.index-footer-email{
+	margin-left:16px;
+}
+.index-footer-info{
+	margin-top:2px;
+}
+.index-footer-record{
+	margin-left:16px;
+}
+.install-step{
+	width:1280px;
+	margin:0 auto;
+}

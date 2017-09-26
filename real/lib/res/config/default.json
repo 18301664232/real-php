@@ -1,0 +1,61 @@
+{
+  "init": {
+    "path": "",
+    "bgcolor": "0x00",
+    "data": [
+      {
+        "id": "loading",
+        "src": "http://cdn.moneplus.cn/realapp/res/config/page/loading.json",
+        "type": "manifest",
+        "callback": "loading"
+      }
+    ]
+  },
+  "common": {
+    "path": "",
+    "data": [
+      {
+        "id": "common",
+        "src": "http://cdn.moneplus.cn/realapp/res/config/page/common.json",
+        "type": "manifest",
+        "callback": "data",
+        "preload": "true"
+      }
+    ]
+  },
+  "page": {
+    "path": "",
+    "data": [
+
+    ]
+  },
+  "transition_globe": {
+    "forceTran": "true",
+    "prev": {
+      "trigger": [
+        "swipe_down"
+      ],
+      "effect": {
+        "key": "push",
+        "direction": "T_B",
+        "duration": "0.4",
+        "ease": ""
+      }
+    },
+    "next": {
+      "trigger": [
+        "swipe_up",
+        "shake"
+      ],
+      "effect": {
+        "key": "clothsline",
+        "direction": "R_L",
+        "duration": "0.5",
+        "ease": ""
+      }
+    }
+  },
+  "help": [
+    "openStyle:0-[A]关闭后打开[B] 1-[B]打开后关闭[A] 2-[A]关闭同时[B]打开"
+  ]
+}

@@ -1,0 +1,13 @@
+music_btn({
+    "name":"music_btn",
+    "path": "",
+    "manifest": [{
+        "src": "http://test.realplus.cc/lib/config/music_btn/music_btn_atlas.json",
+        "type": "spritesheet",
+        "id": "music_btn_atlas"
+    }, {
+        "id": "music_btn.js",
+        "src": "http://test.realplus.cc/lib/config/music_btn/music_btn.js",
+        "type": "javascript"
+    }]
+});

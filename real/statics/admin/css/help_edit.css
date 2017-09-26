@@ -1,0 +1,88 @@
+.input-group.search-box {
+  float: left;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.content .yiji.active,
+.content .erji.active {
+  display: block;
+}
+
+.content .yiji,
+.content .erji {
+  display: none;
+}
+
+.help-box {
+  display: block;
+}
+
+.help-box.active {
+  display: none;
+}
+
+.ueditor-box {
+  display: none;
+}
+
+.ueditor-box.active {
+  display: block;
+}
+
+.ueditor-box .go-back {
+  padding-left: 25px;
+}
+
+.go-back {
+  background: url(../img/go-back.png) left center no-repeat;
+  background-size: 15px 13px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.go-back p {
+  color: #3eb2ea;
+}
+
+.ueditor-right {
+    margin:20px 0;
+}
+
+.select-category {
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 10px;
+  width: 1000px;
+  overflow: auto;
+  height:auto
+}
+
+.threeadd.btn-success{
+    margin-top:20px
+}
+
+.select-category h4 {
+  padding-bottom: 20px;
+  font-size: 18px;
+  font-weight: normal;
+}
+
+.btn-group {
+  padding-top: 20px;
+}
+
+.publish-area {
+  padding-top: 22px;
+  margin-left: -160px;
+  text-align: center;
+}
+.ueditor-title{
+  width:1000px;
+}
+
+
+.right-product{
+	left:80px;
+	top:38px;
+}

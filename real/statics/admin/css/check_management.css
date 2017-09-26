@@ -1,0 +1,249 @@
+@charset "UTF-8";
+.user-query {
+  display: block;
+}
+
+.user-query.active {
+  display: none;
+}
+
+section > div {
+  padding-left: 15px;
+}
+
+.search-box {
+  /*margin-left:-58px;*/
+}
+
+.search-label {
+  line-height: 34px;
+}
+
+.query-box {
+  margin-top: 30px;
+}
+
+.query-box .row > div {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.query-box em {
+  font-size: 14px;
+  font-style: normal;
+  line-height: 35px;
+  display: block;
+  float: left;
+  margin-right: 20px;
+}
+
+.query-box ul {
+  float: left;
+}
+
+.query-box ul > li {
+  line-height: 35px;
+  float: left;
+  overflow: hidden;
+  box-sizing: border-box;
+  min-width: 7em;
+  max-width: 13em;
+  height: 35px;
+  padding: 0 20px;
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.query-box ul > li.active {
+  color: #fff;
+  border-radius: 4px;
+  background: #337ab7;
+}
+
+.btn-area {
+  padding-top: 20px;
+}
+
+.btn-query {
+  margin-right: 10px;
+}
+
+.table-box {
+  padding-top: 30px;
+}
+
+/*日期插件*/
+.datePicker {
+  line-height: 30px;
+  float: left;
+  margin-left: 20px;
+}
+
+.datePicker input {
+  width: 115px;
+  height: 30px;
+  padding: 0 8px;
+  text-align: left;
+}
+
+/*详情页面*/
+/*.detail-box>div{
+    padding-left:0;
+}*/
+.detail-box {
+  display: none;
+}
+
+.detail-box.active {
+  display: block;
+}
+
+.detail-box .go-back {
+  padding-left: 25px;
+}
+
+.go-back {
+  margin-bottom: 20px;
+  cursor: pointer;
+  background: url(../img/go-back.png) left center no-repeat;
+  background-size: 15px 13px;
+}
+
+.go-back p {
+  color: #3eb2ea;
+}
+
+.detail-box .title {
+  font-size: 16px;
+  line-height: 30px;
+  color: #5a657e;
+  border-bottom: 1px solid #cbd2e1;
+}
+
+.basic-info,
+.project-profile {
+  float: left;
+  height: 140px;
+  padding-right: 0;
+  border: 1px solid #cbd2e1;
+}
+
+.basic-info {
+  box-sizing: border-box;
+  margin-right: 14px;
+}
+
+.user-info-box {
+  padding: 22px;
+}
+
+.head-img,
+.user-info {
+  float: left;
+}
+
+.head-img {
+  width: 62px;
+  height: 62px;
+  margin-right: 22px;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+}
+
+.user-info {
+  padding: 10px 0;
+}
+
+.user-name {
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #3eb2ea;
+}
+
+.user-address {
+  font-size: 12px;
+  padding-left: 18px;
+  color: #333;
+  background: url(../img/address.png) left center no-repeat;
+  background-size: 10px 14px;
+}
+
+.project-info-box {
+  padding: 28px 80px;
+  text-align: justify;
+}
+
+.project-info-box::after {
+  display: inline-block;
+  width: 100%;
+  height: 0;
+  content: '';
+}
+
+.project-info-box > div {
+  display: inline-block;
+}
+
+.project-info-box em {
+  font-size: 20px;
+  font-style: normal;
+  display: block;
+  width: 100%;
+  text-align: center;
+  color: #3eb2ea;
+}
+
+.money {
+  font-weight: bold;
+  color: #ff5252;
+}
+
+.detail-table-box {
+  margin-top: 40px;
+}
+
+.detail-table-box .title {
+  height: 30px;
+  margin-bottom: 10px;
+  margin-left: -15px;
+  padding-left: 10px;
+  border: none;
+  border-left: 3px solid #0d2556;
+}
+
+.col-sm-11.detail-table {
+  margin: 0;
+  padding: 0;
+}
+
+.query-box .row > .current-num {
+  line-height: 35px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed #ccc;
+}
+
+.project-status {
+  position: relative;
+  width: 123px;
+}
+
+.project-status .select-val {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+.project-status select {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  opacity: 0;
+}

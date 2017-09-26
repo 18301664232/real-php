@@ -1,0 +1,296 @@
+@charset "UTF-8";
+.user-query {
+  display: block;
+}
+
+.user-query.active {
+  display: none;
+}
+
+section > div {
+  padding-left: 15px;
+}
+
+.search-box {
+  /*margin-left:-58px;*/
+}
+
+.search-label {
+  line-height: 34px;
+}
+
+.query-box {
+  margin-top: 30px;
+}
+
+.query-box .row > div {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.query-box em {
+  display: block;
+  float: left;
+  font-size: 14px;
+  font-style: normal;
+  line-height: 35px;
+  margin-right: 20px;
+}
+
+.query-box ul {
+  float: left;
+}
+
+.query-box ul > li {
+  cursor: pointer;
+  min-width: 7em;
+  max-width: 13em;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  float: left;
+  padding: 0 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.query-box ul > li.active {
+  background: #337ab7;
+  color: #fff;
+  border-radius: 4px;
+}
+
+.btn-area {
+  padding-top: 20px;
+}
+
+.btn-query {
+  margin-right: 10px;
+}
+
+.table-box {
+  padding-top: 30px;
+}
+
+/*详情页面*/
+/*.detail-box>div{
+	padding-left:0;
+}*/
+.detail-box {
+  display: none;
+}
+
+.detail-box.active {
+  display: block;
+}
+
+.detail-box .go-back {
+  padding-left: 25px;
+}
+
+.go-back {
+  background: url(../img/go-back.png) left center no-repeat;
+  background-size: 15px 13px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.go-back p {
+  color: #3eb2ea;
+}
+
+.user-query .table-box td {
+  max-width: 10em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.question-box .content {
+  display: block;
+}
+
+.head-img img, .edit-left img {
+  float: left;
+  width: 40px;
+  height: 40px;
+  background: #fff;
+  margin-right: 10px;
+}
+
+.content-box {
+  float: left;
+  max-width: 580px;
+}
+
+.question {
+  margin: 20px 0px;
+}
+
+.response {
+  padding: 20px 0;
+}
+
+.question-box {
+  padding-bottom: 50px;
+  border-bottom: 1px solid #337ab7;
+}
+
+.comment-time {
+  margin-bottom: 5px;
+}
+
+.order-area h4 {
+  color: #337ab7;
+  font-weight: 200;
+  line-height: 1.4;
+}
+
+.order-area h4 span {
+  max-width: 45em;
+  display: inline-block;
+  float: left;
+}
+
+.edit-area div {
+  float: left;
+}
+
+.edit-left {
+  margin-right: 40px;
+}
+
+.edit-right {
+  max-width: 700px;
+}
+
+.edit-right textarea {
+  width: 600px;
+  height: 100px;
+  resize: none;
+  outline: none;
+  border: 1px solid #337ab7;
+}
+
+.edit-area {
+  margin-top: 30px;
+}
+
+.edit-box {
+  margin-top: 20px;
+}
+
+.upload-box {
+  position: relative;
+  width: 600px;
+}
+
+.upload-box label {
+  min-width: 60px;
+  height: 50px;
+  line-height: 50px;
+  margin-right: 10px;
+  color: #337ab7;
+}
+
+.upload-box .glyphicon {
+  margin-left: 5px;
+}
+
+#upload {
+  position: absolute;
+  width: 60px;
+  height: 50px;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.send-res {
+  display: block;
+  width: 128px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  float: left;
+  background: #337ab7;
+  color: #fff;
+  margin-top: 30px;
+}
+
+.edit-area .img-area, .content-box .img-area {
+  float: none;
+}
+
+.edit-area .img-area img, .content-box .img-area img {
+  width: 40px;
+  height: 40px;
+  background: #fff;
+}
+
+.edit-area .img-area .img-group, .content-box .img-area .img-group {
+  width: 40px;
+  text-align: center;
+  margin-right: 10px;
+}
+
+.question-list .img-area {
+  margin-top: 10px;
+}
+
+.question-list .img-area img {
+  margin-right: 5px;
+}
+
+.mask {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: none;
+  z-index: 99999;
+}
+
+.pop-tip {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: none;
+  z-index: 99999;
+}
+
+.pop-tip img {
+  position: absolute;
+  margin: 0 auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
+}
+
+.close-img {
+  position: fixed;
+  top: 60px;
+  right: 60px;
+  color: #fff;
+  font-size: 30px;
+  z-index: 999999;
+}
+
+section .order-area {
+  position: relative;
+}
+
+.order-delete {
+  position: absolute;
+  top: 0;
+  right: 20px;
+}

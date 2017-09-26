@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MsgPush</title>
+</head>
+<script src="http://www.realplus.cc/lib/js/socket.io.js"></script>
+<script>
+    //socket server
+    var socket = io.connect('http://123.56.177.30:3080');
+    socket.on('message', function (msg) {
+        switch (msg.event) {
+            case 'join':
+                console.log(socket.id, '加入了mone.push', msg.data.key);
+                break;
+            default:
+                console.log(msg);
+        }
+    });
+
+    var key = Math.random();
+    socket.emit('join', {
+        key: key
+    });
+
+    //socket.disconnect()
+
+</script>
+<body>
+
+</body>
+</html>

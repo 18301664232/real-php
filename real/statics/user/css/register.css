@@ -1,0 +1,12 @@
+.logonBody > .logonForm > .logonOthers > p {
+  margin-left: 12px;
+}
+.logonBody > .logonForm > .logonOthers > p > a {
+	color:#33b5e6;
+}
+.logonBody > .logonForm > .logonOthers > p > a:hover{
+	text-decoration:none;
+}
+.logonBody > .logonForm > .logonOthers > p > a:focus{
+	text-decoration:none;
+}

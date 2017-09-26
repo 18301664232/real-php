@@ -1,0 +1,24 @@
+.file_area {
+  position: relative;
+}
+
+.file_area .upload-file {
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100px;
+  height: 100px;
+}
+
+.upload-box .file_area {
+  float: left;
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+  margin-left: 20px;
+}
+
+.upload-box img {
+  float: left;
+}

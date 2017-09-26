@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Realh5</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/jquery.scrollbar.css">
+    <link rel="stylesheet" type="text/css" href="css/wteditor.css">
+    <script type="text/javascript" src="js/init.js"></script>
+</head>
+
+<body>
+    <div class="box">
+        <!--			li-->
+        <!--				a(href='javascript:;')=listitem-->
+        <!--			li-->
+        <!--				a(href='javascript:;')=listitem-->
+        <!--左侧拖拽区-->
+        <div class="page">
+            <div class="page-head clearfix">
+                <div class="page-head-logo"><img src="images/weLogo.png" class="img-responsive"></div>
+                <p class="page-head-exit"><a href="#" class="page-head-exit-click">退出到工作台</a></p>
+            </div>
+            <div class="page-body">
+                <p class="page-body-top clearfix"><span class="page-body-top-text">页面&nbsp;</span><span class="page-body-top-num"></span><a href="javascript:;" class="page-body-top-exchange"></a></p>
+                <div class="page-body-scroll scrollbar-inner">
+                    <div class="page-body-scroll-bar"></div>
+                    <ul class="page-body-scroll-list"></ul>
+                </div>
+            </div>
+            <!--			li.page-list-unit-->
+            <!--				span.page-list-unit-num-->
+            <!--				.page-list-unit-show-->
+            <!--					img.page-list-unit-show-img.img-responsive-->
+            <!--					p.page-list-unit-show-name-->
+            <!--				.page-list-unit-btn-->
+            <!--					button.page-list-btn-delete-->
+            <!--					button.page-list-btn-copy-->
+        </div>
+        <!--中间视图区-->
+        <div class="view">
+            <div class="view-head">
+                <ui class="view-head-list">
+                    <li class="view-head-list-btn1"><a href="javascript:;" class="view-head-list-btn1-view">预览</a><a href="javascript:;" class="view-head-list-btn1-save">保存</a></li>
+                    <li class="view-head-list-id"></li>
+                    <li class="view-head-list-btn2"><a href="javascript:;" class="view-head-list-btn2-import">素材管理</a><a href="javascript:;" class="view-head-list-btn2-config">配置页面</a></li>
+                </ui>
+            </div>
+            <div class="view-pad"></div>
+            <!--#mcjs.mcjs-player.view-canvas(style='background-color:#fff',data-entry-class='Main',data-orientation='portrait',data-scale-mode='noBorder',data-resolution-mode='retina',data-frame-rate='30',data-content-width='640',data-content-height='1008',data-show-paint-rect='false',data-multi-fingered='2',data-show-fps='false',data-show-log='false',data-log-filter='',data-show-fps-style='x:0,y:0,size:20')-->
+            <div id="mcjs" class="mcjs-player view-canvas"></div>
+            <button class="view-cover">设为封面</button>
+        </div>
+        <!--右侧操作区-->
+        <div class="ope">
+            <ul class="ope-head nav nav-tabs">
+                <li class="active"><a href="#ope-body-ele" data-toggle="tab">组件</a></li>
+                <li><a href="#ope-body-swi" data-toggle="tab">切换</a></li>
+                <li><a href="#ope-body-music" data-toggle="tab">音效</a></li>
+                <li><a href="#ope-body-com" data-toggle="tab">互动</a></li>
+            </ul>
+            <div class="ope-body tab-content">
+                <div id="ope-body-ele" class="ope-body-ele tab-pane active">
+                    <p class="ope-base-title ope-body-ele-title-up">基本信息</p>
+                    <p class="ope-base-show-type ope-body-ele-type">类型:</p>
+                    <p class="ope-base-show-text ope-body-ele-type-text">--</p>
+                    <p class="ope-base-show-type ope-body-ele-name">名称:</p>
+                    <p class="ope-base-show-text ope-body-ele-name-text">--</p>
+                    <div class="ope-base-divider"></div>
+                    <p class="ope-base-title ope-body-ele-title-down">元素事件</p>
+                    <div style="display:none" class="ope-body-ele-button-sec">
+                        <p class="ope-base-btn3-text">触发方式:</p>
+                        <div class="ope-base-btn3-box clearfix ope-body-ele-type-btn-group">
+                            <button disabled="disabled" class="ope-base-btn3-first ope-body-ele-type-btn-click">点击时</button>
+                            <button disabled="disabled" style="display:none" class="ope-base-btn3-second ope-body-ele-type-btn-block">长按时</button>
+                        </div>
+                        <p class="ope-base-drop-title ope-body-ele-move-title">触发动作:</p>
+                        <div class="ope-base-drop-btn btn-group clearfix ope-body-ele-move-btn">
+                            <button type="button" data-toggle="dropdown" disabled="disabled" class="ope-base-drop-btn-click btn btn-default dropdown clearfix ope-body-ele-move-btn-click"><span class="ope-base-drop-btn-click-text ope-body-ele-move-btn-click-text">--</span><span class="caret"></span></button>
+                            <ul class="ope-base-drop-list dropdown-menu ope-body-ele-move-list"></ul>
+                        </div>
+                        <div class="ope-body-ele-button-sec-addr ope-body-ele-button-sec-init">
+                            <p class="ope-base-input-type ope-body-ele-addr">网页地址:</p>
+                            <input value="http://" class="ope-base-input-val ope-body-ele-addr-val">
+                        </div>
+                        <div class="ope-body-ele-button-sec-phone ope-body-ele-button-sec-init">
+                            <p class="ope-base-input-type ope-body-ele-phone">电话号码:</p>
+                            <input value="" class="ope-base-input-val ope-body-ele-phone-val">
+                        </div>
+                        <div class="ope-body-ele-button-sec-page ope-body-ele-button-sec-init">
+                            <p class="ope-base-drop-title ope-body-ele-page-title">跳转至:</p>
+                            <div class="ope-base-drop-btn btn-group clearfix ope-body-ele-page-btn">
+                                <button type="button" data-toggle="dropdown" class="ope-base-drop-btn-click btn btn-default dropdown clearfix ope-body-ele-page-btn-click"><span class="ope-base-drop-btn-click-text ope-body-ele-page-btn-click-text">--</span><span class="caret"></span></button>
+                                <ul class="ope-base-drop-list dropdown-menu ope-body-ele-page-list"></ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display:none" class="ope-body-ele-input-sec">
+                        <p class="ope-base-input-type ope-body-ele-input-name">输入框名称:</p>
+                        <input placeholder="如：姓名、邮箱（用于生成数据表单）" class="ope-base-input-val ope-body-ele-input-name-val">
+                        <p class="ope-base-btn3-text">输入性质:</p>
+                        <div class="ope-base-btn3-box clearfix ope-body-ele-input-type-btn-group">
+                            <button disabled="disabled" class="ope-base-btn3-first ope-body-ele-input-type-btn-click">必填项</button>
+                            <button disabled="disabled" class="ope-base-btn3-second ope-body-ele-input-type-btn-block">选填项</button>
+                        </div>
+                        <p class="ope-base-drop-title ope-body-ele-input-info-title">信息类型:</p>
+                        <div class="ope-base-drop-btn btn-group clearfix ope-body-ele-input-info-btn">
+                            <button type="button" data-toggle="dropdown" class="ope-base-drop-btn-click btn btn-default dropdown clearfix ope-body-ele-input-info-btn-click"><span class="ope-base-drop-btn-click-text ope-body-ele-input-info-btn-click-text">--</span><span class="caret"></span></button>
+                            <ul class="ope-base-drop-list dropdown-menu ope-body-ele-input-info-list"></ul>
+                        </div>
+                    </div>
+                    <div style="display:none" class="ope-body-ele-radio-sec">
+                        <p class="ope-base-input-type ope-body-ele-radio-title-name">标题名称:</p>
+                        <input placeholder="输入标题（用于生成数据表单）" class="ope-base-input-val ope-body-ele-radio-title-name-val">
+                        <p class="ope-base-input-type">选项名称:</p>
+                        <div class="ope-body-ele-radio-scroll scrollbar-macosx">
+                            <div class="ope-body-ele-radio-box"></div>
+                        </div>
+                    </div>
+                    <div style="display:none" class="ope-body-ele-checkbox-sec">
+                        <p class="ope-base-input-type ope-body-ele-checkbox-title-name">标题名称:</p>
+                        <input placeholder="输入标题（用于生成数据表单）" class="ope-base-input-val ope-body-ele-checkbox-title-name-val">
+                        <p class="ope-base-input-type">选项名称:</p>
+                        <div class="ope-body-ele-checkbox-scroll scrollbar-macosx">
+                            <div class="ope-body-ele-checkbox-box">
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display:none" class="ope-body-ele-select-sec">
+                        <p class="ope-base-input-type ope-body-ele-select-title-name">下拉框名称:</p>
+                        <input placeholder="下拉框标题（用于生成数据表单）" class="ope-base-input-val ope-body-ele-select-title-name-val">
+                        <p class="ope-base-input-type">选项名称</p>
+                        <div class="ope-body-ele-select-scroll scrollbar-macosx">
+                            <div class="ope-body-ele-select-box"></div>
+                        </div>
+                        <button class="ope-body-ele-select-add">添加选项</button>
+                    </div>
+                    <div style="display:none" class="ope-v-sec">
+                        <p class="ope-v-title">时长进度:</p>
+                        <div class="v_slider">
+                            <div class="v_back"></div>
+                            <div class="v_front"></div>
+                            <div class="v_block"></div>
+                            <!--.v_dot-->
+                            <div class="v_tip_box">
+                                <div class="v_rect">00:00</div>
+                                <div class="v_tri"></div>
+                            </div>
+                        </div>
+                        <div class="ope-v-time-show"><span class="ope-v-time-current">00:00</span><span>/</span><span class="ope-v-time-totel">00:00</span></div>
+                        <div class="ope-v-control clearfix">
+                            <button class="ope-v-play ope-v-play-play">
+                  <div class="ope-v-play-sign"></div>
+                </button>
+                            <button class="ope-v-left">
+                  <div class="ope-v-left-sign1"></div>
+                  <div class="ope-v-left-sign2"></div>
+                </button>
+                            <button class="ope-v-right">
+                  <div class="ope-v-right-sign1"></div>
+                  <div class="ope-v-right-sign2"></div>
+                </button>
+                        </div>
+                        <p class="ope-base-drop-title ope-v-move-title">选择浮层:</p>
+                        <div class="ope-base-drop-btn btn-group clearfix ope-v-move-btn">
+                            <button type="button" data-toggle="dropdown" class="ope-base-drop-btn-click btn btn-default dropdown clearfix ope-v-move-btn-click"><span class="ope-base-drop-btn-click-text ope-v-move-btn-click-text">未选择</span><span class="caret"></span></button>
+                            <ul class="ope-base-drop-list dropdown-menu ope-v-move-list"></ul>
+                        </div>
+                        <p class="ope-v-title">视频循环:</p>
+                        <div class="ope-base-time clearfix ope-v-time-cycle">
+                            <div class="ope-base-time-forbid"></div>
+                            <div class="ope-base-time-box">
+                                <div class="ope-base-time-back"></div>
+                                <div class="ope-base-time-front"></div>
+                                <div class="ope-base-time-block"></div>
+                            </div>
+                            <div class="ope-base-time-num">
+                                <input type="text" value="--" class="ope-base-time-input">
+                                <div class="ope-base-time-inc">
+                                    <div></div>
+                                </div>
+                                <div class="ope-base-time-dec">
+                                    <div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="ope-body-swi" class="ope-body-swi tab-pane">
+                    <p class="ope-base-title ope-body-swi-title">基本信息</p>
+                    <p class="ope-base-show-type ope-body-swi-order">页面排序:</p>
+                    <p class="ope-base-show-text ope-body-swi-order-text">--</p>
+                    <div class="ope-base-divider"></div>
+                    <p class="ope-base-title ope-body-swi-title-change">页间切换</p>
+                    <p class="ope-base-drop-title ope-body-swi-up-ges-title">上一页:</p>
+                    <div class="ope-base-drop-btn btn-group clearfix ope-body-swi-up-ges-btn">
+                        <button type="button" data-toggle="dropdown" class="ope-base-drop-btn-click ope-base-drop-btn-click2 btn btn-default dropdown clearfix ope-body-swi-up-ges-btn-click"><span>手势</span><span class="ope-base-drop-btn-click-text ope-body-swi-up-ges-btn-click-text">--</span><span class="caret"></span></button>
+                        <ul class="ope-base-drop-list dropdown-menu ope-body-swi-up-ges-list"></ul>
+                    </div>
+                    <div class="ope-base-drop-btn btn-group clearfix ope-body-swi-up-eff-btn">
+                        <button type="button" data-toggle="dropdown" class="ope-base-drop-btn-click ope-base-drop-btn-click2 btn btn-default dropdown clearfix ope-body-swi-up-eff-btn-click"><span>效果</span><span class="ope-base-drop-btn-click-text ope-body-swi-up-eff-btn-click-text">--</span><span class="caret"></span></button>
+                        <ul class="ope-base-drop-list dropdown-menu ope-body-swi-up-eff-list"></ul>
+                    </div>
+                    <div class="ope-base-drop-btn btn-group clearfix ope-body-swi-up-dir-btn">
+                        <button type="button" data-toggle="dropdown" class="ope-base-drop-btn-click ope-base-drop-btn-click2 btn btn-default dropdown clearfix ope-body-swi-up-dir-btn-click"><span>方向</span><span class="ope-base-drop-btn-click-text ope-body-swi-up-dir-btn-click-text">--</span><span class="caret"></span></button>
+                        <ul class="ope-base-drop-list dropdown-menu ope-body-swi-up-dir-list"></ul>
+                    </div>
+                    <div class="ope-base-time clearfix ope-body-swi-up-time">
+                        <div class="ope-base-time-forbid"></div>
+                        <div class="ope-base-time-box">
+                            <div class="ope-base-time-back"></div>
+                            <div class="ope-base-time-front"></div>
+                            <div class="ope-base-time-block"></div>
+                        </div>
+                        <div class="ope-base-time-num">
+                            <input type="text" value="--" class="ope-base-time-input">
+                            <div class="ope-base-time-inc">
+                                <div></div>
+                            </div>
+                            <div class="ope-base-time-dec">
+                                <div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="ope-base-btn1-box ope-body-swi-up-btn">
+                        <button class="ope-base-btn1-pre ope-body-swi-up-pre">预览</button>
+                        <button class="ope-base-btn1-app ope-body-swi-up-app">应用到全局</button>
+                    </p>
+                    <p class="ope-base-drop-title ope-body-swi-down-ges-title">下一页:</p>
+                    <div class="ope-base-drop-btn btn-group clearfix ope-body-swi-down-ges-btn">
+                        <button type="button" data-toggle="dropdown" class="ope-base-drop-btn-click ope-base-drop-btn-click2 btn btn-default dropdown clearfix ope-body-swi-down-ges-btn-click"><span>手势</span><span class="ope-base-drop-btn-click-text ope-body-swi-down-ges-btn-click-text">--</span><span class="caret"></span></button>
+                        <ul class="ope-base-drop-list dropdown-menu ope-body-swi-down-ges-list"></ul>
+                    </div>
+                    <div class="ope-base-drop-btn btn-group clearfix ope-body-swi-down-eff-btn">
+                        <button type="button" data-toggle="dropdown" class="ope-base-drop-btn-click ope-base-drop-btn-click2 btn btn-default dropdown clearfix ope-body-swi-down-eff-btn-click"><span>效果</span><span class="ope-base-drop-btn-click-text ope-body-swi-down-eff-btn-click-text">--</span><span class="caret"></span></button>
+                        <ul class="ope-base-drop-list dropdown-menu ope-body-swi-down-eff-list"></ul>
+                    </div>
+                    <div class="ope-base-drop-btn btn-group clearfix ope-body-swi-down-dir-btn">
+                        <button type="button" data-toggle="dropdown" class="ope-base-drop-btn-click ope-base-drop-btn-click2 btn btn-default dropdown clearfix ope-body-swi-down-dir-btn-click"><span>方向</span><span class="ope-base-drop-btn-click-text ope-body-swi-down-dir-btn-click-text">--</span><span class="caret"></span></button>
+                        <ul class="ope-base-drop-list dropdown-menu ope-body-swi-down-dir-list"></ul>
+                    </div>
+                    <div class="ope-base-time clearfix ope-body-swi-down-time">
+                        <div class="ope-base-time-forbid"></div>
+                        <div class="ope-base-time-box">
+                            <div class="ope-base-time-back"></div>
+                            <div class="ope-base-time-front"></div>
+                            <div class="ope-base-time-block"></div>
+                        </div>
+                        <div class="ope-base-time-num">
+                            <input type="text" value="--" class="ope-base-time-input">
+                            <div class="ope-base-time-inc">
+                                <div></div>
+                            </div>
+                            <div class="ope-base-time-dec">
+                                <div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="ope-base-btn1-box ope-body-swi-down-btn">
+                        <button class="ope-base-btn1-pre ope-body-swi-down-pre">预览</button>
+                        <button class="ope-base-btn1-app ope-body-swi-down-app">应用到全局</button>
+                    </p>
+                </div>
+                <div id="ope-body-music" class="ope-body-music tab-pane">
+                    <p class="ope-base-title">基本信息</p>
+                    <p class="ope-base-btn2-text">背景音效:</p>
+                    <div class="ope-base-btn2-box btn-group ope-body-music-state">
+                        <button type="button" class="ope-base-btn2-close btn btn-default ope-body-music-close">关闭</button>
+                        <button type="button" class="ope-base-btn2-open btn btn-default ope-body-music-open">打开</button>
+                    </div>
+                    <p class="ope-base-drop-title ope-body-music-pos">位置选择:</p>
+                    <div class="ope-base-drop-btn btn-group clearfix ope-body-music-pos-box">
+                        <button type="button" data-toggle="dropdown" class="ope-base-drop-btn-click btn btn-default dropdown clearfix ope-body-music-pos-btn"><span class="ope-base-drop-btn-click-text ope-body-music-pos-text">--</span><span class="caret"></span></button>
+                        <ul class="ope-base-drop-list dropdown-menu ope-body-music-pos-menu"></ul>
+                    </div>
+                    <div class="ope-base-divider"></div>
+                    <p class="ope-base-title">音效选择</p>
+                    <!--		li(class!=music + 'item')-->
+                    <!--			p(class!=music + 'item-back')-->
+                    <!--			p(class!=music + 'item-front').clearfix-->
+                    <!--				button(class!=music + 'item-choose')-->
+                    <!--				span(class!=music + 'item-name')!=name-->
+                    <!--				span(class!=music + 'item-size')!=size-->
+                    <!--				button(class!=music + 'item-delete')-->
+                    <div class="ope-base-tab ope-body-music-tab">
+                        <ul class="ope-base-head nav nav-tabs ope-body-music-head">
+                            <li class="active"><a href="#program-music" data-toggle="tab">项目音效</a></li>
+                            <li><a href="#off-music" data-toggle="tab">官方音效</a></li>
+                        </ul>
+                        <div class="ope-base-body tab-content ope-body-music-body">
+                            <div id="program-music" class="ope-base-body-panel tab-pane active ope-body-music-program-music">
+                                <div class="ope-body-music-progress"></div>
+                                <div class="clearfix ope-body-music-add">
+                                    <p class="ope-body-music-add-text">添加我的音乐</p>
+                                    <p class="ope-body-music-add-num"></p>
+                                    <p class="ope-body-music-add-tip">(最多上传5个且大小不超过5M)</p>
+                                </div>
+                                <ul class="ope-body-music-list ope-body-music-program"></ul>
+                            </div>
+                            <div id="off-music" class="ope-base-body-panel tab-pane ope-body-music-off-music">
+                                <ul class="ope-body-music-list ope-body-music-off"></ul>
+                            </div>
+                        </div>
+                        <p class="ope-body-music-choose clearfix"><span>已选中</span><span></span><span>还没有选择音乐</span></p>
+                    </div>
+                    <!-- -+ope-btn3('应用到全局')(btn=music+'app')-->
+                    <audio class="ope-body-music-play">
+              <source>
+            </audio>
+                    <form enctype="multipart/form-data" class="ope-body-music-form">
+                        <input name="music" type="file" class="ope-body-music-upload">
+                    </form>
+                </div>
+                <div id="ope-body-com" class="ope-body-com tab-pane">
+                    <p class="ope-body-com-pre">神秘功能&nbsp;敬请期待</p>
+                </div>
+            </div>
+        </div>
+        <!--导入素材页-->
+        <div class="source">
+            <div class="source-head">
+                <div class="source-nav">
+                    <div class="source-num">全部素材&nbsp;()</div>
+                    <div class="source-right">
+                        <button class="source-cancel"></button>
+                        <button disabled="disabled" class="source-import">导入素材</button>
+                        <button disabled="disabled" class="source-delete">删除</button>
+                    </div>
+                </div>
+            </div>
+            <div class="source-body">
+                <div class="source-control clearfix">
+                    <button class="source-all"><span class="source-all-inner"></span><span class="source-all-outer"></span>全选</button>
+                    <button class="source-refresh">刷新</button>
+                    <div class="source-upload">
+                        <div class="source-upload-bg">
+                            <div class="source-upload-block"></div>
+                        </div>
+                        <div class="source-upload-text">素材上传</div>
+                    </div>
+                </div>
+                <div class="source-pane"></div>
+                <!--
+          .source-item
+          	.source-item-box.clearfix
+          		img.source-item-img
+          		.source-item-text
+          			p.source-item-name 333
+          			p.source-item-time 222
+          	.source-item-frame
+          	.source-item-choose
+          	.source-item-border
+          -->
+            </div>
+        </div>
+        <!--弹出框-->
+        <div tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" id="alert-exit" class="modal">
+            <div class="modal-dialog alert-exit-width">
+                <div class="modal-content alert-exit-height">
+                    <p class="alert-head clearfix"><span class="alert-head-text">退出到工作台</span>
+                        <button data-dismiss="modal" class="alert-head-close"></button>
+                    </p>
+                    <div class="alert-body">
+                        <p class="alert-exit-body-text">要保存作品后再退出制作么？</p>
+                        <div class="alert-exit-body-btn">
+                            <button class="alert-exit-body-btn-no">不保存退出</button>
+                            <button class="alert-exit-body-btn-yes">保存退出</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" id="alert-del" class="modal">
+            <div class="modal-dialog alert-del-width">
+                <div class="modal-content alert-del-height">
+                    <p class="alert-head clearfix"><span class="alert-head-text">删除项目</span>
+                        <button data-dismiss="modal" class="alert-head-close"></button>
+                    </p>
+                    <div class="alert-body">
+                        <p class="alert-del-body-text"></p>
+                        <p class="alert-del-body-tip">确认删除？&nbsp;删除后页面效果不可恢复</p>
+                        <button class="alert-del-body-btn">确认</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" id="alert-music-response" class="modal">
+            <div class="modal-dialog alert-music-response-width">
+                <div class="modal-content alert-music-response-height">
+                    <p class="alert-head clearfix"><span class="alert-head-text">上传失败</span>
+                        <button data-dismiss="modal" class="alert-head-close"></button>
+                    </p>
+                    <div class="alert-body">
+                        <p class="alert-music-response-text">音效文件大小不能超过5Mb。</p>
+                        <button class="alert-music-response-btn">确认</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" id="alert-music-delete" class="modal">
+            <div class="modal-dialog alert-music-delete-width">
+                <div class="modal-content alert-music-delete-height">
+                    <p class="alert-head clearfix"><span class="alert-head-text">删除</span>
+                        <button data-dismiss="modal" class="alert-head-close"></button>
+                    </p>
+                    <div class="alert-body">
+                        <p class="alert-music-delete-text">确认删除音效？已使用的项目将失去音乐效果。</p>
+                        <button class="alert-music-delete-btn">确认</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--预览-->
+        <div id="preview-alert" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal">
+            <div class="modal-dialog alert2-dialog">
+                <div class="modal-content alert2-content clearfix">
+                    <div class="alert2-qr">
+                        <p class="alert2-qr-text alert2-qr-text-official">正式地址</p><img class="alert2-qr-img alert2-qr-img-official">
+                        <p class="alert2-qr-text alert2-qr-text-test">测试地址</p><img class="alert2-qr-img alert2-qr-img-test">
+                    </div>
+                    <div class="alert2-view">
+                        <p class="alert2-view-title"><span class="alert2-view-text"></span></p>
+                        <div class="alert2-view-frame-box"></div>
+                        <p class="alert2-view-frame-page"></p>
+                        <button type="button" data-dismiss="modal" class="alert2-close"></button>
+                        <div class="alert2-btn-group">
+                            <button type="button" class="alert2-btn-up"></button>
+                            <button type="button" class="alert2-btn-down"></button>
+                        </div>
+                    </div>
+                    <div class="alert2-loading-box clearfix">
+                        <div class="alert2-loading"></div>
+                        <div class="alert2-loading-text">正在加载...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-block"></div>
+        <!--辅助遮挡-->
+        <div class="cover-right"></div>
+        <!--引导层-->
+        <div class="gui">
+            <div class="gui-lef">
+                <div class="gui-lef-top"></div>
+                <div class="gui-lef-bot"></div>
+            </div>
+            <div class="gui-mid">
+                <div class="gui-mid-top"></div>
+                <div class="gui-mid-bot">
+                    <div class="gui-mid-l"></div>
+                    <div class="gui-mid-m">
+                        <div class="gui-mid-m-t"></div>
+                        <div class="gui-mid-m-m"></div>
+                        <div class="gui-mid-m-b"></div>
+                    </div>
+                    <div class="gui-mid-r"></div>
+                </div>
+            </div>
+            <div class="gui-rig">
+                <div class="gui-rig-top"></div>
+                <div class="gui-rig-bot"></div>
+            </div>
+            <div class="gui-step gui-step1">
+                <p class="gui-step1-text">选中待用的素材会在此展示，可进行次序调整及选中预览。 支持“平铺”和“列表”两种显示方式。</p>
+                <button class="gui-step1-btn">下一步</button>
+            </div>
+            <div class="gui-step-tri gui-step1-tri"></div>
+            <div class="gui-step gui-step2">
+                <p class="gui-step2-text">可对项目进行“素材/配置管理”，“进度保存”、“效果预览”、 “退出编辑”。</p>
+                <div class="gui-step2-btn-gro clearfix">
+                    <button class="gui-step2-btn-down">下一步</button>
+                    <button class="gui-step2-btn-up">上一步</button>
+                </div>
+            </div>
+            <div class="gui-step-tri gui-step2-tri"></div>
+            <div class="gui-step gui-step3">
+                <p class="gui-step3-text">选中的页面在此放大显示，可对当前页进行效果配置。 支持将当前页“设为项目首页”。</p>
+                <div class="gui-step3-btn-gro clearfix">
+                    <button class="gui-step3-btn-down">下一步</button>
+                    <button class="gui-step3-btn-up">上一步</button>
+                </div>
+            </div>
+            <div class="gui-step-tri gui-step3-tri"></div>
+            <div class="gui-step gui-step4">
+                <p class="gui-step4-text">可为页面配置“页间动效”、“组件交互”、“背景音效”。</p>
+                <p class="gui-step4-text-2">后续还将开启“互动”栏目,敬请期待。</p>
+                <div class="gui-step4-btn-gro clearfix">
+                    <button class="gui-step4-btn-com">完成</button>
+                    <button class="gui-step4-btn-rea">重看</button>
+                </div>
+            </div>
+            <div class="gui-step-tri gui-step4-tri"></div>
+        </div>
+        <!--配置页-->
+        <div class="pcon-box">
+            <div class="pcon-box-inner">
+                <div class="pcon-head">
+                    <div class="pcon-head-inner clearfix">
+                        <p class="pcon-head-txt">配置页面</p>
+                        <button class="pcon-head-return">返回编辑</button>
+                        <button disabled="disabled" class="pcon-head-delete pcon-head-delete-forbin">删除</button>
+                    </div>
+                </div>
+                <div class="pcon-body">
+                    <div class="pcon-body-inner">
+                        <div class="pcon-ope clearfix">
+                            <button class="pcon-ope-all"><span class="pcon-ope-all-inner"></span><span class="pcon-ope-all-outer"></span>全选</button>
+                            <button class="pcon-ope-refresh">刷新</button>
+                            <div class="pcon-upload">
+                                <div class="pcon-upload-bg pcon-upload-bg-close">
+                                    <div class="pcon-upload-block"></div>
+                                </div>
+                                <div class="pcon-upload-text">素材上传</div>
+                            </div>
+                        </div>
+                        <div class="pcon-list clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/jq.js"></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+    <script type="text/javascript" src="js/jqueryui.js"></script>
+    <script src="http://www.realplus.cc/lib/js/socket.io.js"></script>
+    <script type="text/javascript" src="js/jquery.scrollbar.min.js"></script>
+    <script type="text/javascript" src="http://test.realplus.cc/lib/js/realedit.js"></script>
+    <script type="text/javascript" src="http://test.realplus.cc/lib/js/realh5_all.js"></script>
+    <script type="text/javascript" src="js/wteditor.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,12 @@
+/*效果列表上一页下一页样式*/
+.nav-pills>li>a {
+    position: relative;
+    display: block;
+    padding: 5px 10px;
+}
+.nav-pills{
+	margin-top:30px;
+}
+.xiaoguo-times{
+	margin-top:10px;
+}

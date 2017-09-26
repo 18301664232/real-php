@@ -1,0 +1,33 @@
+.jumbotron {
+  margin-bottom: 0;
+}
+
+.jumbotron .RealTitle {
+  font-weight: normal;
+  color: #555;
+  font-size: 39px;
+}
+
+.form-box {
+  background: url(../img/banner.png) top center no-repeat;
+  height: 660px;
+}
+
+.form-box .form-container {
+  width: 1200px;
+  margin: 0 auto;
+  height: 100%;
+  position: relative;
+}
+
+.form-box .form-login {
+  width: 315px;
+  margin-right: 0;
+  position: absolute;
+  top: 215px;
+  right: 0;
+}
+
+.btn-area {
+  margin-top: 35px;
+}

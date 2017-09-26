@@ -1,0 +1,217 @@
+/*预览弹出框的样式*/
+.alert2-dialog{
+    width:740px;
+    margin:0 auto;
+}
+.alert2-content{
+    height:640px;
+}
+.alert2-qr{
+  float:left;
+  width:231px;
+  height:100%;
+  background-color:#ffffff;
+  border-right:1px solid #cbd2e1;
+  border-top-left-radius:6px;
+  border-bottom-left-radius:6px;
+}
+.alert2-qr-text{
+  color:#0d2556;
+  font-size:14px;
+  height:20px;
+  line-height:20px;
+  text-align:center;
+  margin-top:61px;
+  margin-bottom:0;
+  display:none;
+}
+.alert2-qr-img{
+  display:block;
+  width:100px;
+  height:100px;
+  margin:29px auto 0 auto;
+  display:none;
+}
+.alert2-view{
+  position:relative;
+  float:left;
+  width:507px;
+  height:100%;
+  background-color:#f0f1f4;
+  border-top-right-radius:6px;
+  border-bottom-right-radius:6px;
+}
+.alert2-view-title{
+  height:30px;
+  line-height:30px;
+  margin-top:20px;
+  margin-bottom:0;
+  background-repeat:no-repeat;
+  background-position:153px 3px;
+}
+.alert2-online .alert2-view-title{
+  background-image:url('../images/rhaViewLabelOnline.png');
+}
+.alert2-online .alert2-qr-text-official{
+  display:block;
+}
+.alert2-online .alert2-qr-img-official{
+  display:block;
+}
+.alert2-update .alert2-view-title{
+  background-image:url('../images/rhaViewLabelUpdate.png');
+}
+.alert2-update .alert2-qr-text-official{
+  display:block;
+}
+.alert2-update .alert2-qr-img-official{
+  display:block;
+}
+.alert2-update .alert2-qr-text-test{
+  display:block;
+  margin-top:114px;
+}
+.alert2-update .alert2-qr-img-test{
+  display:block;
+}
+.alert2-offline .alert2-view-title{
+  background-image:url('../images/rhaViewLabelOffline.png');
+}
+.alert2-offline .alert2-qr-text-test{
+  display:block;
+}
+.alert2-offline .alert2-qr-img-test{
+  display:block;
+}
+.alert2-view-text{
+  display:block;
+  font-size:18px;
+  color:#0d2556;
+  margin-left:243px;
+  width:200px;
+  height:30px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.alert2-view-frame-box{
+  display:block;
+  width:330px;
+  height:520px;
+  margin:20px auto 0 auto;
+}
+.alert2-view-iframe{
+  margin:0;
+  padding:0;
+  border:0;
+  width:330px;
+  height:520px;
+  overflow:hidden;
+}
+.alert2-view-frame-page{
+    height:20px;
+    line-height:20px;
+    text-align:center;
+    color:#8e9cb7;
+    margin:16px 0 0 0;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+.alert2-close{
+  position:absolute;
+  top:10px;
+  right:10px;
+  height:34px;
+  width:39px;
+  border:1px solid #cbd2e1;
+  border-radius:2px;
+  background-color:#ffffff;
+  background-image:url('../images/rhaViewClose.png');
+  background-repeat:no-repeat;
+  background-position:11px 10px;
+}
+.alert2-btn-group {
+  position: absolute;
+  top: 297px;
+  right: 30px;
+  width: 38px;
+  height: 70px;
+  border: 1px solid #cbd2e1;
+  border-radius: 2px;
+  background-color: #fff;
+}
+.alert2-btn-group > button {
+  display: block;
+  width: 36px;
+  height: 34px;
+  border: none;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  background-repeat: no-repeat;
+  background-position: 8px 11px;
+  background-color: #ffffff;
+}
+.alert2-btn-group > .alert2-btn-up {
+  background-image: url('../images/rhaViewArrowUp.png');
+}
+.alert2-btn-group > .alert2-btn-down {
+  background-image: url('../images/rhaViewArrowDown.png');
+}
+.alert2-loading-box{
+  position:absolute;
+  left:310px;
+  top:297px;
+  width:120px;
+  height:46px;
+  border-radius:4px;
+  background-color:#484849;
+  display:none;
+}
+.alert2-loading{
+  float:left;
+  width:24px;
+  height:24px;
+  margin-left:15px;
+  margin-top:11px;
+  background-image:url('../images/preview-loading.png');
+  background-repeat:no-repeat;
+  animation:previewloading 600ms linear infinite;
+  -webkit-animation:previewloading 600ms linear infinite;
+}
+.alert2-loading-text{
+  float:left;
+  height:24px;
+  line-height:24px;
+  margin-left:10px;
+  margin-top:11px;
+  font-size:12px;
+  color:#f6f6f6;
+}
+.a-btn-forbidden{
+  cursor:not-allowed;
+}
+@keyframes previewloading{
+  from{
+    transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+  }
+  to  {
+    transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes previewloading{
+  from{
+    transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+  }
+  to  {
+    transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,18 @@
+loading({
+    "name": "defaultLoadingLogo",
+    "path": "",
+    "type": "loading",
+    "openStyle": "-1",
+    "manifest": [{
+        "id": "defaultLoadingLogo.js?Cbs3iDp1ZY",
+        "src": "http://test.realplus.cc/lib/config/loading/logo/defaultLoadingLogo.js?Cbs3iDp1ZY",
+        "type": "javascript"
+    }, {
+        "id": "realapp_e07faf970427407d3c207d2b9a288abd_mc",
+        "src": "http://www.realplus.cc/lib/config/loading/logo/realapp_e07faf970427407d3c207d2b9a288abd_mc.json?44iTYJKrp7",
+        "callback": "realapp_e07faf970427407d3c207d2b9a288abd_mc",
+        "type": "manifest"
+    }]
+})
+
+

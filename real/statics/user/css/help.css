@@ -1,0 +1,249 @@
+html,
+body {
+  height: 100%;
+}
+body {
+  font-family: "Helvetica Neue", Verdana, Arial, "Hiragino Sans GB", "WenQuanYi Micro Hei", "Heiti SC", "STHeiti", "Microsoft Yahei", "SimSun", sans-serif;
+}
+input,
+button,
+input:focus,
+button:focus {
+  outline: none;
+}
+a,
+a:hover,
+a:visited,
+a:focus {
+  text-decoration: none;
+  outline: none;
+}
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn.active.focus {
+  outline: none;
+}
+p {
+  margin: 0;
+  padding: 0;
+}
+ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+.user-select {
+  cursor: default;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+/*搜索区域样式*/
+.hp_se_sec{
+  height:100px;
+  background-color:#f0f1f4;
+  padding-top:30px;
+  margin-top:66px;
+}
+.hp_se_box{
+  width:650px;
+  height:40px;
+  margin:0px auto;
+}
+.hp_se_input{
+  float:left;
+  width:598px;
+  height:40px;
+  border:1px solid #cbd2e1;
+  border-top-left-radius:3px;
+  border-bottom-left-radius:3px;
+  border-right:none;
+  font-size:14px;
+  text-indent:19px;
+}
+.hp_se_input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #8e9cb7;
+}
+.hp_se_input::-moz-placeholder { /* Firefox 19+ */
+  color: #8e9cb7;
+}
+.hp_se_input:-ms-input-placeholder { /* IE 10+ */
+  color: #8e9cb7;
+}
+.hp_se_input:-moz-placeholder { /* Firefox 18- */
+  color: #8e9cb7;
+}
+.hp_se_btn{
+  float:left;
+  width:52px;
+  height:40px;
+  border:none;
+  background-color:#395999;
+  border-top-right-radius:3px;
+  border-bottom-right-radius:3px;
+  background-image:url('../images/hp_se_mag.png');
+  background-repeat:no-repeat;
+  background-position:18px 11px;
+}
+/*三级菜单*/
+/*三级菜单左边*/
+.hp_me_sec{
+  width:1200px;
+  margin:0 auto;
+  margin-top:39px;
+}
+.hp_me_left{
+  float:left;
+}
+.hp_me_one{
+  border:1px solid #cbd2e1;
+  border-left:none;
+  border-right:none;
+}
+.hp_me_one + .hp_me_one{
+  border-top:none;
+}
+.hp_me_one_btn{
+  width:280px;
+  height:46px;
+  padding:0px;
+  border:none;
+  background-color:#fff;
+  font-size:14px;
+  color:#0d2556;
+  text-align:left;
+  text-indent:42px;
+  background-image:url('../images/hp_arr_right.png');
+  background-repeat:no-repeat;
+  background-position:256px 15px;
+}
+.hp_me_one_btn:hover{
+  text-decoration:underline;
+}
+.hp_me_one_btn_click{
+  background-color:#f7f8f9;
+  background-image:url('../images/hp_arr_down.png');
+  background-position:253px 19px;
+}
+.hp_me_two_list{
+  display:none;
+}
+.hp_me_two{
+  position:relative;
+  border-top:1px solid #cbd2e1;
+  height:45px;
+  line-height:44px;
+  text-indent:78px;
+}
+.hp_me_two::before{
+  position:absolute;
+  left:60px;
+  top:19px;
+  content:'';
+  width:6px;
+  height:6px;
+  background-color:#2eafeb;
+  border-radius:50%;
+}
+.hp_me_two_a{
+  font-size:14px;
+  color:#0d2556;
+}
+.hp_me_two_a:hover{
+  color:#2eafeb;
+  text-decoration:underline;
+}
+/*三级菜单右边*/
+.hp_me_right{
+  float:right;
+  width:833px;
+}
+.hp_me_nav{
+  height:46px;
+  line-height:46px;
+  border-bottom:1px solid #cbd2e1;
+}
+.hp_me_nav > span{
+  float:left;
+  color:#8e9cb7;
+  font-size:14px;
+}
+.hp_me_three{
+  margin-top:10px;
+}
+.hp_me_three_li{
+  height:40px;
+  line-height:40px;
+  text-indent:20px;
+  background-image:url('../images/hp_info.png');
+  background-repeat:no-repeat;
+  background-position:0px 15px;
+}
+
+.hp_me_three_li > a{
+  color:#20a2de;
+  font-size:14px;
+ }
+.hp_me_content{
+  margin-top:20px;
+}
+.hp_me_title{
+  height:38px;
+  line-height:38px;
+  font-size:18px;
+  color:#0d2556;
+}
+.hp_me_body{
+  height:26px;
+  line-height:26px;
+  font-size:14px;
+  color:#0d2556;
+}
+/*搜索结果样式*/
+.hp_se_re{
+  position:relative;
+  width:1200px;
+  margin:0 auto;
+  padding-left:30px;
+}
+.hp_se_return{
+    position:absolute;
+    top:0;
+    right:300px;
+    border:none;
+    background:transparent;
+}
+.hp_se_tip{
+  height:50px;
+  font-size:14px;
+  color:#0d2556;
+  line-height:54px;
+}
+.hp_se_re_body{
+  width:870px;
+}
+.hp_se_re_title{
+  height:38px;
+  line-height:38px;
+  font-size:18px;
+  color:#0d2556;
+}
+.hp_se_re_content{
+  height:52px;
+  line-height:26px;
+  overflow:hidden;
+  color:#8e9cb7;
+}
+.hp_se_re_nav{
+  font-size:14px;
+  color:#2eafeb;
+}
+.hp_se_re_item + .hp_se_re_item{
+  margin-top:14px;
+}

@@ -1,0 +1,21 @@
+body{
+	font-family: "Helvetica Neue",Verdana,Arial,"Hiragino Sans GB","WenQuanYi Micro Hei","Heiti SC","STHeiti","Microsoft Yahei","SimSun",sans-serif;
+}
+input,button,input:focus,button:focus{
+	outline:none;
+}
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn.active.focus {
+  outline:none;
+}
+ul,li,ol,p,body,p{
+    margin:0;
+    padding:0;
+}
+li{
+    list-style:none;
+}

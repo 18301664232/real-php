@@ -1,0 +1,31 @@
+{
+  "images": [
+    "http://test.realplus.cc/lib/config/loading/logo/realapp_loading_atlas_P_.png?SBJQ4rOUAi"
+  ],
+  "frames": [
+    [
+      0,
+      0,
+      210,
+      210
+    ],
+    [
+      0,
+      212,
+      126,
+      135
+    ],
+    [
+      128,
+      238,
+      89,
+      25
+    ],
+    [
+      128,
+      212,
+      95,
+      24
+    ]
+  ]
+}

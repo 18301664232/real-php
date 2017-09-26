@@ -1,0 +1,17 @@
+.box {
+  width: 800px;
+  min-height: 200px;
+  background-color: green;
+}
+.box2 {
+  margin-top: 200px;
+  height: 0.5rem;
+  width: 0.5rem;
+  background-color: red;
+}
+.img1,
+.img2 {
+  margin-left: 30px;
+  width: 100px;
+  height: 100px;
+}

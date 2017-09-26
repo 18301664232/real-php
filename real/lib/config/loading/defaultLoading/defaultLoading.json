@@ -1,0 +1,16 @@
+loading({
+    "name": "defaultLoading",
+    "path": "",
+    "type": "page",
+    "openStyle": "-1",
+    "manifest": [{
+        "id": "defaultLoading.js?LVG4Jd4Fq3",
+        "src": "http://test.realplus.cc/lib/config/loading/defaultLoading/defaultLoading.js?LVG4Jd4Fq3",
+        "type": "javascript"
+    }, {
+        "id": "realapp_126882065ce7faa6b7d2b0e303b58d93_mc",
+        "src": "http://test.realplus.cc/lib/config/loading/defaultLoading/realapp_126882065ce7faa6b7d2b0e303b58d93_mc.json?caZXwrq85m",
+        "callback": "realapp_126882065ce7faa6b7d2b0e303b58d93_mc",
+        "type": "manifest"
+    }]
+})

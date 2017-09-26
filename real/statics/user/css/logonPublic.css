@@ -1,0 +1,320 @@
+ /*这是基本样式*/
+ body{
+  font-family: "Helvetica Neue",Verdana,Arial,"Hiragino Sans GB","WenQuanYi Micro Hei","Heiti SC","STHeiti","Microsoft Yahei","SimSun",sans-serif;
+  background-color: #f0f1f4;
+ }
+ input,button,input:focus,button:focus{
+  outline:none;
+ }
+ .btn:focus,
+ .btn:active:focus,
+ .btn.active:focus,
+ .btn.focus,
+ .btn:active.focus,
+ .btn.active.focus {
+   outline:none;
+ }
+ button,.btn,.btn-default,.btn.btn-default,.logonBody > .logonForm > .logonSubmit > button,.logonBody > .logonForm > .logonBaseSec.logonVerifySec > button{
+   margin:0;
+   padding:0;
+   color: #ffffff;
+   background-color: #395999;
+   border: 1px solid #395999;
+   height:50px;
+   line-height:48px;
+ }
+ .btnForbiddenClick{
+     cursor:not-allowed;
+     opacity: 0.6;
+ }
+ .btnForbiddenClick:active,.btnForbiddenClick:focus{
+     -webkit-box-shadow:none;
+     box-shadow:none;
+ }
+ /*顶部样式*/
+ .logonHead {
+   background-color: #fff;
+   height: 40px;
+ }
+ .logonHead button {
+   padding: 0;
+   height: 40px;
+   width: 35px;
+   background-color: #fff;
+   outline: none;
+   border: none;
+   background-repeat: no-repeat;
+   background-position: 10px 11px;
+ }
+ .logonHead > p > a:hover {
+   text-decoration: none;
+ }
+ .logonHead > p > a:focus {
+   text-decoration: none;
+ }
+ .logonHead > button:nth-child(1) {
+   float: left;
+   margin-top: 0px;
+   margin-left: 5px;
+   width: 35px;
+   background-image: url('../images/rtJumpLeft.png');
+ }
+ .logonHead > p:nth-child(1) {
+   float: left;
+   margin: 0px 0px 0 20px;
+   padding: 0;
+   color: #a8adbd;
+   font-size: 14px;
+   height: 40px;
+   line-height: 40px;
+   width:60px;
+ }
+ .logonHead > p:nth-child(1) > a {
+   display: block;
+   width: 100%;
+   height: 40px;
+   color: #a8adbd;
+   background-image: url('../images/rtJumpLeft.png');
+   background-repeat: no-repeat;
+   background-position: 0px 14px;
+   text-indent:16px;
+ }
+
+ .logonHead > p:nth-child(2) {
+   float: right;
+   margin: 0px 19px 0 0;
+   padding: 0;
+   color: #a8adbd;
+   font-size: 14px;
+   height: 40px;
+   line-height: 40px;
+   width: 173px;
+ }
+ .logonHead > p:nth-child(2) > a {
+   display: block;
+   width: 100%;
+   height: 40px;
+   color: #a8adbd;
+   background-image: url('../images/rtJumpRight.png');
+   background-repeat: no-repeat;
+   background-position: 165px 14px;
+ }
+ .logonHead > p:nth-child(2) > a > span {
+   color:#395999;
+ }
+
+ .logonDivider {
+   width: 100%;
+   border-top: 1px solid #ccd3e2;
+   display: inline-block;
+ }
+ .logonDivider > img {
+   display: block;
+   margin: -20px auto 0 auto;
+ }
+
+ /*表单样式*/
+ .logonBody > .logonTitle{
+   margin: 0 0 0 0;
+   color: #606678;
+   font-size: 30px;
+   height: 30px;
+   line-height: 30px;
+   text-align: center;
+   margin-top: 45px;
+ }
+ .logonBody > .logonForm {
+   width: 300px;
+   height: 235px;
+   margin: 46px auto 0 auto;
+ }
+ .logonBody > .logonForm input {
+   display: block;
+   height: 50px;
+   line-height:50px;
+   border: 1px solid #cbd2e1;
+   border-radius: 3px;
+   color: black;
+   font-size: 14px;
+   text-indent: 18px;
+   margin: 0;
+   padding: 0;
+ }
+
+ /*基本输入框及验证码输入框*/
+ .logonBody > .logonForm > .logonBaseSec {
+   width: 610px;
+   height: 50px;
+   border-radius: 3px;
+   margin-top:10px;
+ }
+ .logonBody > .logonForm > .logonBaseSec > input {
+   width: 300px;
+ }
+ .logonBody > .logonForm > .logonBaseSec > .logonInputTip {
+   border:1px solid #4971c1;
+ }
+ .logonBody > .logonForm > .logonBaseSec > p {
+   display: none;
+ }
+ .logonBody > .logonForm > .logonBaseSec.logonResponse > input{
+   float: left;
+   border: 1px solid #f6406a;
+   color: #f6406a;
+ }
+ .logonBody > .logonForm > .logonBaseSec.logonResponse > p{
+   float: left;
+   display: block;
+   height: 50px;
+   line-height: 50px;
+   width: 300px;
+   margin: 0 0 0 10px;
+   border-radius:3px;
+   background-color: transparent;
+   color: #f6406a;
+   text-indent: 38px;
+   background-image: url('../images/registerWarn.png');
+   background-repeat: no-repeat;
+   background-position: 12px 16px;
+ }
+
+ .logonBody > .logonForm > .logonBaseSec.logonVerifySec > input {
+   float: left;
+   width: 172px;
+ }
+ .logonBody > .logonForm > .logonBaseSec.logonVerifySec > button {
+   float: left;
+   width: 118px;
+   margin-left: 10px;
+   font-size: 14px;
+ }
+ .logonBody > .logonForm > .logonBaseSec.logonVerifySec > button:hover{
+   background-color:#6485c8;
+   border:1px solid #6485c8;
+ }
+
+ .logonBody > .logonForm > .logonUserPassWord{
+   position:relative;
+ }
+ .logonBody > .logonForm > .logonUserPassWord > .logonPasswordSwitch {
+   position:absolute;
+   top:15px;
+   left:268px;
+   width:20px;
+   height:20px;
+   background-color:transparent;
+   border:none;
+   background-image:url('../images/logonPasswordHidden.png');
+   background-repeat:no-repeat;
+   background-position:1px 3px;
+ }
+/*手机号+86的样式*/
+ .logonBody > .logonForm > .logonUserName{
+   position:relative;
+ }
+ .logonBody > .logonForm > .logonUserName > span{
+   position:absolute;
+   top:0;
+   left:20px;
+   height:50px;
+   line-height:52px;
+   color:#cbd2e1;
+   font-size:14px;
+ }
+
+ /*提交按钮样式*/
+ .logonBody > .logonForm > .logonSubmit {
+   width: 300px;
+   height: 50px;
+   margin-top: 18px;
+ }
+ .logonBody > .logonForm > .logonSubmit > button {
+   width: 300px;
+   font-size: 18px;
+ }
+ .logonBody > .logonForm > .logonSubmit > button:hover{
+   background-color:#6485c8;
+   border:1px solid #6485c8;
+ }
+/* 按钮过渡样式*/
+.logonBody > .logonForm > .logonSubmit > .logonBtnLoad{
+  background-color:#607090;
+  border:1px solid #607090;
+
+  background-image:url('../images/logonLoading.gif');
+  background-size:40px 40px;
+  background-repeat:no-repeat;
+  background-position:85px 5px;
+  text-align:left;
+  text-indent:125px;
+}
+.logonBody > .logonForm > .logonSubmit > .logonBtnLoad:hover{
+  background-color:#607090;
+  border:1px solid #607090;
+  cursor:not-allowed;
+}
+/* 按钮成功样式*/
+.logonBody > .logonForm > .logonSubmit > .logonBtnSuccess{
+   background-color:#45ca90;
+   border:1px solid #45ca90;
+   background-image:url('../images/logonSuccess.png');
+   background-repeat:no-repeat;
+   background-position:95px 15px;
+   text-align:left;
+   text-indent:125px;
+ }
+.logonBody > .logonForm > .logonSubmit > .logonBtnSuccess:hover{
+   background-color:#45ca90;
+   border:1px solid #45ca90;
+   cursor:not-allowed;
+ }
+ /*按钮异常样式*/
+.logonBody > .logonForm > .logonSubmit > .logonBtnError{
+   background-color:#f27b97;
+   border:1px solid #f27b97;
+   background-image:url('../images/logonNetErr.png');
+   background-repeat:no-repeat;
+   background-position:95px 15px;
+   text-align:left;
+   text-indent:125px;
+ }
+.logonBody > .logonForm > .logonSubmit > .logonBtnError:hover{
+   background-color:#f27b97;
+   border:1px solid #f27b97;
+   cursor:not-allowed;
+ }
+
+ /*最下方的异常反应区，可以是p标签*/
+ .logonBody > .logonForm > .logonExecSec {
+   color: #f6406a;
+   display: none;
+ }
+ .logonBody > .logonForm > .logonExecSec.logonResponse {
+   display: block;
+ }
+
+ /*表单中其他区域的基本样式，说的是找回密码那一种文本区域*/
+ .logonBody > .logonForm > .logonOthers {
+   width:300px;
+   height: 16px;
+   margin-top: 19px;
+ }
+ .logonBody > .logonForm > .logonOthers > input {
+   float: left;
+   width: 16px;
+   height: 16px;
+ }
+ .logonBody > .logonForm > .logonOthers > p {
+   float: left;
+   height: 16px;
+   line-height: 16px;
+   margin: 0;
+   font-size: 14px;
+   color: #606678;
+ }
+ .logonBody > .logonForm > .logonOthers > p a {
+   color: #606678;
+ }
+ .logonBody > .logonForm > .logonOthers > p a:hover {
+   text-decoration: none;
+ }

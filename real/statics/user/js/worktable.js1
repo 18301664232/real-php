@@ -1,0 +1,748 @@
+//用到的一些变量
+var wtCopyFlashUrl = "http://stage.moneplus.cn/real/statics/user/js/ZeroClipboard.swf";//复制功能使用的flash插件路径
+
+var wtToOfflineSelectedNum,wtToOnlineSelectedNum,wtToUpdateSelectedNum;//已选择的各种项目的数目
+
+
+//导航栏的js
+$('.rhItems li').removeClass('rhItemsSelected');
+// console.dir(location);
+$('.rhWorkTable').addClass('rhItemsSelected');
+$('.rhWorkTable').on('click',function(){
+	$('.rhItems li').removeClass('rhItemsSelected');
+	$(this).addClass('rhItemsSelected');
+})
+$('.rhAccountCenter').on('click',function(){
+	$('.rhItems li').removeClass('rhItemsSelected');
+	$(this).addClass('rhItemsSelected');
+})
+$('.rhFinancialManagement').on('click',function(){
+	$('.rhItems li').removeClass('rhItemsSelected');
+	$(this).addClass('rhItemsSelected');
+})
+$('.rhProjectShow').on('click',function(){
+	$('.rhItems li').removeClass('rhItemsSelected');
+	$(this).addClass('rhItemsSelected');
+})
+$('.rhHelpCenter').on('click',function(){
+	$('.rhItems li').removeClass('rhItemsSelected');
+	$(this).addClass('rhItemsSelected');
+})
+
+$('.rhHead').hover(function(){
+	$('.rhHead > a').css('border','3px solid #ffffff');
+	$('.rhHeadInfo').css('display','block');
+},function(){
+	$('.rhHead > a').css('border','3px solid #395999');
+	$('.rhHeadInfo').css('display','none');
+});
+
+//2.正确与错误，两种反馈小滑块。改造了一个函数
+var wtSlideBlockDoor = true;
+	function wtSlideBlock(text,backgroundImgDoor){
+		if(wtSlideBlockDoor){
+							if(backgroundImgDoor){
+					$('.wtSlideBlock').addClass('wtSlideBlockFalse');
+				} else {
+					$('.wtSlideBlock').removeClass('wtSlideBlockFalse');
+				}
+			$('.wtSlideBlock').html(text);
+			$('.wtSlideBlock').css('left',((($(window).width() - $('.wtSlideBlock').width())/2)|0)+'px');
+			wtSlideBlockDoor = false;
+			$('.wtSlideBlock').removeClass('wtSlideBlockState1 wtSlideBlockState2').addClass('wtSlideBlockState1');
+			setTimeout(function(){
+				$('.wtSlideBlock').removeClass('wtSlideBlockState1 wtSlideBlockState2').addClass('wtSlideBlockState2');
+				wtSlideBlockDoor = true;
+			},1300);
+		}
+	}
+	
+//成功时的反馈小滑块
+//wtSlideBlock('删除成功');
+//失败时的反馈小滑块
+//wtSlideBlock('删除成功',true);
+
+//回到顶部的js
+//需要显示的话，$('.rhToTop').show()。
+$('.rhToTop').on('click',function(){
+	$('body,html').scrollTop(0);
+	//$(this).hide();
+});
+
+//一级菜单切换逻辑
+$('.wtMyItem,.wtMyCollection,.wtMyPublic').on('click',function(){
+	$(this).siblings('a').removeClass('wtMyItemChoosed');
+	$(this).addClass('wtMyItemChoosed');
+	$('.wtPro').css('display','none');
+	if($(this).hasClass('wtMyItem')){
+		$('.wtProPannal').css('display','block');
+		
+		$('.wtProItem').show();
+	}
+	if($(this).hasClass('wtMyCollection')){
+		$('.wtColPannal').css('display','block');
+	}
+	if($(this).hasClass('wtMyPublic')){
+		$('.wtPubPannal').css('display','block');
+	}
+})
+
+
+
+//统计项目及确定按钮是否可以点击的函数
+function certainBtnCanClick(selectedNum,dom){ 
+	if(selectedNum > 0){
+		dom.find('.wtProBtnListCertain').removeClass('wtProBtnListCertainDisabled');
+		dom.find('.wtProBtnListCertain > button').prop('disabled',null);
+	} else {
+		dom.find('.wtProBtnListCertain').addClass('wtProBtnListCertainDisabled');
+		dom.find('.wtProBtnListCertain > button').prop('disabled','disabled');
+	}
+}
+
+//按钮交互的逻辑
+$('.wtProBtnListAllOff > button,.wtProBtnListAllOn > button,.wtProBtnListAllUpdate > button').on('click',function(){
+
+	if($(this).parent().hasClass('wtProBtnListAllOff')){
+		if($(this).parent().hasClass('wtProBtnChoosed')){
+			$(this).parent().removeClass('wtProBtnChoosed');
+			$('.wtProBtnListAllChoose > button').hide();
+			$('.wtProBtnListCertain > button').hide();
+			$('.wtProItemTagStateOn > .wtProItemChoose').css('display','none');
+			noAll = true;
+		} else {
+			$(this).parent().addClass('wtProBtnChoosed');
+			$('.wtProBtnListAllChoose > button').show();
+			$('.wtProBtnListCertain > button').show();
+	 		$('.wtProItemTagStateOn > .wtProItemChoose').css('display','block');
+	 		noAll = false;
+		}
+	}
+
+	if($(this).parent().hasClass('wtProBtnListAllOn')){
+		if($(this).parent().hasClass('wtProBtnChoosed')){
+			$(this).parent().removeClass('wtProBtnChoosed');
+			$('.wtProBtnListAllChoose > button').hide();
+			$('.wtProBtnListCertain > button').hide();
+			$('.wtProItemTagStateOff > .wtProItemChoose').css('display','none');
+			noAll = true;
+		} else {
+			$(this).parent().addClass('wtProBtnChoosed');
+			$('.wtProBtnListAllChoose > button').show();
+			$('.wtProBtnListCertain > button').show();
+	 		$('.wtProItemTagStateOff > .wtProItemChoose').css('display','block');
+	 		noAll = false;
+		}
+	}
+
+	if($(this).parent().hasClass('wtProBtnListAllUpdate')){
+		if($(this).parent().hasClass('wtProBtnChoosed')){
+			$(this).parent().removeClass('wtProBtnChoosed');
+			$('.wtProBtnListAllChoose > button').hide();
+			$('.wtProBtnListCertain > button').hide();
+			$('.wtProItemTagStateUpdate > .wtProItemChoose').css('display','none');
+			noAll = true;
+		} else {
+			$(this).parent().addClass('wtProBtnChoosed');
+			$('.wtProBtnListAllChoose > button').show();
+			$('.wtProBtnListCertain > button').show();
+	 		$('.wtProItemTagStateUpdate > .wtProItemChoose').css('display','block');
+	 		noAll = false;
+		}
+	}
+
+})
+
+//全选按钮的逻辑
+
+$('.wtProBtnListAllChoose > button').on('click',function(){
+	if($('.wtProBtnListAllChoose').hasClass('wtProBtnChoosed')){
+		$('.wtProBtnListAllChoose').removeClass('wtProBtnChoosed');
+		$('.wtProItemChoose').removeClass('wtProItemChooseYes');
+		$('.wtProBtnListAllChooseDot').css('display','none');
+	} else {
+		$('.wtProBtnListAllChoose').addClass('wtProBtnChoosed');
+		$('.wtProItem:not(".wtProItemTagStateInit") > .wtProItemChoose').addClass('wtProItemChooseYes');
+		$('.wtProBtnListAllChooseDot').css('display','block');
+	}
+
+//批量下线时的逻辑
+	if($(this).parentsUntil('.wtProBtn','.wtProBtnList').hasClass('wtProMenuListOnlineBtnList')){
+		wtToOfflineSelectedNum = $('.wtProItemTagStateOn > .wtProItemChooseYes').length;
+		certainBtnCanClick(wtToOfflineSelectedNum,$(this).parentsUntil('.wtProBtn','.wtProBtnList'));
+	}
+	//批量上线时的逻辑
+	if($(this).parentsUntil('.wtProBtn','.wtProBtnList').hasClass('wtProMenuListOfflineBtnList')){
+		wtToOnlineSelectedNum = $('.wtProItemTagStateOff > .wtProItemChooseYes').length;
+		certainBtnCanClick(wtToOnlineSelectedNum,$(this).parentsUntil('.wtProBtn','.wtProBtnList'));
+	}
+	//批量更新时的逻辑
+	if($(this).parentsUntil('.wtProBtn','.wtProBtnList').hasClass('wtProMenuListUpdateBtnList')){
+		wtToUpdateSelectedNum = $('.wtProItemTagStateUpdate > .wtProItemChooseYes').length;
+		certainBtnCanClick(wtToUpdateSelectedNum,$(this).parentsUntil('.wtProBtn','.wtProBtnList'));
+	}
+
+})
+
+
+
+
+// 选择项目相关的js
+$('.wtProItemBox').on('click','.wtProItemChoose',function(){
+	if($(this).hasClass('wtProItemChooseYes')){
+		$(this).removeClass('wtProItemChooseYes');
+	} else {
+		$(this).addClass('wtProItemChooseYes');
+	}
+	//批量下线时的逻辑
+	if($(this).parent().hasClass('wtProItemTagStateOn')){
+		wtToOfflineSelectedNum = $('.wtProItemTagStateOn > .wtProItemChooseYes').length;
+		certainBtnCanClick(wtToOfflineSelectedNum,$('.wtProMenuListOnlineBtnList'));
+	}
+	//批量上线时的逻辑
+	if($(this).parent().hasClass('wtProItemTagStateOff')){
+		wtToOnlineSelectedNum = $('.wtProItemTagStateOff > .wtProItemChooseYes').length;
+		certainBtnCanClick(wtToOnlineSelectedNum,$('.wtProMenuListOfflineBtnList'));
+	}
+	//批量更新时的逻辑
+	if($(this).parent().hasClass('wtProItemTagStateUpdate')){
+		wtToUpdateSelectedNum = $('.wtProItemTagStateUpdate > .wtProItemChooseYes').length;
+		certainBtnCanClick(wtToUpdateSelectedNum,$('.wtProMenuListUpdateBtnList'));
+	}
+
+})
+
+//遮盖层的js
+var noAll = true;
+
+$('.wtProItemBox').on('mouseenter','.wtProItem',function(){
+	if(noAll){
+		$(this).find('.wtProItemHover').css('display','block');
+	}
+})
+$('.wtProItemBox').on('mouseleave','.wtProItem',function(){
+	if(noAll){
+		$(this).find('.wtProItemHover').css('display','none');
+	}
+})
+
+
+
+
+//我的收藏面板的js
+//项目蒙版的js
+$('.wtColPannalBoxItem').on('mouseenter',function(){
+	$(this).find('.wtColItemMask').show();
+});
+
+$('.wtColPannalBoxItem').on('mouseleave',function(){
+	$(this).find('.wtColItemMask').hide();
+});
+//收藏按钮样式的js
+$('.wtColItemMaskBtnCol').on('click',function(){
+	if($(this).hasClass('wtColItemMaskBtnColDoor')){
+		$(this).removeClass('wtColItemMaskBtnColDoor');
+		wtSlideBlock('收藏成功');
+	} else {
+		$(this).addClass('wtColItemMaskBtnColDoor');
+		wtSlideBlock('取消收藏');
+	}
+})
+
+//我的发布面板的js
+$('.wtPubPannalBoxItem').on('mouseenter',function(){
+	$(this).find('.wtPubItemMask').show();
+});
+
+$('.wtPubPannalBoxItem').on('mouseleave',function(){
+	$(this).find('.wtPubItemMask').hide();
+});
+//发布按钮样式的js
+$('.wtPubItemMaskBtnCol').on('click',function(){
+	if($(this).hasClass('wtPubItemMaskBtnColDoor')){
+		$(this).removeClass('wtPubItemMaskBtnColDoor');
+		wtSlideBlock('公开成功');
+	} else {
+		$(this).addClass('wtPubItemMaskBtnColDoor');
+		wtSlideBlock('取消公开');
+	}
+});
+
+
+
+
+
+var rhaOnlineCopy = new ZeroClipboard( $('#rhaOnlineCopyBtn'), {
+    moviePath: wtCopyFlashUrl
+} );
+rhaOnlineCopy.on( 'complete', function(client, args) {
+    wtSlideBlock('复制成功');
+} );
+
+var rhaOfflineCopy = new ZeroClipboard( $('#rhaOfflineCopyBtn'), {
+    moviePath: wtCopyFlashUrl
+} );
+rhaOfflineCopy.on( 'complete', function(client, args) {
+    wtSlideBlock('复制成功');
+} );
+
+var rhaUpdateCopy = new ZeroClipboard( $('#rhaUpdateCopyBtn'), {
+    moviePath: wtCopyFlashUrl
+} );
+rhaUpdateCopy.on( 'complete', function(client, args) {
+    wtSlideBlock('复制成功');
+} );
+
+var rhaUpdateCopy2 = new ZeroClipboard( $('#rhaUpdateCopyBtn2'), {
+    moviePath: wtCopyFlashUrl
+} );
+rhaUpdateCopy2.on( 'complete', function(client, args) {
+    wtSlideBlock('复制成功');
+} );
+
+
+
+// 我的收藏以及我的发布查看弹框的逻辑
+
+$('.wtColItemMaskBtnLook').on('click',function(){
+  $('#rhaLookUpAlert').modal({});
+  var rhMarginTop = ($(window).height() - $('.rhViewModalContent').height()) ? ($(window).height() - $('.rhViewModalContent').height())/2 : 0;
+  $('.rhViewModalDialog').css('marginTop',rhMarginTop + 'px');
+});
+
+$('.wtPubItemMaskBtnLook').on('click',function(){
+  $('#rhaLookUpAlert').modal({});
+  var rhMarginTop = ($(window).height() - $('.rhViewModalContent').height()) ? ($(window).height() - $('.rhViewModalContent').height())/2 : 0;
+  $('.rhViewModalDialog').css('marginTop',rhMarginTop + 'px');
+});
+
+
+
+// 数据弹出框的js
+// wtSlideBlock('保存成功');文档说明是将导出的excel表格保存之后。
+$('.wtProItemBox').on('click','.wtProItemHoverData',function(){
+	$('#rhaDataConAlert').modal({backdrop:'static',keyboard:false});
+  	var rhMarginTop = ($(window).height() >= $('.rhDataConModalContent').height()) ? ($(window).height() - $('.rhDataConModalContent').height())/2 : 0;
+  	$('.rhDataConModalDialog').css('marginTop',rhMarginTop + 'px');
+});
+	//数据时间选择按钮的逻辑
+$('.rhDataConTabContentChannel > .rhDataConTabTimePannal > button').on('click',function(){
+  $('.rhDataConTabContentChannel > .rhDataConTabTimePannal > button').removeClass('rhDataConTabTimeChoosed');
+  $(this).addClass('rhDataConTabTimeChoosed');
+})
+
+$('.rhDataConTabContentPage > .rhDataConTabTimePannal > button').on('click',function(){
+  $('.rhDataConTabContentPage > .rhDataConTabTimePannal > button').removeClass('rhDataConTabTimeChoosed');
+  $(this).addClass('rhDataConTabTimeChoosed');
+})
+
+$('.rhDataConTabContentButton > .rhDataConTabTimePannal > button').on('click',function(){
+  $('.rhDataConTabContentButton > .rhDataConTabTimePannal > button').removeClass('rhDataConTabTimeChoosed');
+  $(this).addClass('rhDataConTabTimeChoosed');
+})
+	//数据弹出框日期选择插件
+$('#rhDataConChannelTimeSelect').dateRangePicker({
+      separator : ' - ',
+      autoClose: true,
+      getValue: function()
+      {
+        if ($('#rhDataConChannelTimeFrom').val() && $('#rhDataConChannelTimeTo').val() )
+          return $('#rhDataConChannelTimeFrom').val() + ' - ' + $('#rhDataConChannelTimeTo').val();
+        else
+          return '';
+      },
+      setValue: function(s,s1,s2)
+      {
+        $('#rhDataConChannelTimeFrom').val(s1);
+        $('#rhDataConChannelTimeTo').val(s2);
+      }
+}).bind('datepicker-closed',function(){
+        console.log($('#rhDataConChannelTimeFrom').val() + ' to ' + $('#rhDataConChannelTimeTo').val());
+    });
+
+$('#rhDataConPageTimeSelect').dateRangePicker({
+      separator : ' - ',
+      autoClose: true,
+      getValue: function()
+      {
+        if ($('#rhDataConPageTimeFrom').val() && $('#rhDataConPageTimeTo').val() )
+          return $('#rhDataConPageTimeFrom').val() + ' - ' + $('#rhDataConPageTimeTo').val();
+        else
+          return '';
+      },
+      setValue: function(s,s1,s2)
+      {
+        $('#rhDataConPageTimeFrom').val(s1);
+        $('#rhDataConPageTimeTo').val(s2);
+      }
+}).bind('datepicker-closed',function(){
+        console.log($('#rhDataConPageTimeFrom').val() + ' to ' + $('#rhDataConPageTimeTo').val());
+    });
+
+$('#rhDataConButtonTimeSelect').dateRangePicker({
+      separator : ' - ',
+      autoClose: true,
+      getValue: function()
+      {
+        if ($('#rhDataConButtonTimeFrom').val() && $('#rhDataConButtonTimeTo').val() )
+          return $('#rhDataConButtonTimeFrom').val() + ' - ' + $('#rhDataConButtonTimeTo').val();
+        else
+          return '';
+      },
+      setValue: function(s,s1,s2)
+      {
+        $('#rhDataConButtonTimeFrom').val(s1);
+        $('#rhDataConButtonTimeTo').val(s2);
+      }
+}).bind('datepicker-closed',function(){
+        console.log($('#rhDataConButtonTimeFrom').val() + ' to ' + $('#rhDataConButtonTimeTo').val());
+    });
+	//一个初始化的逻辑
+$('.rhDataConAlertHeadClose').on('click',function(){
+    $('.rhDataConTabMenu > li').removeClass('active');
+    $('.rhDataConTabContent > .tab-pane').removeClass('active');
+    $('.rhDataConTabMenu > li:first').addClass('active');
+    $('.rhDataConTabContent > .tab-pane:first').addClass('active');
+    $('.rhDataConTabTimePannal > button').removeClass('rhDataConTabTimeChoosed');
+    $('.rhDataConTabTimePannal > .rhDataConTabTimeFirstBtn').addClass('rhDataConTabTimeChoosed');
+});
+// 输入框获取与失去焦点的逻辑
+$('.rhDataConTabTimeFrom').focus(function(){
+	$(this).addClass('wtInputBorderResStyle');
+});
+$('.rhDataConTabTimeTo').focus(function(){
+	$(this).addClass('wtInputBorderResStyle');
+});
+$('.rhDataConTabTimeFrom').blur(function(){
+	$(this).removeClass('wtInputBorderResStyle');
+});
+$('.rhDataConTabTimeTo').blur(function(){
+	$(this).removeClass('wtInputBorderResStyle');
+});
+
+
+
+//计时器相关逻辑
+function RhaCountDown(btn){
+	this.defaultCount = 60;
+	this.checkDoor = true;
+	this.btn = btn;
+}
+RhaCountDown.prototype.begin = function(time){
+	if(this.checkDoor){
+		this.checkDoor = false;
+		this.count = time || this.defaultCount;
+		$(this.btn).attr('disabled','disabled');
+		$(this.btn).html(this.count + '秒');
+		this.timer = setInterval(function(){
+			--this.count;
+			$(this.btn).html(this.count + '秒');
+			if(this.count === 0){
+				this.checkdoor = true;
+				$(this.btn).attr('disabled',null);
+				clearInterval(this.timer);
+				$(this.btn).html('发送验证码');
+				this.count = time = this.defaultCount;
+			}
+		}.bind(this),1000);
+	}
+}
+
+//判断字符长度
+    function strlen(str) {
+        var len = 0;
+        var strCode=0;
+        var wordCode=0;
+        for (var i = 0; i < str.length; i++) {
+            var c = str.charCodeAt(i);
+            //单字节加1
+            //判断单行多行行高
+            if ((c >= 0x0001 && c <= 0x007e) || (0xff60 <= c && c <= 0xff9f)) {
+                len++;
+                strCode++;
+            }
+            else {
+                len++;
+                wordCode++;
+            }
+            if ((wordCode*2 + strCode)> 26) {
+                $('#L_fd_text p').css('line-height', '22px');
+            }
+            else {
+                $('#L_fd_text p').css('line-height', '44px');
+            }
+        }
+
+        return len;
+    }
+    function gbcount1(message, total, used) {
+        var strlength = strlen(message.val());
+        var max;
+        var len = 0;
+        max = total;
+        if (strlength > max) {
+            message.val(message.val().substring(0, max));
+            if (used) {
+                used.html(message.val().length + '/' + total)
+            }
+            <!-- alert("留言不能超过 200 个字!");-->
+            alert("不能超过" + total + "个字!");
+        }
+        else {
+            if (used) {
+                used.html(message.val().length + '/' + total)
+            }
+            // remain.value = max - used.value;
+        }
+        $('#L_fd_text p').html(message.val())
+        $('.Lwtl_fd h1').html(message.val())
+    }
+    function gbcount2(message,total,used)
+    {
+        var max;
+        max = total;
+        if (message.val().length > max) {
+            message.val(message.val().substring(0,max)) ;
+
+            <!-- alert("留言不能超过 200 个字!");-->
+            alert("不能超过"+total+"个字!");
+        }
+        $('.Lwtl_fd p').html(message.val())
+    }
+
+/**
+ * Created by lixiaoyong on 2017/3/14.
+ */
+/*
+* 添加渠道
+* */
+
+//判断当前添加渠道是否保存的标志
+var isSave = true;
+
+function addChannel(){
+    //列表字符串
+    var channel = '<li>'
+        +'           <ul class="Lwtl_tab2_list_ul">'
+        +'               <li class="Lwtl_w191">'
+        +'                   <span class="Lwtl_span_tit Lwtl_span_tit_f">'
+        +'                       <input type="text" value="">'
+        +'                   </span>'
+        +'               </li>'
+        +'               <li class="Lwtl_w417">http://www.moneplus.com</li>'
+        +'               <li class="Lwtl_w44"></li><li class="Lwtl_w123">'
+        +'                   <span class="Lwtl_span_er">'
+        +'                        <img src="img/er_t.png"> '
+        +'                   </span>'
+        +'               </li>'
+        +'               <li class="Lwtl_w27">'
+        +'                   <div class="Lwtl_del_true Lwtl_TF">确定</div>'
+        +'                   <div class="Lwtl_del_false Lwtl_TF">取消</div>'
+        +'                   <div class="Lwtl_save">保存</div>'
+        +'                   <div class="Lwtl_del">删除</div>'
+        +'               </li>'
+        +'           </ul>'
+        +'       </li>';
+    //追加列表
+    $('.Lwtl_tab2_list_li').append(channel);
+
+    //追加完列表之后，保存标志变为false，在点击保存的时候再设置为true;
+    isSave = false;
+    //设置添加渠道按钮不可点击的样式
+    $('.Lwtl_addbtn').addClass('disabled');
+
+    //当前渠道获得焦点
+    $('.Lwtl_tab2_list_ul').find('input').last().focus();
+
+    //点击保存按钮
+    saveBtn();
+
+    //点击删除按钮
+    delBtn();
+}
+
+/*
+*  saveBtn
+* */
+function saveBtn(){
+    $('.Lwtl_tab2_list_li').find('.Lwtl_save').last().click(function(){
+            //判断是否为空
+            if(!($(this).parents('.Lwtl_tab2_list_ul').find('input').val())){
+                //失败小滑块
+
+                return false;
+            }
+            //保存成功，isSave变为TRUE,可以继续添加渠道
+            isSave = true;
+            //设置添加渠道按钮可以点击
+            $('.Lwtl_addbtn').removeClass('disabled');
+
+            $(this).hide()
+            $(this).next().show();
+            //成功小滑块
+
+        })
+}
+/*
+* delBtn
+* */
+function delBtn() {
+    $('.Lwtl_tab2_list_li').find('.Lwtl_del').last().click(function(){
+        $(this).parent().find('.Lwtl_TF').show();
+        //确定删除
+        isDel($(this));
+        //取消删除
+        notDel($(this));
+    })
+}
+//删除里的确定和取消
+function isDel(obj){
+    obj.siblings('.Lwtl_del_true').click(function(){
+        $(this).parents('.Lwtl_tab2_list_ul').parent().remove();
+    })
+}
+function notDel(obj){
+    obj.siblings('.Lwtl_del_false').click(function(){
+        $(this).parent().find('.Lwtl_TF').hide();
+    })
+}
+
+//点击追加
+$('#L_save_qudao').click(function(){
+    //如果只有默认的渠道，则可以继续添加
+    if($('.Lwtl_tab2_list_li').children().length<=1){
+        addChannel();
+    }else{
+        //判断当前添加渠道是否保存，如果保存则可以点击，否则按钮置灰
+        if(isSave){
+            addChannel();
+        }else{
+            return false;
+        }
+    }
+});
+
+//直接删除初始化
+function init(){
+    if($('.Lwtl_tab2_list_li').children('li').length>0){
+        $('.Lwtl_tab2_list_li').children('li').each(function(){
+            $(this).find('.Lwtl_del').show();
+            $(this).find('.Lwtl_save').hide();
+            $('.Lwtl_tab2_list_li').find('.Lwtl_del').click(function(){
+                $(this).parent().find('.Lwtl_TF').show();
+                //确定删除
+                isDel($(this));
+                //取消删除
+                notDel($(this));
+            })
+        })
+    }
+}
+init();
+
+
+
+
+
+// 创建项目的js逻辑
+function gbcount(message,total,used)
+    {
+        var max;
+        max = total;
+        if (message.val().length > max) {
+            message.val(message.val().substring(0,max)) ;
+            if(used){
+                used.html(message.val().length+'/'+total)
+            }
+            <!-- alert("留言不能超过 200 个字!");-->
+            alert("不能超过"+total+"个字!");
+        }
+        else {
+            if(used){
+                used.html(message.val().length+'/'+total)
+            }
+            // remain.value = max - used.value;
+        }
+    }
+
+//创建项目弹出框复制的逻辑
+    var clip = new ZeroClipboard( document.getElementById("copybtn"), {
+        moviePath: wtCopyFlashUrl
+
+    } );
+
+    // 复制内容到剪贴板成功后的操作
+    clip.on( 'complete', function(client, args) {
+        wtSlideBlock('复制成功');
+    } );
+
+$('.wtCreatePro').on('click',function(){
+	$('#L_phone_yz_box5').modal({backdrop:'static',keyboard:false});
+	var rhMarginTop = ($(window).height() >= 391) ? ($(window).height() - 391)/2 : 0;
+  	$('.rhCreateItemModalDialog').css('marginTop',rhMarginTop + 'px');
+});
+
+$('.LPCreateItemServe').on('click',function(){
+	$('#L_phone_yz_box5').modal('hide');
+	wtSlideBlock('创建成功');
+});
+
+
+  //验证码的按钮逻辑
+$('.lpOffLineAlertVBtn').on('click',function(){
+	var OfflineCountdown = new RhaCountDown(this);
+	OfflineCountdown.begin();
+	if($(this).hasClass('lpBaseBtnStyleState2')){
+		$(this).removeClass('lpBaseBtnStyleState2');
+	} else {
+		$(this).addClass('lpBaseBtnStyleState2');
+	}
+});
+ 
+
+// 输入框获取与失去焦点的逻辑
+$('.lpOfflineInput1').focus(function(){
+	$('.lpOfflineInput1Res').html('');
+	$(this).addClass('wtInputBorderResStyle');
+});
+$('.lpOfflineInput2').focus(function(){
+	$('.lpOfflineInput2Res').html('');
+	$(this).addClass('wtInputBorderResStyle');
+});
+$('.lpOfflineInput1').blur(function(){
+	$(this).removeClass('wtInputBorderResStyle');
+});
+$('.lpOfflineInput2').blur(function(){
+	$(this).removeClass('wtInputBorderResStyle');
+});
+
+
+  //验证码的按钮逻辑
+$('.lpManyOffLineAlertVBtn').on('click',function(){
+	var OfflineCountdown = new RhaCountDown(this);
+	OfflineCountdown.begin();
+	if($(this).hasClass('lpBaseBtnStyleState2')){
+		$(this).removeClass('lpBaseBtnStyleState2');
+	} else {
+		$(this).addClass('lpBaseBtnStyleState2');
+	}
+});
+ 
+
+// 输入框获取与失去焦点的逻辑
+$('.lpManyOfflineInput1').focus(function(){
+	$('.lpManyOfflineInput1Res').html('');
+	$(this).addClass('wtInputBorderResStyle');
+});
+$('.lpManyOfflineInput2').focus(function(){
+	$('.lpManyOfflineInput2Res').html('');
+	$(this).addClass('wtInputBorderResStyle');
+});
+$('.lpManyOfflineInput1').blur(function(){
+	$('.lpManyOfflineInput1Res').html('');
+	$(this).removeClass('wtInputBorderResStyle');
+});
+$('.lpManyOfflineInput2').blur(function(){
+	$('.lpManyOfflineInput2Res').html('');
+	$(this).removeClass('wtInputBorderResStyle');
+});

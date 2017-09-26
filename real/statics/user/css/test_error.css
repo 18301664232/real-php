@@ -1,0 +1,67 @@
+html{
+    font-size:1.3rem;
+}
+p,div,h2{
+    font-size:0;
+}
+.icon{
+    width:4.25rem;
+    height:4.25rem;
+    margin:0 auto;
+    margin-top:3.15rem;
+    margin-bottom:1.7rem;
+    background:url(../img/circle.png) center center no-repeat;
+    background-size:4.25rem 4.25rem;
+}
+.icon.offline{
+    background:url(../img/website_offline.png) center center no-repeat;
+    background-size:4.25rem 4.25rem;
+}
+.word{
+    width:7.8rem;
+    height:2.15rem;
+    margin:0 auto;
+    background:url(../img/word_test.png) center center no-repeat;
+    background-size:7.575rem 1.925rem;
+}
+.word.offline{
+    background:url(../img/word_offline.png) center center no-repeat;
+    background-size:7.575rem 1.925rem;
+}
+.footer{
+    width:10rem;
+    height:0.6rem;
+    position:absolute;
+    left:50%;
+    bottom:1rem;
+    margin-left:-5rem;
+    background: url(../img/bottom.png) center center no-repeat;
+    background-size:9.5rem 0.55rem;
+}
+/*pc*/
+@media(min-width: 768px){
+    .icon.offline{
+        width:80px;
+        height:80px;
+        margin-top:126px;
+        margin-bottom:46px;
+        background:url(../img/pc_website_offline.png) center center no-repeat;
+        background-size:80px 80px;
+    }
+    .word.offline{
+        width:226px;
+        height:64px;
+        background:url(../img/pc_website_word.png) center center no-repeat;
+        background-size: 210px 64px;
+    }
+    .footer{
+        width:214px;
+        height:20px;
+        position:absolute;
+        left:50%;
+        bottom:20px;
+        margin-left:-107px;
+        background:url(../img/pc_bottom.png) center center no-repeat;
+        background-size:207px 12px;
+    }
+}

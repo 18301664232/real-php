@@ -1,0 +1,33 @@
+.logonBody > .logonForm > .logonOthers > p > span {
+  margin-left: 8px;
+}
+.logonBody > .logonForm > .logonOthers > p > a {
+  margin-left: 150px;
+}
+.logonBody > .logonForm > .logonVerifySec > button.logonVerImgSec {
+  float: left;
+   width: 118px;
+   margin-left: 10px;
+   border: 1px solid #cbd2e1;
+   border-radius: 3px;
+   height:50px;
+   background-color:white;
+}
+.logonBody > .logonForm > .logonVerifySec > button.logonVerImgSec > img{
+  display:block;
+  height:100%;
+  width:100%;
+  border-radius: 3px;
+}
+.logonBody > .logonForm > .logonVerifySec > button.logonVerImgSec:hover{
+  float: left;
+   width: 118px;
+   margin-left: 10px;
+   border: 1px solid #cbd2e1;
+   border-radius: 3px;
+   height:50px;
+   background-color:white;
+}
+.logonBody > .logonForm > .logonVerifySec{
+	display:none;
+}

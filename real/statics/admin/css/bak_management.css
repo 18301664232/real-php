@@ -1,0 +1,35 @@
+.user-query {
+  display: block;
+}
+
+section > div {
+  padding-left: 15px;
+}
+
+.search-box {
+  /*margin-left:-58px;*/
+}
+
+.search-label {
+  line-height: 34px;
+}
+
+.table-box {
+  padding-top: 30px;
+  padding-left: 0;
+}
+
+.current-num {
+  line-height: 35px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 0;
+  border-bottom: 1px dashed #ccc;
+}
+
+#bak .modal-body {
+  max-height: 430px;
+  margin-bottom: 20px;
+  overflow-y: scroll;
+  background: #fff;
+}

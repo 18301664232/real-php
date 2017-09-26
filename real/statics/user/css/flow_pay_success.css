@@ -1,0 +1,65 @@
+/*支付成功页样式*/
+.pay-suc-box {
+  width: 1200px;
+  min-height: 840px;
+  padding-top: 130px;
+  margin: 48px auto 30px auto;
+  border: 1px solid #cbd2e1;
+  background-color: #ffffff;
+}
+.pay-suc-inner {
+  width: 310px;
+  min-height: 30px;
+  margin: 0 auto;
+}
+.pay-suc-text1 {
+  height: 30px;
+  background-image: url('../images/pay_success.png');
+  background-repeat: no-repeat;
+  background-position: 83px 0px;
+  font-size: 24px;
+  color: #0d2556;
+  line-height: 30px;
+  text-indent: 130px;
+}
+.pay-suc-text2 {
+  height: 20px;
+  margin-top: 14px;
+  font-size: 14px;
+  color: #0d2556;
+  line-height: 20px;
+  text-align: center;
+}
+.pay-suc-btn-groupe {
+  margin-top: 22px;
+}
+.pay-suc-btn-groupe > a {
+  float: left;
+  width: 110px;
+  height: 34px;
+  margin-left: 30px;
+  border-radius: 3px;
+  font-size: 14px;
+}
+.pay-suc-btn-groupe > .pay-suc-return-wt {
+  border: 1px solid #1e3b75;
+  background-color: #395999;
+  color: #fff;
+}
+.pay-suc-btn-groupe > .pay-suc-return-wt:hover {
+  color: #fff;
+}
+.pay-suc-btn-groupe > .pay-suc-return-wt:visited {
+  color: #fff;
+}
+.pay-suc-btn-groupe > .pay-suc-deal-history {
+  border: 1px solid #395999;
+  background-color: #fff;
+  color: #395999;
+}
+.pay-suc-btn-groupe > .pay-suc-deal-history:hover {
+  color: #395999;
+}
+.pay-suc-btn-groupe > .pay-suc-deal-history:visited {
+  color: #395999;
+}
