@@ -244,7 +244,7 @@
                             }else{
 
                                 column_str +='<tr data-selfid='+data.result.data[key]['id']+' data-selfpid='+data.result.data[key]['product_id']+'>'+
-                                    '<td>1</td>'+
+                                    '<td>'+(Number(key)+1)+'</td>'+
                                     '<td>'+data.result.data[key]['title']+'</td>'+
                                     '<td>'+data.result.data[key]['tel']+'</td>'+
                                     '<td>'+data.result.data[key]['product_id']+'</td>'+
@@ -307,6 +307,7 @@
                    $('.pagein').after(btnstr);
 
                   }else {
+                      $('.isup').remove();
                       $('.table-bordered tr:gt(0)').remove();
 
                   }
@@ -316,6 +317,8 @@
 
         //给按钮绑定事件
         $('.pagination').delegate('.isa', 'click', function() {
+
+            $(this).parent().siblings('li').removeClass('active');
             datainit($(this).html(),verify_status,is_has_video,search_key);
         });
         $('.pagein').click(function(){
@@ -429,8 +432,8 @@
             var pid = $('#shield_form h3').html();
             var id = $('#shield_form h1').html();
             var user_tel = $('#shield_form h2').html();
-            //var reason = $('#shield_form input:checked').val() || $('#shield_form textarea').val();
-            var reason = 1234;
+            var reason = encodeURI($('#shield_form input:checked').val()+'@'+$('#shield_form textarea').val());
+            //var reason = 1234;
             //初始化数据
             $.ajax({
                 type: "POST",

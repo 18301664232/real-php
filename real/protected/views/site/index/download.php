@@ -9,7 +9,7 @@
             <p class="dl-show-p4">从视觉设计到云端上传，一气呵成。</p>
             <a id="download_btn" class="dl-show-button" href="javascript:void(0)">免费下载</a>
             <p class="dl-show-p5">适用Animate cc及以上版本（win暂不支持CC 2017）</p>
-            <p class="dl-show-p6">版本：V1.3&nbsp;&nbsp;&nbsp;&nbsp;适用系统：win/mac</p>
+            <p class="dl-show-p6">版本：V1.4.1&nbsp;&nbsp;&nbsp;&nbsp;适用系统：win/mac</p>
         </div>
     </div>
 </div> 

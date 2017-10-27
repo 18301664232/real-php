@@ -12,10 +12,11 @@
         <link rel="stylesheet" type="text/css" href="<?php echo STATICS ?>css/mainNav2.css"/>
         <link rel="stylesheet" type="text/css" href="<?php echo STATICS ?>css/worktable.css"/>
         <link rel="stylesheet" type="text/css" href="<?php echo STATICS ?>css/preview.css"/>
+        <link rel='icon' href='<?php echo STATICS ?>images/favicon.ico'/>
         <script type="text/javascript" src="<?php echo STATICS ?>js/jq.js"></script>
         <script type="text/javascript" src="<?php echo STATICS ?>js/c.js"></script>
         <script src="http://www.realplus.cc/lib/js/socket.io.js"></script>
-        <link rel='icon' href='<?php echo STATICS ?>images/favicon.ico'/>
+
 
 
     </head>
@@ -129,7 +130,7 @@
                             </li>
                         </ul>
                     </div>
-                    <!-- <div class="rhHeadMessageOut"></div> -->
+                     <div class="rhHeadMessageOut"></div>
                 </div>
                 <a class="rh-flow-buy" href="<?php echo U('finance/pay/select') ?>">购买</a>
                 <a class="rh-flow-last" href="<?php echo U('finance/water/index') ?>">

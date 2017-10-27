@@ -12,41 +12,7 @@
                 <p class='mg_tip'>您有<span class='mg_tip_num'>0</span>条未读消息</p>
                 <button class='mg_del'>全部删除</button>
             </div>
-
-            <div class='mg_base mg_sys clearfix'>
-                <div class='mg_base_con'>
-                    <p class='mg_base_type'>系统公告<span class='mg_base_time'>2016/08/26&nbsp;12:30</span></p>
-                    <p class='mg_base_title'>您的作品“在太阳中的影子”，已被300人查看。受大家欣赏。</p>
-                    <p class='mg_base_text'>
-                        您的作品“在太阳中的影子”，已被300人查看。您的作品“在太阳中的影子”，已被300人查看。您的作品“在太阳中的影子”，已被300人查看。您的作品“在太阳中的影子”，已经被300人查看。
-                    </p>
-                </div>
-                <button class='mg_base_close'>
-                    <div class='mg_base_close_tri'></div>
-                </button>
-                <button class='mg_base_del'>
-                    <div class='mg_base_del_base mg_base_del_right'></div>
-                    <div class='mg_base_del_base mg_base_del_left'></div>
-                </button>
-            </div>
-
-
-            <div class='mg_base mg_not clearfix'>
-                <div class='mg_base_con'>
-                    <p class='mg_base_type'>消息提醒<span class='mg_base_time'>2016/08/26&nbsp;12:30</span></p>
-                    <p class='mg_base_title'>您的作品“在太阳中的影子”，已被300人查看。受大家欣赏。</p>
-                    <p class='mg_base_text'>
-                        您的作品“在太阳中的影子”，已被300人查看。您的作品“在太阳中的影子”，已被300人查看。您的作品“在太阳中的影子”，已被300人查看。您的作品“在太阳中的影子”，已经被300人查看。
-                    </p>
-                </div>
-                <button class='mg_base_close'>
-                    <div class='mg_base_close_tri'></div>
-                </button>
-                <button class='mg_base_del'>
-                    <div class='mg_base_del_base mg_base_del_right'></div>
-                    <div class='mg_base_del_base mg_base_del_left'></div>
-                </button>
-            </div>
+<!--           邮件插入去 -->
 
         </div>
     </div>
@@ -94,7 +60,7 @@
                             "<div class='mg_base_con'>"+
                                 "<p class='mg_base_type'>"+obj.result.MailInfo[key].type+"<span class='mg_base_time'>"+obj.result.MailInfo[key].sendtime+"</span></p>"+
                                 "<p class='mg_base_title'>"+obj.result.MailInfo[key].title+"</p>"+
-                                "<p class='mg_base_text'>"+obj.result.MailInfo[key].contents+"</p>"+
+                                "<div class='mg_base_text'>"+obj.result.MailInfo[key].contents+"</div>"+
                             '</div>'+
                             "<button class='mg_base_close'>"+
                                 "<div class='mg_base_close_tri'></div>"+

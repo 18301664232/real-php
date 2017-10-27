@@ -79,14 +79,35 @@ class ResourcesServer extends BaseServer {
         if (!empty($pagesize)) {
             $offset = ($page - 1) * $pagesize;
         }
-        $key = $params['key'];
-        $sql = "SELECT `datas`,`addtime` FROM `r_resources_preview` WHERE `product_id` ='$params[product_id]' and `datas` like '%$key%' ORDER by `addtime`,`id` desc  LIMIT $offset,$pagesize";
-        //   echo $sql;exit;
-        $rs = ResourcesPreview::model()->dbConnection->createCommand($sql)->queryAll();
-        if ($rs) {
+       // $key = $params['key'];
+       // $sql = "SELECT * FROM `r_resources_preview` WHERE `product_id` ='$params[product_id]' AND `type` = '$key'  ORDER BY `addtime`,`id` DESC  LIMIT $offset,$pagesize";
+
+        $param = self::comParams2($params);
+        $model = new ResourcesPreview();
+        $criteria = new CDbCriteria;
+        $criteria->select = '*';
+        $criteria->condition = $param['con'];
+        $criteria->params = $param['par'];
+        $criteria->order = "addtime DESC";
+        $criteria->limit = "$pagesize";
+        $criteria->offset = "$offset";
+        $rs = $model->findAll($criteria);
+
+       // $rs ='';
+        $rs_num = 1;
+        //$rs = Yii::app()->db->createCommand($sql)->queryAll();
+//        while (empty($rs)){
+//            $rs_num++;
+//            if($rs_num < 10){
+//                $rs = Yii::app()->db->createCommand($sql)->queryAll();
+//            }else{
+//                break;
+//            }
+//        }
+        if (!empty($rs)) {
             return array('code' => '0', 'data' => $rs);
         } else {
-            return array('code' => '100001', 'data' => '');
+            return array('code' => '100001', 'data' => $rs,'check_sql'=>1,'rs_num'=>$rs_num);
         }
     }
 

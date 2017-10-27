@@ -107,7 +107,7 @@ class VideoController extends CenterController
         $params['type'] = !empty($_REQUEST['type']) ? $_REQUEST['type'] : '';
         $user_tel = !empty($_REQUEST['user_tel']) ? $_REQUEST['user_tel'] : '';
         $params['id'] = !empty($_REQUEST['id']) ? $_REQUEST['id'] : '';//verifyid
-        $params['reason'] = !empty($_REQUEST['reason']) ? $_REQUEST['reason'] : '';
+        $params['reason'] = !empty($_REQUEST['reason']) ? urldecode($_REQUEST['reason']) : '';
         if(empty($params['product_id']) || empty($params['type'])){
             $this->out('100005','参数不能为空');
         }
@@ -170,7 +170,7 @@ class VideoController extends CenterController
         if($origine_rs['code'] == 0){
             foreach ($origine_rs['data'] as $k=>$v){
 
-              OssServer::copyObject('realive',$v['datas'],'real-copy',$v['datas']);
+              OssServer::copyObject('realadobe',$v['datas'],'real-copy',$v['datas']);
             }
         }
         //$re=OssServer::doesBucketExist('real-copy');

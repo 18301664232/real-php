@@ -7,7 +7,11 @@
             <div class="pay-type-sec">
                 <div class="pay-type-head clearfix">
                     <!-- 这里有跳转页面 -->
-                    <p class="pay-type-head-text">支付方式</p><a class="pay-type-head-return" href="<?php echo U('finance/pay/select') ?>">返回选择页面</a></div>
+                    <p class="pay-type-head-text">支付方式</p>
+                    <?php if(empty($page_pay)):?>
+                    <a class="pay-type-head-return" href="<?php echo U('finance/pay/select') ?>">返回选择页面</a>
+                    <?php endif;?>
+                </div>
                 <div class="pay-type-body clearfix">
                     <button class="pay-type-wx pay-type-selected">微信支付<div class="pay-type-selected-sign"></div></button>
                     <button class="pay-type-zfb">支付宝支付<div class="pay-type-selected-sign"></div></button>
@@ -106,7 +110,9 @@
                                 <th>期限</th>
                                 <th>数量</th>
                                 <th>小计</th>
+                                <?php if(empty($page_pay)):?>
                                 <th>操作</th>
+                                <?php endif;?>
                             </tr>
                         </thead>
                         <tbody>
@@ -117,11 +123,24 @@
                                         <td class="pay-table-unit">￥<?php echo $v['money'] ?></td>
                                         <td><?php echo date('Y-m-d', time()) ?>/<?php echo date('Y-m-d', time() + 3600 * 24 * $v['timespan']) ?></td>
                                         <td>
-                                            <div class="pay-table-num clearfix"><button class="pay-table-num-decrease">-</button>
-                                                <p class="pay-table-num-show"><?php echo isset($v['count']) ? $v['count'] : 1 ?></p><button class="pay-table-num-increase">+</button></div>
+                                            <div class="pay-table-num clearfix">
+
+                                                <?php if(empty($page_pay)):?>
+                                                <button class="pay-table-num-decrease">-</button>
+                                                <p class="pay-table-num-show"><?php echo isset($v['count']) ? $v['count'] : 1 ?></p>
+                                                <button class="pay-table-num-increase">+</button>
+                                                <?php else :?>
+                                                    <button class="invisible"> </button>
+                                                    <p class="pay-table-num-show"><?php echo isset($v['count']) ? $v['count'] : 1 ?></p>
+                                                    <button  class="invisible"> </button>
+                                                <?php endif;?>
+
+                                            </div>
                                         </td>
                                         <td class="pay-table-sub">￥00.00</td>
+                                        <?php if(empty($page_pay)):?>
                                         <td><button class="pay-table-delete">删除</button></td>
+                                        <?php endif;?>
                                     </tr>
                                 <?php endforeach; ?>
                             <?php endif; ?>

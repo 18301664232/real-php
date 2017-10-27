@@ -131,6 +131,35 @@ class PreviewController extends CenterController {
             $this->out('100005', 'id不能为空');
         $link = REAL . U('product/index/index', array('id' => $id));
         if (empty($name)) {
+            if(!empty($_REQUEST['ossimg'])){
+                //如果参数中带有ossimg参数说明需要返回OSS上图片的路径
+                $img_name = $id;
+                //查看oss上是否有对应的图片
+                $res = OssServer::doesObjectExist('realive','statics/'.$img_name.'.jpg');
+                if($res){
+                    echo json_encode('http://realive.oss-cn-beijing.aliyuncs.com/statics/'.$img_name.'.jpg');
+                    Yii::app()->end();
+                }else{
+                    //生成图片上传到oss
+                    $QR = UPLOAD_PATH . '/oss_qrcode/' . $img_name.'.jpg';
+                    $filepath = UPLOAD_PATH . '/oss_qrcode/';
+
+                    if(Tools::createDir($filepath)){
+                        //生成不带图片二维码
+                        Tools::createImg($link, $QR, 'L', 4, 1);
+                        $res = OssServer::uploadFile('realive','statics/'.$img_name.'.jpg',$QR);
+                        if($res){
+                            if (file_exists($QR) == true){
+                                //删除本地文件
+                                @unlink ($QR);
+                            }
+                            echo json_encode('http://realive.oss-cn-beijing.aliyuncs.com/statics/'.$img_name.'.jpg');
+                            Yii::app()->end();
+                        }
+                    }
+
+                }
+            }
             Tools::createImg($link);
         } else {
             header("Pragma: public");

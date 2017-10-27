@@ -51,7 +51,7 @@
 
 .picker-box{
   padding-left: 165px;
-  height: 388px;
+  height: 380px;
 }
 .picker-left{
   width: 170px;
@@ -74,8 +74,10 @@
 .picker-box #picker-right h4{
   color: #0d2556;
   font-size: 14px;
-  padding-bottom: 32px;
+  padding-top:5px;
+  padding-bottom: 20px;
 }
+
 .picker-left img{
   display: block;
   width: 100%;
@@ -95,5 +97,12 @@
   color: #0d2556;
   outline: 0;
   margin-top: 15px;
+}
+
+.color-save-btn{
+  margin-top:10px;
+}
+.color-save-btn button{
+  width:195px;
 }
 

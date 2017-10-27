@@ -79,7 +79,7 @@
                         bottom: '0',
                         width: '100%'
                     });
-                    $('body').css('background', '#ecf1f5');
+                   $('body').css('background', '#ecf1f5');
                 }
             })
         </script>

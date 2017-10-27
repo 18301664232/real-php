@@ -1,0 +1,108 @@
+/**
+ * Farbtastic Color Picker 1.2
+ * © 2008 Steven Wittens
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ */
+.farbtastic {
+  position: relative;
+}
+.farbtastic * {
+  position: absolute;
+  cursor: crosshair;
+}
+.farbtastic, .farbtastic .wheel {
+  width: 195px;
+  height: 195px;
+}
+.farbtastic .color, .farbtastic .overlay {
+  top: 47px;
+  left: 47px;
+  width: 101px;
+  height: 101px;
+}
+.farbtastic .wheel {
+  background: url(../images/wheel.png) no-repeat;
+  width: 195px;
+  height: 195px;
+}
+.farbtastic .overlay {
+  background: url(../images/mask.png) no-repeat;
+}
+.farbtastic .marker {
+  width: 17px;
+  height: 17px;
+  margin: -8px 0 0 -8px;
+  overflow: hidden; 
+  background: url(../images/marker.png) no-repeat;
+}
+
+.picker-box{
+  padding-left: 165px;
+  height: 388px;
+}
+.picker-left{
+  width: 170px;
+  height: 343px;
+  margin-top: 18px;
+  float: left;
+  background: url('../images/iphoneMobile.png') no-repeat;
+}
+.picker-background-color{
+  width: 149px;
+  height: 236px;
+  background: #000;
+  margin-top: 66px;
+  margin-left: 10px;
+}
+.picker-right{
+  float: right;
+  margin-top: 34px;
+}
+.picker-box #picker-right h4{
+  color: #0d2556;
+  font-size: 14px;
+  padding-top:5px;
+  padding-bottom: 20px;
+}
+
+.picker-left img{
+  display: block;
+  width: 100%;
+}
+
+#picker-right input{
+  width: 195px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  -moz-border-radius: 4px;
+  color: #0d2556;
+  outline: 0;
+  margin-top: 15px;
+}
+
+.color-save-btn{
+  margin-top:10px;
+}
+.color-save-btn button{
+  width:195px;
+}
+

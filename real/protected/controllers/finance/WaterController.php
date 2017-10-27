@@ -48,7 +48,7 @@ class WaterController extends CenterController {
      
         $water_all = Tools::formatBytes($water_all[0]['total']);
        $bb= array('nub' => $nub, 'status' => $status, 'data' => $data, 'count' => $count,'water_all'=>$water_all);
-       dump($bb);
+
 
         $this->render('index',$bb);
     }

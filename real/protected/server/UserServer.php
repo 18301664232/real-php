@@ -71,6 +71,7 @@ class UserServer extends BaseServer {
     //查询用户信息
     public static function selUser($params = array()) {
         if ($params['pc_type'] == 1 || $params['pc_type'] == 0) {
+
             //个人
             if (isset($params['_id']))
                 $Persondata['user_id'] = $params['_id'];
@@ -80,13 +81,20 @@ class UserServer extends BaseServer {
                 $Persondata['email'] = $params['email'];
             if (isset($params['password']))
                 $Persondata['pwd'] = $params['password'];
-            $param = self::comParams2($Persondata);
+
             $model = new PersonUser();
             $criteria = new CDbCriteria;
-            $criteria->select = '*';
-            $criteria->condition = $param['con'];
-            $criteria->params = $param['par'];
-            $rs = $model->find($criteria);
+            if(empty($Persondata)){
+                $criteria->select = '*';
+                $rs = $model->findAll($criteria);
+            }else{
+                $param = self::comParams2($Persondata);
+                $criteria->select = '*';
+                $criteria->condition = $param['con'];
+                $criteria->params = $param['par'];
+                $rs = $model->find($criteria);
+            }
+
             if ($rs) {
                 return array('code' => '0', 'msg' => '查询成功', 'data' => $rs, 'type' => 'person');
             }

@@ -30,4 +30,6 @@ class ProductController extends CenterController {
         $this->render('list', array('data' => $list, 'pages' => $pages, 'keyword' => $keyword, 'count' => $count));
     }
 
+
+
 }

@@ -155,6 +155,7 @@
                     },
                     success: function (data) {
                         if (data.code == 0) {
+                            window.location.reload();
                             wtSlideBlock('保存成功');
                         } else {
                             wtSlideBlock('保存失败', true);

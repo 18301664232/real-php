@@ -471,9 +471,19 @@ section {
 
 
 .detail-search-box{
-    height: 550px;
+    height: 441px;
      padding: 18px 16px;
      background: #ebeef0;
+     overflow:hidden
+}
+.detail-search-box .search-list{
+    width:306px;
+    height:360px;
+    overflow-y:scroll;
+}
+.detail-search-box .search-list-box{
+    width:288px;
+    overflow:hidden;
 }
 .final-flow{
     line-height:34px;
@@ -527,6 +537,7 @@ section {
 }
 
 .search-list li {
+    width:288px;
     height: 44px;
     line-height: 44px;
     border-bottom: 1px solid #ccc;

@@ -929,6 +929,7 @@ class OssClient
      */
     public function doesObjectExist($bucket, $object, $options = NULL)
     {
+
         $this->precheckCommon($bucket, $object, $options);
         $options[self::OSS_BUCKET] = $bucket;
         $options[self::OSS_METHOD] = self::OSS_HTTP_HEAD;

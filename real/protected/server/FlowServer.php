@@ -151,6 +151,7 @@ class FlowServer extends BaseServer {
         $criteria->select = '*';
         $criteria->condition = $param['con'];
         $criteria->params = $param['par'];
+        $criteria->order = 'grade DESC';
         $rs = $model->findAll($criteria);
         if ($rs) {
             return array('code' => '0', 'data' => $rs);

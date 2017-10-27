@@ -47,7 +47,7 @@
                                         <td><a class="his-table-ope" href="<?php echo U('finance/pay/pay', array('order' => $v['order_no'])) ?>">再次购买</a></td>
                                     <?php else: ?>
                                         <td class="his-table-state">未支付</td>
-                                        <td><a class="his-table-ope" href="<?php echo U('finance/pay/pay', array('order' => $v['order_no'])) ?>">去支付</a></td>
+                                        <td><a class="his-table-ope" href="<?php echo U('finance/pay/pay', array('order' => $v['order_no'],'pay'=>'first_pay')) ?>">去支付</a></td>
                                 <?php endif; ?>
                                 </tr>
     <?php endforeach; ?>

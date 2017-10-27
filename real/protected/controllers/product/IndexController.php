@@ -23,7 +23,7 @@ class IndexController extends CenterController {
             $starttime = strtotime(date('Ymd', time())) + date('H', time()) * 3600;
             $endtime = time();
             $count = StatisticsServer::getListCount(array('source_id' => $id, 'starttime' => $starttime, 'endtime' => $endtime));
-            if ($count >=900) {
+            if ($count >=20) {
                 $this->renderpartial('testerror');
                 exit;
             }
@@ -54,7 +54,8 @@ class IndexController extends CenterController {
         }
 
         Yii::app()->redis->getClient()->set($token, json_encode($data), 3600 * 24);
-        $url = $data['link'] . '&token=' . $token;
+        $url = $data['link'] . '&token=' . $token. '&id='.$id. '&p_id='. $data['product_id'];
+        //$url = 'http://test.realplus.cc/wteditor/browser_phone.html?'.'token=' . $token. '&id='.$id. '&pid='.$data['product_id']. '&p_link='.$url;
         //生成token用于前端
         echo '<script>';
         echo 'location.href="' . $url . '"';
@@ -70,12 +71,13 @@ class IndexController extends CenterController {
         if (!empty($data)) {
             $data = json_decode($data, true);
             $p_data = ProductServer::getList(array('product_id' => $data['product_id']));
-            $url = $_SERVER['HTTP_REFERER'];
+
+            $url = isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:'';
             $rs_data['share'] = $this->WechatShare($url);
             $rs_data['wechat_title'] = $p_data['data'][0]['wechat_title'] ? $p_data['data'][0]['wechat_title'] : 'wxtitle';
             $rs_data['wechat_content'] = $p_data['data'][0]['wechat_content'] ? $p_data['data'][0]['wechat_content'] : 'wxcontent';
             $rs_data['wechat_img'] = $p_data['data'][0]['wechat_img'] ? REAL . UPLOAD . $p_data['data'][0]['wechat_img'] : 'http://preview.realplus.cc/icon/icon.png';
-            $rs_data['wechat_link'] = REAL . U('product/index/index') . '&id=' . $data['uid'];
+            $rs_data['wechat_link'] = 'http://test.realplus.cc/wteditor/browser_phone.html?'.'token='.$token.'&p_id='.$data['product_id'].'&p_link='.REAL . U('product/index/index') . '&id=' . $data['uid'];
             $rs_data['channel_id'] = $data['uid']; //渠道id用于记录访问pv和uv
             $rs_data['key'] = STD3DesServer::encrypt('real');
             $rs_data['ispay'] = $p_data['data'][0]['pay'];
@@ -131,6 +133,7 @@ class IndexController extends CenterController {
         // 这里参数的顺序要按照 key 值 ASCII 码升序排序
         $string = "jsapi_ticket=$ticket&noncestr=$nonceStr&timestamp=$timestamp&url=$url";
         $signature = sha1($string);
+
         $signPackage = array(
             "appId" => APPID,
             "nonceStr" => $nonceStr,
@@ -142,6 +145,35 @@ class IndexController extends CenterController {
         return $signPackage;
     }
 
+    //如果用户使用了代理获取IP
+    private function getIp()
+    {
+
+        if(!empty($_SERVER["HTTP_CLIENT_IP"]))
+        {
+            $cip = $_SERVER["HTTP_CLIENT_IP"];
+        }
+        else if(!empty($_SERVER["HTTP_X_FORWARDED_FOR"]))
+        {
+            $cip = $_SERVER["HTTP_X_FORWARDED_FOR"];
+        }
+        else if(!empty($_SERVER["REMOTE_ADDR"]))
+        {
+            $cip = $_SERVER["REMOTE_ADDR"];
+        }
+        else
+        {
+            $cip = '';
+        }
+        preg_match("/[\d\.]{7,15}/", $cip, $cips);
+        $cip = isset($cips[0]) ? $cips[0] : 'unknown';
+        unset($cips);
+
+        return $cip;
+    }
+
+
+
     //监测逻辑
     public function CheckCode($data, $p_data) {
         $check_data['user_id'] = $p_data['data'][0]['user_id'];
@@ -152,7 +184,8 @@ class IndexController extends CenterController {
         $rs = ProductServer::selectLink(array('uid' => $data['uid']));
         $check_data['source_name'] = $rs['data'][0]['name'];
         $check_data['p_size'] = $rs['data'][0]['p_size'];
-        $check_data['ip'] = $_SERVER["REMOTE_ADDR"] ? $_SERVER["REMOTE_ADDR"] : '';
+        //$check_data['ip'] = $_SERVER["REMOTE_ADDR"] ? $_SERVER["REMOTE_ADDR"] : '';
+        $check_data['ip'] = self::getIp();
         $check_data['addtime'] = time();
         $p_md5 = md5($check_data['source_id']);
         $cookie = Yii::app()->request->cookies[CHECK_REAL];

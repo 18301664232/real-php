@@ -6,6 +6,7 @@ class ResourcesPreview extends CActiveRecord {
 
     public $id; //主键
     public $product_id; //
+    public $type; //
     public $datas; //
     public $addtime; //
 
@@ -26,7 +27,7 @@ class ResourcesPreview extends CActiveRecord {
 
     public function rules() {
         return array(
-            array('id,product_id,datas,addtime', 'safe'),
+            array('id,product_id,type,datas,addtime', 'safe'),
         );
     }
 

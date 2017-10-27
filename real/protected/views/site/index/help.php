@@ -190,3 +190,18 @@
     }
 
 </script>
+
+<script>
+    $(function () {
+        setTimeout(function(){
+                $('.footer').css({
+                    position: 'absolute',
+                    bottom: '0',
+                    width: '100%'
+                });
+                $('body').css('background', '#fff');
+        },5);
+    })
+</script>
+
+

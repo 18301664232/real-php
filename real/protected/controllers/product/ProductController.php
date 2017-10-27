@@ -259,6 +259,7 @@ class ProductController extends CenterController {
         $data['wechat_title'] = $rs['wechat_title'];
         $data['wechat_content'] = $rs['wechat_content'];
         $data['wechat_img'] = $rs['wechat_img'];
+        $data['color'] = $rs['color'];
         //查询渠道
         $data_link = ProductServer::selectLink(array('product_id' => $product_id));
         if ($data_link['code'] == 0) {
@@ -276,8 +277,24 @@ class ProductController extends CenterController {
         }
         //保存填写的信息
         $params = array();
-        if (!empty($_REQUEST['title']))
+
+        if (!empty($_REQUEST['title'])){
             $params['title'] = $_REQUEST['title'];
+            ////////////////////////////////
+            //每次修改更改项目状态
+            $params['online'] = 'update';
+            $rsJson = ResourcesServer::getjson(array('product_id' => $product_id));
+            if ($rsJson['code'] = 0)
+                $this->out('100044', '读取json失败');
+            $str = $rsJson['data'][0]['str'];
+            $str_obj = json_decode($str);
+            $str_obj->title = $params['title'];
+            $str =json_encode($str_obj);
+            $rsJson = ResourcesServer::updateJson(['id'=>$rsJson['data'][0]['id']],['str'=>$str]);
+            if ($rsJson['code'] != 0)
+                $this->out('100055', '修改title失败');
+            ///////////////////////////////
+        }
         if (!empty($_REQUEST['description']))
             $params['description'] = $_REQUEST['description'];
         if (!empty($_REQUEST['wechat_title']))
@@ -365,7 +382,9 @@ class ProductController extends CenterController {
         $product_id = !empty($_REQUEST['product_id']) ? $_REQUEST['product_id'] : '';
         $online = !empty($_REQUEST['online']) ? $_REQUEST['online'] : 'online';
         $url = !empty($_REQUEST['url']) ? $_REQUEST['url'] : '';
-        $size = !empty($_REQUEST['size']) ? $_REQUEST['size'] : '';
+        $page_size = !empty($_REQUEST['size']) ? $_REQUEST['size'] : 0;
+        $video_size = !empty($_REQUEST['videoSize']) ? $_REQUEST['videoSize'] : 0;
+        $size = $page_size + $video_size;
         $link = !empty($_REQUEST['link']) ? $_REQUEST['link'] : '';
         if (empty($product_id))
             $this->out('100005', '参数不能为空');
@@ -413,8 +432,7 @@ class ProductController extends CenterController {
                 if ($online == 'online')
                     $this->sendSocket($product_id, array('code' => '0', 'data' => ''));
                 $this->out('0', '修改成功');
-            }
-            else {
+            } else {
                 if ($online == 'online'){
                 /////////////////////
                     $this->sendSocket($product_id, array('code' => '100001', 'data' => ''));
@@ -528,10 +546,14 @@ class ProductController extends CenterController {
         if ($rsJson['code'] != 0)
             $this->out('100004', '修改失败');
         $str = $rsJson['data'][0]['str'];
-        $show_color = '#ffffff';
+        //////////////////////////////////
+
         $show_color_rs = ProductServer::getList(['product_id' => $product_id]);
         if($show_color_rs['code'] == 0){
             $show_color = $show_color_rs['data'][0]->color;
+            if(empty($show_color)){
+                $show_color = '#ffffff';
+            }
         }
         //项目更新触发的逻辑
         if($type == 'online'){
@@ -545,7 +567,7 @@ class ProductController extends CenterController {
                 $pro_rs = ProductServer::updateProduct(['product_id'=>$product_id],['status'=>'未审核','online'=>'online','cloud'=>'yes']);
             }
         }
-
+        ////////////////////////////////////////
         //@syl查询项目映射的video_path
 //        $videoJson = ResourcesServer::getResourcesVideo(array('product_id' => $product_id));
 //        if ($videoJson['code'] != 0){
@@ -563,7 +585,17 @@ class ProductController extends CenterController {
         if (empty($product_id) || empty($color)) {   //产品页面
             $this->out('100003', 'pid和颜色为空');
           }
-         $rs = ProductServer::updateProduct(['product_id'=>$product_id],['color'=>$color]);
+        $rsJson = ResourcesServer::getjson(array('product_id' => $product_id));
+        if ($rsJson['code'] != 0)
+            $this->out('100044', '读取json失败');
+        $str = $rsJson['data'][0]['str'];
+        $str_obj = json_decode($str);
+        $str_obj->pageData[0]->ver =uniqid('color');
+        $str =json_encode($str_obj);
+        $rsJson = ResourcesServer::updateJson(['id'=>$rsJson['data'][0]['id']],['str'=>$str]);
+        if ($rsJson['code'] != 0)
+            $this->out('100055', '修改版本号失败');
+         $rs = ProductServer::updateProduct(['product_id'=>$product_id],['color'=>$color,'online'=>'update']);
         if($rs['code'] ==0){
             $this->out('0', '颜色保存成功');
         }

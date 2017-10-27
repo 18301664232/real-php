@@ -43,11 +43,16 @@ class PayController extends CenterController {
         }
         //历史订单支付
         $order = !empty($_REQUEST['order']) ? $_REQUEST['order'] : '';
+        $pay = !empty($_REQUEST['pay']) ? $_REQUEST['pay'] : '';
         if (!empty($order)) {
             $rs = FlowServer::getTypeOrder(array('order_no_id' => $order));
         }
+        if(!empty($pay)){
+            $this->render('pay', array('data' => $rs,'page_pay'=>'first_pay'));
+        }else{
+            $this->render('pay', array('data' => $rs));
+        }
 
-        $this->render('pay', array('data' => $rs));
     }
 
     //结束中间页
@@ -66,8 +71,17 @@ class PayController extends CenterController {
         $status = !empty($_REQUEST['status']) ? $_REQUEST['status'] : '';
         if (empty($data) || empty($status))
             $this->out('100005', '数据不能为空');
+        //@syl判断当前页面的前一个页面order_id是否是未支付订单
         $data = json_decode($data, true);
-        $params['order_no'] = $this->creatId(11);
+        if(count(explode('&',$_SERVER['HTTP_REFERER'])) == 3){
+
+            $params['order_no'] = explode('order=',explode('&',$_SERVER['HTTP_REFERER'])[1])[1];
+            $type = 'order_repeat';
+        }else{
+            //重新生成订单号
+            $params['order_no'] = $this->creatId(11);
+            $type = 'order_new';
+        }
         $params['user_id'] = Yii::app()->session['user']['user_id'];
         $params['detail'] = '';
         $params['status'] = 'no';
@@ -93,9 +107,12 @@ class PayController extends CenterController {
                         $params_select['name'] = $rs['data'][0]['name'];
                         $params_select['count'] = $arr[1];
                         $params_select['addtime'] = time();
-                        $add_rs = FlowServer::addTypeOrder($params_select);
-                        if ($add_rs['code'] != 0) {
-                            throw new CException('添加中间表失败', 100001);
+                        //@syl如果新订单添加中间表
+                        if($type == 'order_new'){
+                            $add_rs = FlowServer::addTypeOrder($params_select);
+                            if ($add_rs['code'] != 0) {
+                                throw new CException('添加中间表失败', 100001);
+                            }
                         }
                         $params['detail'] .=$rs['data'][0]['name'] . '/';
                         $params['money'] += $rs['data'][0]['money'] * $params_select['count'];
@@ -103,9 +120,12 @@ class PayController extends CenterController {
                 }
             }
             //插入订单表
-            $add_rs = FlowServer::addOrder($params);
-            if ($add_rs['code'] != 0) {
-                throw new CException('添加订单表失败', 100002);
+            //@syl根据订单type判断是否添加
+            if($type == 'order_new'){
+                $add_rs = FlowServer::addOrder($params);
+                if ($add_rs['code'] != 0) {
+                    throw new CException('添加订单表失败', 100002);
+                }
             }
 
             //判断是微信还是支付宝

@@ -56,6 +56,9 @@ function saveTip(content) {
     var saveStr = '<div class="modal fade" role="dialog" id="save_tip">' + '<div class="modal-dialog" role="document">' + '<div class="modal-content">' + '<div class="modal-header">' + '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>' + '</div>' + '<div class="modal-body">' + '<p class="text-center save-success-word">' + content + '</p>' + '</div>' + '</div>' + '</div>' + '</div>';
     if ($('#save_tip').length <= 0) {
         $('body').append(saveStr);
+    }else{
+        $('#save_tip').remove();
+        $('body').append(saveStr);
     }
     $('#save_tip').modal();
 

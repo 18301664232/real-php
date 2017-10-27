@@ -83,7 +83,7 @@ class UserMailServer extends BaseServer
     }
 ///////////////////////////////M//////////////////////////////表方法分离线
     //获取邮件数据表数据
-    public static function getMail($mailid,$type,$like)
+    public static function getMail($mailid,$type,$status,$like)
     {
 
        //    $param = self::comParams2($params);
@@ -98,6 +98,9 @@ class UserMailServer extends BaseServer
 //          $criteria->params = $param['par'];
             if(!empty($type)){
                 $criteria->addCondition("type=$type");
+            }
+            if(!empty($status)){
+                $criteria->addCondition("status=$status");
             }
             if(!empty($like)){
                 $criteria->addSearchCondition('title',$like);
@@ -137,6 +140,7 @@ class UserMailServer extends BaseServer
         $model = new Mail();
         $model->attributes = $params;
         $rs = $model->save();
+
         if ($rs) {
             return array('code' => '0', 'msg' => '添加成功','lastid'=>Yii::app()->db->getLastInsertID());
         } else {
@@ -145,7 +149,7 @@ class UserMailServer extends BaseServer
     }
 
     //修改邮件数据表表数据
-    public static function updateMail($params, $condition)
+    public static function updateMail($condition,$params)
     {
 
         $param = self::comParams($condition);
@@ -160,14 +164,14 @@ class UserMailServer extends BaseServer
     //给用户发送邮件
     public static function SendMail($user_list,$lastid){
 
-        $user_mail_model = new UserMail();
         $flag=true;
-        foreach ($user_list as $k=>$v){
+        foreach ($user_list['data'] as $k=>$v){
+            $user_mail_model = new UserMail();
             $attr['user_id'] = $v->user_id;
             $attr['mail_id'] = $lastid;
             $user_mail_model->attributes = $attr;
             $rs = $user_mail_model->save();
-            if(!rs){
+            if(!$rs){
                 $flag=false;
                 break;
             }

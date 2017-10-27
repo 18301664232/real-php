@@ -157,6 +157,10 @@ echo $username; ?></span></div>
             var p_id = $(this).parent().parent().parent().find('.wtProItemHoverTitle').html();
             p_id = p_id.substr(-10);
 
+//            //通过pid找到更新后的title
+//            var p_title = $('#'+p_id).children('.wtProItemTiTle').find('p').text();
+//            console.log(p_title);
+
             socket = io.connect('http://123.56.177.30:3080');
             socket.emit('join', {
                 key: p_id

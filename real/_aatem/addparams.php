@@ -1,0 +1,1 @@
+$params['name'] = !empty($_REQUEST['name']) ? $_REQUEST['name'] : '';

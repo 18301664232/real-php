@@ -132,9 +132,13 @@
                                 <form action="" style="width: 400px;">
                                     <div id="picker"></div>
                                     <div class="form-item">
-                                        <input type="text" id="color" name="color" value="#123456" />
+                                        <input type="text" id="color" name="color" value="" />
                                     </div>
                                 </form>
+                                <div class="color-save-btn" style="margin-top:10px">
+                                    <button class="btn btn-success btn-sm color-save">保存</button>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -174,7 +178,7 @@
 
         backgroundColro();
 
-        $('.colorbtn').click(function() {
+        $('.color-save').click(function() {
 
             var color =   $('#color').val();
             var product_sid = product_self_id;
@@ -187,7 +191,10 @@
                 },
                 dataType: "json",
                 success: function (data) {
-                   console.log(data);
+                    if(data.code == 0){
+                        window.location.reload();
+                    }
+
                 }
             })
         });
@@ -223,6 +230,24 @@
                         $('.Lwtl_list_5 .Lwtl_fd').find('h1').html(data.result.wechat_title);
                         $('#textarea3').val(data.result.wechat_content);
                         $('.Lwtl_list_5 .Lwtl_fd').find('p').html(data.result.wechat_content);
+
+                        (function(color){
+                            var f = $.farbtastic('#picker');
+                            f.linkTo(colorChange(color));
+                            //改变input框的色值同时改变控件颜色。
+                            $('#color').change(function(){
+                                f.setColor(color);
+                            });
+                            /**
+                             * [colorChange 通过控件色值改变手机背景颜色]
+                             * @param  {[type]} color [控件的色值]
+                             * @return {[type]}       [description]
+                             */
+                            function colorChange(color){
+                                $('#color').val(color);
+                                $('.picker-background-color').css('background', color)
+                            }
+                        })(data.result.color);
                         $('#L_imgShow_WU_FILE_0').attr('src', '<?php echo STATICS . '/images/46x46.png' ?>');
                         $('#Licon2').attr('src', '<?php echo STATICS . '/images/36x36.png' ?>');
                         $('#Licon3').attr('src', '<?php echo STATICS . '/images/58x58.png' ?>');
@@ -541,8 +566,12 @@
                 },
                 dataType: "json",
                 success: function (data) {
-                    wtSlideBlock('保存成功');
-                    $('#' + product_id + ' .wtProItemTiTle p').html(title);
+                    if(data.code == 0){
+                        //如果修改项目设置成功立即改变项目状态
+                        wtSlideBlock('保存成功');
+                        window.location.reload();
+                        $('#' + product_id + ' .wtProItemTiTle p').html(title);
+                    }
                 }
             });
 

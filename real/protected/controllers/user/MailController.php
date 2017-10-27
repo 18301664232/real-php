@@ -16,8 +16,8 @@ class MailController extends CenterController
 
     public function init() {
         parent::init();
-        if (!$this->checkLogin())
-            $this->showMessage('未登录', U('user/login/login'));
+//        if (!$this->checkLogin())
+//            $this->showMessage('未登录', U('user/login/login'));
     }
 
     //显示页面

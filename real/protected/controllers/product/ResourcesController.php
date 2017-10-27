@@ -112,6 +112,16 @@ class ResourcesController extends CenterController {
 
                 foreach ($params['param'] as $k => $v) {
                     $data['product_id'] = $params['product_id'];
+                    if(strpos($v,'_$config$_config.json')){
+                        $data['type'] = 'double';
+                    }else if(strpos($v,'_$config$_layer.json')){
+                        $data['type'] = 'layer';
+                    }else if(strpos($v,'_$config$.json')){
+                        $data['type'] = 'alone';
+                    }else{
+                        $data['type'] = 'ordinary';
+                    }
+
                     $data['datas'] = $v;
                     $data['addtime'] = time();
                     $rs = ResourcesServer::select(array('datas' => $v), $this->page, $this->pagesize);
@@ -180,18 +190,22 @@ class ResourcesController extends CenterController {
         $data['time'] = time();
         $str = json_encode($data);
         //写入redis
-        Yii::app()->redis->getClient()->set($key, $str, 3600 * 24);
-        //跳转
-        $url = WTEDITOR;
-        echo "<script>window.location.href='$url?token=$key'</script>";
+        $rs = Yii::app()->redis->getClient()->set($key, $str, 3600 * 24);
+        if($rs){
+            //跳转
+            $url = WTEDITOR;
+            echo "<script>window.location.href='$url?token=$key'</script>";
+
+        }
+
     }
 
 
     //获取用户素材
     public function actionGetresources() {
-        $token = !empty($_REQUEST['token']) ? $_REQUEST['token'] : '';
+        $token = !empty($_REQUEST['token']) ?trim($_REQUEST['token']) : '';
         $page = !empty($_REQUEST['page']) ? $_REQUEST['page'] : $this->page;
-        $type = !empty($_REQUEST['type']) ? $_REQUEST['type'] : '';
+        $type = !empty($_REQUEST['type']) ? trim($_REQUEST['type']) : '';
         if (empty($token))
             $this->out('100005', '参数不能为空');
         //根据token换取信息
@@ -199,16 +213,19 @@ class ResourcesController extends CenterController {
         if (!empty($data)) {
             $data = json_decode($data, true);
             if ($type == 'config'){
-                $key = '_$config$_config.json';
+                $key = 'double';
             }else if ($type == 'layer'){
-                $key = '$config$_layer.json';
-
+                $key = 'layer';
             }else{
-
-                $key = '_$config$.json';
+                $key = 'alone';
             }
-            $rs = ResourcesServer::selectjson(array('product_id' => $data['product_id'], 'key' => $key), $page, $this->pagesize);
-            $this->out('0', '获取成功', $rs['data']);
+            $rs = ResourcesServer::selectjson(array('product_id' => $data['product_id'], 'type' => $key), $page, $this->pagesize);
+            if($rs['code'] == '0'){
+                $this->out('0', '获取成功', $rs['data']);
+            }else{
+                $this->out('100004', '获取失败',$rs);
+            }
+
         } else {
             $this->out('100003', 'token失效');
         }

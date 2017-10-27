@@ -114,6 +114,7 @@ class StatisticsServer extends BaseServer {
             $rs_data[$v['uid']]['name'] = $v['name'];
             $rs_data[$v['uid']][$v['status']] = $v['total'];
         }
+
         //获取IP
         $sql = "select *,count(*)as total from (SELECT *,COUNT(`ip`)as`total` FROM `r_statistics` WHERE `product_id`='$params[product_id]'";
         if (!empty($params['starttime'])) {
@@ -124,6 +125,7 @@ class StatisticsServer extends BaseServer {
         }
         $sql .=" group by `source_id`,`ip`) t3 group by `source_id` ";
         $ip_data = Statistics::model()->dbConnection->createCommand($sql)->queryAll();
+
         //计算全部渠道（并初始化）
         $rs[0] = array('name' => '全部渠道', 'pv' => 0, 'uv' => 0, 'nv' => 0, 'ip' => 0);
         if (empty($rs_data))
@@ -136,7 +138,6 @@ class StatisticsServer extends BaseServer {
             }
         }
 
-
         foreach ($rs_data as $k => $v) {
             if (!isset($v['pv']))
                 $rs_data[$k]['pv'] = 0;
@@ -147,6 +148,7 @@ class StatisticsServer extends BaseServer {
             if (!isset($v['ip']))
                 $rs_data[$k]['ip'] = 0;
         }
+
         foreach ($rs_data as $k => $v) {
             //每个渠道
             $rs[$k]['pv'] = $v['pv'] + $v['uv'] + $v['nv'];
@@ -155,6 +157,7 @@ class StatisticsServer extends BaseServer {
             $rs[$k]['nv'] = $v['nv'];
             $rs[$k]['ip'] = $v['ip'];
         }
+
         foreach ($rs as $k => $v) {
             //全部渠道
             $rs[0]['uv'] = $rs[0]['uv'] + $v['uv'];

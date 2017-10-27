@@ -62,23 +62,37 @@ class WechatServer extends BaseServer {
 
     //获取access_token
     public static function getAccessToken() {
+        $getAccessToken =  Yii::app()->redis->getClient()->get('real_getAccessToken');
+        if($getAccessToken){
+            return $getAccessToken;
+        }
         $res = WxInterface::getAccessToken();
         if (!isset($res['access_token'])) {
             echo 'error5';
             exit;
-        } else
+        } else{
+            Yii::app()->redis->getClient()->set('real_getAccessToken',$res['access_token'],7200);
             return $res['access_token'];
+        }
+
     }
 
     //获取js_ticket
     public static function getJsTicket() {
+        $getJsTicket =  Yii::app()->redis->getClient()->get('real_getJsTicket');
+        if($getJsTicket){
+            return $getJsTicket;
+        }
         $token = self::getAccessToken();
         $res = WxInterface::getJsTicket($token);
         if (!isset($res['ticket'])) {
             echo 'error6';
             exit;
-        } else
+        } else{
+            Yii::app()->redis->getClient()->set('real_getJsTicket',$res['ticket'],7200);
             return $res['ticket'];
+        }
+
     }
 
 }

@@ -400,4 +400,87 @@ class ProductServer extends BaseServer {
         return $count;
     }
 
+    //查询项目总的PV，UV,流量
+    public static function GetFlowStatistics(){
+        //当前天开始的时间戳
+        $today_start_time = strtotime(date(time(),'Y-m-d'));
+        //uv,pv,总流量
+        $sql ="SELECT `id`,`status`,COUNT(`status`) as `lookin`,SUM(`p_size`) as `total_flow` FROM `r_statistics` WHERE `source_name` != '测试地址' AND `addtime` > $today_start_time GROUP BY `status`";
+        $rs = Yii::app()->db->createCommand($sql)->queryAll();
+        $params['uv'] = 0;
+        $params['total_flow'] = 0;
+        if(empty($rs)){
+            $params['nv'] = 0;
+            $params['pv'] = 0;
+        }else{
+            foreach ( $rs as $k=>$v){
+                $params['total_flow'] =  $params['total_flow']+$v['total_flow'];
+                if($v['status'] == 'nv' || $v['status'] == 'uv'){
+                    $params['uv'] =  $params['uv']+$v['lookin'];
+                }
+                if($v['status'] =='nv'){
+                    $params['nv'] = $v['lookin'];
+                }
+                if($v['status'] =='pv'){
+                    $params['pv'] = $v['lookin'];
+                }
+            }
+        }
+
+        //注册用户数量
+        $sql = "SELECT `id`,COUNT(*) AS `register` FROM `r_person_user` WHERE `addtime` >=$today_start_time";
+        $rs = Yii::app()->db->createCommand($sql)->queryRow();
+        if(empty($rs)){
+            $params['register'] =0;
+        }else{
+            $params['register'] =$rs['register'];
+        }
+
+        //发布并有访问的用户数量
+        $sql = "SELECT s.id FROM `r_product_verify` `v` JOIN `r_statistics` `s` ON v.product_id=s.product_id WHERE v.addtime >= $today_start_time AND s.source_name != '测试地址' GROUP BY s.user_id";
+        $rs = Yii::app()->db->createCommand($sql)->queryAll();
+        $params['issuance_user'] = 0;
+        if(!empty($rs)){
+            foreach ($rs as $k=>$v){
+                $params['issuance_user']++;
+            }
+        }
+
+        //免费/付费发布项目数量
+        $sql = "SELECT p.id,p.pay FROM `r_product_verify` `v` JOIN `r_statistics` `s` ON v.product_id=s.product_id JOIN `r_product` `p` ON s.product_id=p.product_id WHERE v.addtime >= $today_start_time AND s.source_name != '测试地址' GROUP BY s.product_id";
+        $rs = Yii::app()->db->createCommand($sql)->queryAll();
+        $params['free_product'] =0;
+        $params['pay_product'] =0;
+        $params['issuance_product'] =0;
+        if(!empty($rs)){
+            foreach ($rs as $k=>$v){
+                    $params['issuance_product']++;
+                if($v['pay'] =='yes'){
+                    $params['pay_product']++;
+                }
+                if($v['pay'] =='no'){
+                    $params['free_product']++;
+                }
+            }
+        }
+        //订单数量和总额
+        $sql = "SELECT COUNT(*) AS `total_order`,SUM(money) AS `total_money` FROM `r_order_info` WHERE addtime >= $today_start_time AND status = 'yes'";
+        $rs = Yii::app()->db->createCommand($sql)->queryRow();
+        if(empty($rs)){
+            $params['total_order'] =0;
+            $params['total_money'] =0;
+        }else{
+            $params['total_order'] =$rs['total_order'];
+            $params['total_money'] =$rs['total_money'];
+        }
+
+
+        dump($params);
+
+
+    }
+
+
+
+
 }
