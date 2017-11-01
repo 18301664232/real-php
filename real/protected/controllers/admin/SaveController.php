@@ -16,17 +16,21 @@ class SaveController extends CenterController
         $Num = 1;
         while ($Num<=24) {
             $Num ++;
-            if (Yii::app()->redis->getClient()->get('save_time_sql')) {
-                $start_time = Yii::app()->redis->getClient()->get('save_time_sql');
-                Yii::app()->redis->getClient()->set('save_time_sql', $start_time - 3600, 3600 * 24);
+            if (Yii::app()->redis->getClient()->get('bbbbb')) {
+                $start_time = Yii::app()->redis->getClient()->get('bbbbb');
+                if($start_time < 1498000000){
+                    break;
+                }
+                Yii::app()->redis->getClient()->set('bbbbb', $start_time - 3600, 3600 * 24);
             } else {
-                Yii::app()->redis->getClient()->set('save_time_sql', strtotime(date('Y-m-d H:0:0', time() - 3600)), 3600 * 24);
+                Yii::app()->redis->getClient()->set('bbbbb', strtotime(date('Y-m-d H:0:0', time() - 3600)), 3600*24);
                 $start_time = strtotime(date('Y-m-d H:0:0', time() - 3600));
             }
 
             $today_start_time = $start_time;
             $search_end_time = $start_time + 3600;
             $params['addtime'] = time();
+            $params['search_addtime'] = $start_time;
             //删除视图
             $view_sql = "DROP VIEW IF EXISTS `r_statistics_view`";
             $view_rs = Yii::app()->db->createCommand($view_sql)->execute();
@@ -50,13 +54,13 @@ class SaveController extends CenterController
                         $params['uv'] = $params['uv'] + $v['lookin'];
                     }
                     if ($v['status'] == 'nv') {
-                        $params['nv'] = $params['nv'] + $v['lookin'];
+                        $params['nv'] = $params['nv']+$v['lookin'];
                     }
-                    if ($v['status'] == 'pv') {
-                        $params['pv'] = $params['pv'] + $v['lookin'];
-                    }
+                        $params['pv'] = $params['pv']+$v['lookin'];
+
                 }
             }
+
 
 
             //注册用户数量
@@ -70,7 +74,7 @@ class SaveController extends CenterController
             }
 
             //发布并有访问的用户数量
-            $sql = "SELECT s.id FROM `r_product_verify` `v` JOIN `$view_name` `s` ON v.product_id=s.product_id WHERE s.source_name != '测试地址' GROUP BY s.user_id";
+            $sql = "SELECT s.id FROM `r_product_verify` `v` JOIN `$view_name` `s` ON v.product_id=s.product_id WHERE s.source_name != '测试地址'  AND v.addtime >= $today_start_time AND v.addtime < $search_end_time  GROUP BY s.user_id";
             $rs = Yii::app()->db->createCommand($sql)->queryAll();
             $params['issuance_user'] = 0;
             if ($rs) {
@@ -81,7 +85,7 @@ class SaveController extends CenterController
 
 
             //免费/付费发布项目数量
-            $sql = "SELECT p.id,p.pay FROM `r_product_verify` `v` JOIN `$view_name` `s` ON v.product_id=s.product_id JOIN `r_product` `p` ON s.product_id=p.product_id WHERE s.source_name != '测试地址' GROUP BY s.product_id";
+            $sql = "SELECT p.id,p.pay FROM `r_product_verify` `v` JOIN `$view_name` `s` ON v.product_id=s.product_id JOIN `r_product` `p` ON s.product_id=p.product_id WHERE s.source_name != '测试地址'  AND v.addtime >= $today_start_time AND v.addtime < $search_end_time  GROUP BY s.product_id";
             $rs = Yii::app()->db->createCommand($sql)->queryAll();
             $params['free_product'] = 0;
             $params['pay_product'] = 0;
@@ -109,8 +113,6 @@ class SaveController extends CenterController
                 $params['total_order'] = $rs['total_order'];
                 $params['total_money'] = $rs['total_money'];
             }
-
-            $params['search_addtime'] = $start_time;
 
 
             //存储到表中

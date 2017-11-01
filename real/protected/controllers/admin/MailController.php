@@ -143,6 +143,7 @@ class MailController extends CenterController
             $this->out('0', '删除成功');
         else
             $this->out('100001', '删除失败');
+
     }
 
 }

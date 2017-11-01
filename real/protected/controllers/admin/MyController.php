@@ -896,7 +896,7 @@ class MyController extends BaseController
         dump(  Yii::app()->params);
 
         dump(CommonInterface::sendMail('1975439864@qq.com','dsds','nihao'));
-        
+
 
 
     }

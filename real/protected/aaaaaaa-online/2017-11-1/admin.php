@@ -20,9 +20,6 @@
         <script src="<?php echo STATICSADMIN ?>js/common.js"></script>
         <script src='<?php echo STATICSADMIN ?>js/header-nav.js'></script>
         <script src='<?php echo STATICSADMIN ?>js/toggle_column.js'></script>
-        <script src='<?php echo STATICSADMIN ?>javascript/product_common_url.js'></script>
-        <script src='<?php echo STATICSADMIN ?>javascript/DateFormat.js'></script>
-
 
     </head>
     <body>
@@ -52,7 +49,7 @@
             <div class="left-main left-full">
                 <div class="subNavBox">
                     <div class="sBox">
-                        <div class="subNav sublist-down active"><span class="title-icon glyphicon"></span><span class="sublist-title "><a href="<?php echo U('admin/index/index') ?>">网站分析</a></span>
+                        <div class="subNav sublist-down"><span class="title-icon glyphicon"></span><span class="sublist-title"><a href="<?php echo U('admin/manage/index') ?>">后台主页</a></span>
                         </div>
                     </div>
                 </div>
@@ -109,17 +106,10 @@
                 </div>
                 <div class="subNavBox">
                     <div class="sBox">
-                        <div class="subNav sublist-down"><span class="title-icon glyphicon"></span><span class="sublist-title"><a href="<?php echo U('admin/mail/list') ?>">消息管理</a></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="subNavBox">
-                    <div class="sBox">
                         <div class="subNav sublist-down"><span class="title-icon glyphicon"></span><span class="sublist-title"><a href="<?php echo U('admin/help/list') ?>">帮助中心管理</a></span>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
         <div class="right-product my-index right-full">

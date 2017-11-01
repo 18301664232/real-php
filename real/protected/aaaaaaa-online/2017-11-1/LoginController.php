@@ -6,7 +6,7 @@ class LoginController extends CenterController {
     //用户登录
     public function actionLogin() {
         if ($this->checkLogin('admin'))
-            $this->showMessage('你已经登录', U('admin/index/index'));
+            $this->showMessage('你已经登录', U('product/product/index'));
 
         $isajax = Yii::app()->request->isAjaxRequest;
         if (!empty($_POST) && $isajax) {

@@ -16,6 +16,7 @@ class StatisticsController extends CenterController
             $today_start_time = $start_time;
             $search_end_time = $start_time+ 3600;
             $params['addtime'] = time();
+            $params['search_addtime'] = $start_time;
             //删除视图
             $view_sql = "DROP VIEW IF EXISTS `r_statistics_view`";
             $view_rs = Yii::app()->db->createCommand($view_sql)->execute();
@@ -26,7 +27,7 @@ class StatisticsController extends CenterController
             $view_name = 'r_statistics_view';
 
             //uv,pv,总流量
-            $sql = "SELECT `id`,`status`,COUNT(`status`) as `lookin`,SUM(`p_size`) as `total_flow` FROM `$view_name` WHERE `source_name` != '测试地址' GROUP BY `status`";
+            $sql = "SELECT `id`,`status`,COUNT(`status`) as `lookin`,SUM(`p_size`) as `total_flow` FROM `$view_name`  GROUP BY `status`";
             $rs = Yii::app()->db->createCommand($sql)->queryAll();
             $params['uv'] = 0;
             $params['total_flow'] = 0;
@@ -41,9 +42,9 @@ class StatisticsController extends CenterController
                     if ($v['status'] == 'nv') {
                         $params['nv'] = $params['nv']+$v['lookin'];
                     }
-                    if ($v['status'] == 'pv') {
+
                         $params['pv'] = $params['pv']+$v['lookin'];
-                    }
+
                 }
             }
 
@@ -59,7 +60,7 @@ class StatisticsController extends CenterController
             }
 
             //发布并有访问的用户数量
-            $sql = "SELECT s.id FROM `r_product_verify` `v` JOIN `$view_name` `s` ON v.product_id=s.product_id WHERE s.source_name != '测试地址' GROUP BY s.user_id";
+            $sql = "SELECT s.id FROM `r_product_verify` `v` JOIN `$view_name` `s` ON v.product_id=s.product_id WHERE s.source_name != '测试地址'  AND v.addtime >= $today_start_time AND v.addtime < $search_end_time  GROUP BY s.user_id";
             $rs = Yii::app()->db->createCommand($sql)->queryAll();
             $params['issuance_user'] = 0;
             if ($rs) {
@@ -70,7 +71,7 @@ class StatisticsController extends CenterController
 
 
             //免费/付费发布项目数量
-            $sql = "SELECT p.id,p.pay FROM `r_product_verify` `v` JOIN `$view_name` `s` ON v.product_id=s.product_id JOIN `r_product` `p` ON s.product_id=p.product_id WHERE s.source_name != '测试地址' GROUP BY s.product_id";
+            $sql = "SELECT p.id,p.pay FROM `r_product_verify` `v` JOIN `$view_name` `s` ON v.product_id=s.product_id JOIN `r_product` `p` ON s.product_id=p.product_id WHERE s.source_name != '测试地址' AND v.addtime >= $today_start_time AND v.addtime < $search_end_time GROUP BY s.product_id";
             $rs = Yii::app()->db->createCommand($sql)->queryAll();
             $params['free_product'] = 0;
             $params['pay_product'] = 0;
@@ -99,7 +100,7 @@ class StatisticsController extends CenterController
                 $params['total_money'] = $rs['total_money'];
             }
 
-            $params['search_addtime'] = $start_time;
+
 
 
             //存储到表中

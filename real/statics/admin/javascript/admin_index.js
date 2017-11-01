@@ -259,23 +259,23 @@ function echartFlow(time ,search_type, start, end) {
                     var arrX = data.result.data.group_time;
                     var arrY = data.result.data.pv;
                     var arrY2 = data.result.data.uv;
-                    var arrY3 = data.result.data.total_flow/1024/1024/1024;
+                    var arrY3 = data.result.data.total_flow;
                     var Xstr_arr = ['PV走势','UV走势','消耗走势'];
                     var Xstr = ['PV走势','UV走势','消耗走势'];
                     $('.pv-uv-total-box p').eq(1).text(data.result.count.pv);
                     $('.pv-uv-total-box p').eq(0).text('总PV');
                     $('.pv-uv-total-box p').eq(3).text(data.result.count.uv);
                     $('.pv-uv-total-box p').eq(2).text('总UV');
-                    $('.pv-uv-total-box p').eq(5).text(data.result.count.total_flow/1024/1024/1024);
-                    $('.pv-uv-total-box p').eq(4).text('总消耗');
+                    $('.pv-uv-total-box p').eq(5).text(data.result.count.total_flow.toFixed(2));
+                    $('.pv-uv-total-box p').eq(4).text('流量消耗(G)');
 
                 }else if(search_type =='user'){
                     var arrX = data.result.data.group_time;
                     var arrY = data.result.data.register;
                     var arrY2 = data.result.data.issuance_user;
-                    var arrY3 = data.result.data.total_money;
-                    var Xstr_arr = ['注册用户','发布用户','消费金额'];
-                    var Xstr = ['注册用户','发布用户','消费金额'];
+                    var arrY3 = arrConvers(data.result.data.total_order);
+                    var Xstr_arr = ['注册用户','发布用户','订单数量'];
+                    var Xstr = ['注册用户','发布用户','订单数量'];
                     $('.pv-uv-total-box p').eq(1).text(data.result.count.register);
                     $('.pv-uv-total-box p').eq(0).text('总注册用户');
                     $('.pv-uv-total-box p').eq(3).text(data.result.count.issuance_user);
@@ -312,7 +312,7 @@ function echartFlow(time ,search_type, start, end) {
 }
 
 function arrConvers(arr) {
-    return arr.map(function(value) {
+    return $.map(arr,function(value) {
         if (value == 0) {
             value = 0;
         }

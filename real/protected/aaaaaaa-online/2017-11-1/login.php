@@ -47,7 +47,7 @@
             success: function (data) {
 
                 if (data.code == 0) {
-                    window.location.href = '<?php echo U('admin/index/index') ?>'
+                    window.location.href = '<?php echo U('admin/manage/index') ?>'
                 } else {
                     alert(data.msg);
                 }

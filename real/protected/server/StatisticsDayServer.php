@@ -70,4 +70,47 @@ class StatisticsDayServer extends BaseServer
 
     }
 
+ //后台获取时间维度统计数据
+    public static  function GetAdminList($time_type,$start_time,$end_time){
+
+
+        if($time_type == 'now'|| $time_type =='prev'){
+
+            $rs = Yii::app()->db->createCommand()
+                ->select('total_order,total_money,uv,pv,register,issuance_user,ROUND(total_flow/1024/1024/1024,2) AS total_flow, free_product, pay_product, issuance_product,FROM_UNIXTIME(search_addtime,"%H:%i:%s") AS group_time')
+                ->from('r_statistics_day')
+                ->where("search_addtime >= $start_time and search_addtime < $end_time")
+                ->order('search_addtime')
+                ->queryAll();
+
+        }else if($time_type == 'prev_seven'|| $time_type =='prev_thirty'){
+
+            $rs = Yii::app()->db->createCommand()
+                ->select('SUM(total_order) AS total_order, SUM(total_money) AS total_money, SUM(uv) AS uv,SUM(pv) AS pv,SUM(register) AS register,SUM(issuance_user) AS issuance_user,ROUND(SUM(total_flow)/1024/1024/1024,2) AS total_flow,SUM(free_product) AS free_product,SUM(pay_product) AS pay_product,SUM(issuance_product) AS issuance_product,FROM_UNIXTIME(search_addtime,"%Y-%m-%d") AS group_time')
+                ->from('r_statistics_day')
+                ->where("search_addtime >= $start_time and search_addtime < $end_time")
+                ->group('group_time')
+                ->order('search_addtime')
+                ->queryAll();
+
+        }else if($time_type == 'myself'){
+
+            $rs = Yii::app()->db->createCommand()
+                ->select('SUM(total_order) AS total_order, SUM(total_money) AS total_money, SUM(uv) AS uv,SUM(pv) AS pv,SUM(register) AS register,SUM(issuance_user) AS issuance_user,ROUND(SUM(total_flow)/1024/1024/1024,2) AS total_flow,SUM(free_product) AS free_product,SUM(pay_product) AS pay_product,SUM(issuance_product) AS issuance_product,FROM_UNIXTIME(search_addtime,"%Y-%m-%d") AS group_time')
+                ->from('r_statistics_day')
+                ->where("search_addtime >= $start_time and search_addtime <= $end_time")
+                ->group('group_time')
+                ->order('search_addtime')
+                ->queryAll();
+
+        }
+
+        if ($rs) {
+            return array('code' => '0', 'data' => $rs);
+        } else {
+            return array('code' => '100444', 'data' => []);
+        }
+
+    }
+
 }

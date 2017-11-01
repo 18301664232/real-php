@@ -28,20 +28,20 @@ class IndexController extends CenterController
         $time_type = !empty($_REQUEST['time_type']) ? $_REQUEST['time_type']:'now';
         if($time_type == 'now'){
             $today_start_time = strtotime(date('Y-m-d',time()));
-            $rs = StatisticsDayServer::GetAdminList($time_type,$today_start_time,time());
+            $sql = "SELECT `total_order`,`total_money`, `uv`,`pv`, `register`,`issuance_user`,ROUND(total_flow/1024/1024/1024,2) AS `total_flow`, `free_product`, `pay_product`, `issuance_product`,FROM_UNIXTIME(search_addtime,'%H:%i:%s') AS `group_time`FROM `r_statistics_day` WHERE search_addtime >= $today_start_time ORDER BY search_addtime";
         }
         if($time_type == 'prev'){
             $today_start_time = strtotime(date('Y-m-d',time()));
             $prev_start_time = strtotime(date('Y-m-d',time())) - (3600*24);
-            $rs = StatisticsDayServer::GetAdminList($time_type,$prev_start_time,$today_start_time);
+            $sql = "SELECT  `total_order`,`total_money`, `uv`,`pv`, `register`,`issuance_user`,ROUND(total_flow/1024/1024/1024,2) AS `total_flow`, `free_product`, `pay_product`, `issuance_product`,FROM_UNIXTIME(search_addtime,'%H:%i:%s') AS `group_time` FROM `r_statistics_day` WHERE search_addtime >= $prev_start_time AND search_addtime < $today_start_time ORDER BY search_addtime";
         }
         if($time_type == 'prev_seven'){
             $prev_seven_start_time = strtotime(date('Y-m-d',time())) - (3600*24*6);
-            $rs = StatisticsDayServer::GetAdminList('prev_seven',$prev_seven_start_time,time());
+            $sql = "SELECT SUM(total_order) AS `total_order`, SUM(total_money) AS `total_money`, SUM(uv) AS `uv`,SUM(pv) AS `pv`,SUM(register) AS `register`,SUM(issuance_user) AS `issuance_user`,ROUND(SUM(total_flow)/1024/1024/1024,2) AS `total_flow`,SUM(free_product) AS `free_product`,SUM(pay_product) AS `pay_product`,SUM(issuance_product) AS `issuance_product`,FROM_UNIXTIME(search_addtime,'%Y-%m-%d') AS `group_time` FROM `r_statistics_day` WHERE search_addtime >= $prev_seven_start_time GROUP BY group_time ORDER BY search_addtime";
         }
         if($time_type == 'prev_thirty'){
             $prev_seven_start_time = strtotime(date('Y-m-d',time())) - (3600*24*29);
-            $rs = StatisticsDayServer::GetAdminList($time_type,$prev_seven_start_time,time());
+            $sql = "SELECT  SUM(total_order) AS `total_order`,  SUM(total_money) AS `total_money`, SUM(uv) AS `uv`,SUM(pv) AS `pv`,SUM(register) AS `register`,SUM(issuance_user) AS `issuance_user`,ROUND(SUM(total_flow)/1024/1024/1024,2)AS `total_flow`,SUM(free_product) AS `free_product`,SUM(pay_product) AS `pay_product`,SUM(issuance_product) AS `issuance_product`,FROM_UNIXTIME(search_addtime,'%Y-%m-%d') AS `group_time` FROM `r_statistics_day` WHERE search_addtime >= $prev_seven_start_time GROUP BY group_time ORDER BY search_addtime";
         }
 
         if($time_type == 'myself'){
@@ -53,20 +53,23 @@ class IndexController extends CenterController
             $start_time = strtotime($start_time);
             $end_time = strtotime($end_time);
             if(($end_time - $start_time) > 3600*24){
-                $rs = StatisticsDayServer::GetAdminList($time_type,$start_time,$end_time);
+                $sql = "SELECT  SUM(total_order) AS `total_order`, SUM(total_money) AS `total_money`, SUM(uv) AS `uv`,SUM(pv) AS `pv`,SUM(register) AS `register`,SUM(issuance_user) AS `issuance_user`,ROUND(SUM(total_flow)/1024/1024/1024,2) AS `total_flow`,SUM(free_product) AS `free_product`,SUM(pay_product) AS `pay_product`,SUM(issuance_product) AS `issuance_product`,FROM_UNIXTIME(search_addtime,'%Y-%m-%d') AS `group_time` FROM `r_statistics_day` WHERE search_addtime >= $start_time AND search_addtime <= $end_time GROUP BY group_time ORDER BY search_addtime";
 
             }else if ($end_time == $start_time){
                 $end_time = ($end_time+3600*24);
-                $rs = StatisticsDayServer::GetAdminList('now',$start_time,$end_time);
+
+                $sql = "SELECT  `total_order`,`total_money`, `uv`,`pv`, `register`,`issuance_user`,ROUND(total_flow/1024/1024/1024,2) AS `total_flow`, `free_product`, `pay_product`, `issuance_product`,FROM_UNIXTIME(search_addtime,'%H:%i:%s') AS `group_time` FROM `r_statistics_day` WHERE search_addtime >= $start_time AND search_addtime < $end_time ORDER BY search_addtime";
+
+
             }else{
                 $end_time = ($end_time+3600*24);
-                $rs = StatisticsDayServer::GetAdminList('now',$start_time,$end_time);
+                $sql = "SELECT  `total_order`,`total_money`, `uv`,`pv`, `register`,`issuance_user`,ROUND(total_flow/1024/1024/1024,2) AS `total_flow`, `free_product`, `pay_product`, `issuance_product`,FROM_UNIXTIME(search_addtime,'%H:%i:%s') AS `group_time` FROM `r_statistics_day` WHERE search_addtime >= $start_time AND search_addtime < $end_time ORDER BY search_addtime";
+
             }
 
         }
-
-        if($rs['code'] == 0){
-//  后续自定义逻辑--------------------------------------------------------------------
+        $rs = Yii::app()->db->createCommand($sql)->queryAll();
+        if($rs){
 //            if($time_type == 'myself'&&count($rs)>24 && count($rs)<=48){
 //            $self_data = [];
 //                foreach ($rs as $k=>$v){
@@ -85,7 +88,6 @@ class IndexController extends CenterController
 
             $arr = [];
             $count_arr = [];
-            $rs = $rs['data'];
             foreach ($rs as $k=>$v){
                 $arr = array_merge_recursive($arr,$rs[$k]);
             }
@@ -98,6 +100,7 @@ class IndexController extends CenterController
                 }
 
             }else{
+
                $data= $arr;
                foreach ($arr as $k=>$v){
                    $data[$k] = [$v];

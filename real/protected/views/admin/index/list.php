@@ -51,7 +51,7 @@
                                             <p class="uv">787878</p>
                                         </div>
                                         <div>
-                                            <p>总消耗（T）</p>
+                                            <p>流量消耗（T）</p>
                                             <p class="all-total">12777</p>
                                         </div>
                                     </div>
