@@ -2,18 +2,18 @@
 /**
  * Created by PhpStorm.
  * User: syl
- * Date: 2017-10-25 10:35:25
+ * Date: 2017-11-06 11:17:17
  */
-class StatisticsDayServer extends BaseServer
+class AccessStatusServer extends BaseServer
 {
 
 
-    //获取小时统计表数据
-    public static function getStatisticsDay($params = array())
+    //获取用户访问状态表数据
+    public static function getAccessStatus($params = array())
     {
 
         $param = self::comParams2($params);
-        $model = new StatisticsDay();
+        $model = new AccessStatus();
         $criteria = new CDbCriteria;
         $criteria->select = '*';
         $criteria->condition = $param['con'];
@@ -29,13 +29,13 @@ class StatisticsDayServer extends BaseServer
 
     }
 
-    //删除小时统计表表数据
-    public static function delStatisticsDay($params)
+    //删除用户访问状态表表数据
+    public static function delAccessStatus($params)
     {
         $param = self::comParams($params);
         $criteria = new CDbCriteria;
         $criteria->condition = $param;
-        $rs = StatisticsDay::model()->deleteAll($criteria);
+        $rs = AccessStatus::model()->deleteAll($criteria);
         if ($rs) {
             return array('code' => '0', 'msg' => '删除成功');
         } else {
@@ -43,10 +43,10 @@ class StatisticsDayServer extends BaseServer
         }
     }
 
-    //增加小时统计表表数据
-    public static function addStatisticsDay($params)
+    //增加用户访问状态表表数据
+    public static function addAccessStatus($params)
     {
-        $model = new StatisticsDay();
+        $model = new AccessStatus();
         $model->attributes = $params;
         $rs = $model->save();
         if ($rs) {
@@ -56,12 +56,12 @@ class StatisticsDayServer extends BaseServer
         }
     }
 
-//修改小时统计表表数据
-    public static function updateStatisticsDay($condition,$params)
+//修改用户访问状态表表数据
+    public static function updateAccessStatus($condition,$params)
     {
 
         $param = self::comParams($condition);
-        $rs = StatisticsDay::model()->updateAll($params, $param);
+        $rs = AccessStatus::model()->updateAll($params, $param);
         if ($rs) {
             return array('code' => '0', 'msg' => '修改成功');
         } else {

@@ -23,8 +23,7 @@
             <div class='guide-step-box guide-step2-box'></div>
             <div class='guide-step-box-border guide-step2-box-border'></div>
             <div class="guide-step guide-step2">
-                <p class="guide-step2-text1">可将自有项目发布至项目广场</p>
-                <p class="guide-step2-text2">也可收藏他人发布的优秀项目。</p>
+                <p class="guide-step2-text1">个人设计的H5作品将在此栏目内展示。</p>
                 <div class="guide-step2-btn-gro clearfix">
                     <button class="guide-step2-btn-down">下一步</button>
                     <button class="guide-step2-btn-up">上一步</button>
@@ -57,17 +56,49 @@
 <script>
     $(function () {
 
+        var guide = <?php echo empty(Yii::app()->session['user']['last_time']) ? 1 : Yii::app()->session['user']['last_time'] ?>;
+        var user_id = "<?php echo empty(Yii::app()->session['user']['user_id']) ? 1 : Yii::app()->session['user']['user_id'] ?>";
+        if (guide !== 1 && user_id !==1) {
+//            var t = getCookie('real_init');
+//            if (t == '') {
+//                guideCenter.init();
+//                setCookie('real_init', 'ok', 7);
+//            }
 
-        var guide = <?php echo empty(Yii::app()->session['user']['last_time']) ? 1 : 2 ?>;
-        if (guide == 1) {
-            var t = getCookie('real_init');
-            if (t == '') {
-                guideCenter.init();
-                setCookie('real_init', 'ok', 7);
+            $.ajax({
+                type: "GET",
+                url: "<?php echo U('product/resources/GetLeadStatus') ?>",
+                dataType: "json",
+                data:{
+                    user_id : user_id,
+                },
+                success: function (data) {
+                    if(data.code == 0 ){
+                        if(data.result.data[0].is_looked_work == "1"){
+                            guideCenter.init();
+                            sendAjax(user_id);
+                        }
+
+                    }
+                }
+            });
+            function  sendAjax(user_id) {
+                $.ajax({
+                    type: "GET",
+                    url: "<?php echo U('product/resources/EditLeadStatus') ?>",
+                    data:{
+                        user_id : user_id,
+                        lead_type:'is_looked_work'
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if(data.code == 0 ){
+
+                        }
+                    }
+                })
             }
         }
-
-
     })
 
 </script>

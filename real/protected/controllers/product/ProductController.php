@@ -261,30 +261,40 @@ class ProductController extends CenterController {
         $data['wechat_img'] = $rs['wechat_img'];
         $data['color'] = $rs['color'];
         //查询渠道
+        //定义是否已经上线开关
+        $is_need_update = false;
+        $product_data = ProductServer::getList(array('product_id' => $product_id));
+        if ($product_data['code'] == 0) {
+            if($product_data['data'][0]['online'] == 'online'){
+                $is_need_update = true;
+            }
+        }
         $data_link = ProductServer::selectLink(array('product_id' => $product_id));
         if ($data_link['code'] == 0) {
             foreach ($data_link['data'] as $k => $v) {
                 if ($v['status'] != 'notonline') {
                     if ($v['status'] == 'online') {
+                        $data['is_add_link'] = true;
                         $data['link'][0]['name'] = $v['name'];
-                        $data['link'][0]['url'] = REAL . U('product/index/index') . '&id=' . $v['uid'];
+                        $data['link'][0]['url'] = REAL . U('product/index/index'). '&url_type=pc' . '&id=' . $v['uid'];
                     } else {
                         $data['link'][$k + 1]['name'] = $v['name'];
-                        $data['link'][$k + 1]['url'] = REAL . U('product/index/index') . '&id=' . $v['uid'];
+                        $data['link'][$k + 1]['url'] = REAL . U('product/index/index') . '&url_type=pc'. '&id=' . $v['uid'];
                     }
                 }
             }
         }
         //保存填写的信息
         $params = array();
-
         if (!empty($_REQUEST['title'])){
             $params['title'] = $_REQUEST['title'];
             ////////////////////////////////
             //每次修改更改项目状态
-            $params['online'] = 'update';
+            if($is_need_update){
+                $params['online'] = 'update';
+            }
             $rsJson = ResourcesServer::getjson(array('product_id' => $product_id));
-            if ($rsJson['code'] = 0)
+            if ($rsJson['code'] != 0)
                 $this->out('100044', '读取json失败');
             $str = $rsJson['data'][0]['str'];
             $str_obj = json_decode($str);
@@ -336,12 +346,14 @@ class ProductController extends CenterController {
             $rs_link = ProductServer::selectLink(array('product_id' => $product_id, 'status' => 'online'));
             if ($rs_link['code'] == 0) {
                 $params['p_size'] = $rs_link['data'][0]['p_size'];
+                $base_path = explode('/',$rs_link['data'][0]['url'])[5];
             } else {
                 $params['p_size'] = 0;
+                $this->out('100001', '保存失败');
             }
             $params['uid'] = $this->creatId();
             $params['product_id'] = $product_id;
-            $params['url'] = 'http://live.realplus.cc/' . $rs['path'] . '/index.html?' . $this->creatId();
+            $params['url'] = 'http://live.realplus.cc/' . $rs['path'] .'/'.$base_path. '/index.html?' . $this->creatId();
             $params['name'] = $name;
 
             $params['status'] = 'other';
@@ -430,6 +442,8 @@ class ProductController extends CenterController {
             if ($r['code'] == 0) {
                 unset(Yii::app()->session[$this->user_product_code]);
                 if ($online == 'online')
+
+
                     $this->sendSocket($product_id, array('code' => '0', 'data' => ''));
                 $this->out('0', '修改成功');
             } else {
@@ -463,14 +477,19 @@ class ProductController extends CenterController {
                     //修改线上渠道文件大小
                     $update_rs = ProductServer::updateLink(array('product_id' => $product_id, 'status' => 'online'), array('p_size' => $size, 'url' => $url, 'addtime' => time()));
                     if ($update_rs['code'] != 0) {
-                        throw new CException('添加失败', 100001);
+                        throw new CException('添加失败', 100006);
                     }
                     //修改其他渠道文件大小
                     $sel_data = ProductServer::selectLink(array('product_id' => $product_id, 'status' => 'other'));
                     if ($sel_data['code'] == 0) {
-                        $update_rs = ProductServer::updateLink(array('product_id' => $product_id, 'status' => 'other'), array('p_size' => $size));
+                        $new_url = $url;
+                        $new_arr = explode('?',$new_url);
+                        foreach ($sel_data['data'] as $k=>$v){
+                            $new_url = $new_arr[0].'?'.$this->creatId();
+                            $update_rs = ProductServer::updateLink(array('uid' => $v['uid'], 'status' => 'other'), array('p_size' => $size,'url'=>$new_url));
+                        }
                         if ($update_rs['code'] != 0) {
-                            throw new CException('添加失败', 100001);
+                            throw new CException('添加失败', 100004);
                         }
                     }
 
@@ -494,14 +513,14 @@ class ProductController extends CenterController {
                     $params['addtime'] = time();
                     $add_rs = ProductServer::addLink($params);
                     if ($add_rs['code'] != 0) {
-                        throw new CException('添加失败', 100001);
+                        throw new CException('添加失败', 100007);
                     }
                     //修改其他渠道文件大小
                     $sel_data = ProductServer::selectLink(array('product_id' => $product_id, 'status' => 'other'));
                     if ($sel_data['code'] == 0) {
                         $update_rs = ProductServer::updateLink(array('product_id' => $product_id, 'status' => 'other'), array('p_size' => $size));
                         if ($update_rs['code'] != 0) {
-                            throw new CException('添加失败', 100001);
+                            throw new CException('添加失败', 100008);
                         }
                     }
                     $transaction->commit();
@@ -595,7 +614,16 @@ class ProductController extends CenterController {
         $rsJson = ResourcesServer::updateJson(['id'=>$rsJson['data'][0]['id']],['str'=>$str]);
         if ($rsJson['code'] != 0)
             $this->out('100055', '修改版本号失败');
-         $rs = ProductServer::updateProduct(['product_id'=>$product_id],['color'=>$color,'online'=>'update']);
+        //查看当前项目是否已经上线
+         $rs = ProductServer::getList(['product_id'=>$product_id]);
+        if($rs['code'] !=0){
+            $this->out('100066', '读取项目信息失败');
+        }
+        if($rs['data'][0]['online'] == 'online'){
+            $rs = ProductServer::updateProduct(['product_id'=>$product_id],['color'=>$color,'online'=>'update']);
+        }else{
+            $rs = ProductServer::updateProduct(['product_id'=>$product_id],['color'=>$color]);
+        }
         if($rs['code'] ==0){
             $this->out('0', '颜色保存成功');
         }

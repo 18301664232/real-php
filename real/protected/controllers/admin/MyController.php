@@ -903,11 +903,148 @@ class MyController extends BaseController
 
     public function actionLianxi(){
 
-
         $die_count = ProductServer::getProductVerify(['product_id'=> 'HBqV8d9bzV'],true);
         dump($die_count);
 
+    }
 
+    public function actionYonghu(){
+//        $arr1=['tel'=>'1'];
+//        $arr2=['>'];
+//        $param_str = self::comParamsSelf2($arr1,$arr2);
+//        var_dump($param_str);
+        $start_time =0;
+        $end_time= 88888888888888;
+        $type ='pay';
+        $user_status = 1;
+
+        //删除视图
+        $view_sql = "DROP VIEW IF EXISTS `r_user_view`";
+        $view_rs = Yii::app()->db->createCommand($view_sql)->execute();
+
+        //建立访问表person_user表视图
+        if($type == 'register'){
+            $view_sql = "CREATE VIEW `r_user_view` AS SELECT * FROM `r_person_user` WHERE `addtime` >=$start_time AND `addtime`< $end_time";
+            if(!empty($user_status)){
+                $view_sql.=" AND `status`=$user_status";
+            }
+
+        }else if ($type == 'login'){
+            $view_sql = "CREATE VIEW `r_user_view` AS SELECT * FROM `r_person_user` WHERE `last_time` >=$start_time AND `last_time`< $end_time";
+            if(!empty($user_status)){
+                $view_sql.=" AND `status`=$user_status";
+            }
+        }else if ($type == 'issuance'){
+            $view_sql = "CREATE VIEW `r_user_view` AS SELECT u.* FROM `r_product_verify` `v` LEFT JOIN `r_product` `p` ON  v.`product_id` = p.`product_id` LEFT JOIN `r_person_user` `u` ON u.`user_id`=p.`user_id`  WHERE `last_time` >=$start_time AND `last_time`< $end_time  GROUP BY p.`user_id`";
+            if(!empty($user_status)){
+                $view_sql = "CREATE VIEW `r_user_view` AS SELECT u.* FROM `r_product_verify` `v` LEFT JOIN `r_product` `p` ON  v.`product_id` = p.`product_id` LEFT JOIN `r_person_user` `u` ON u.`user_id`=p.`user_id`  WHERE `last_time` >=$start_time AND `last_time`< $end_time AND `u`.`status`=$user_status GROUP BY p.`user_id`";
+            }
+        }else if ($type == 'pay'){
+            $view_sql = "CREATE VIEW `r_user_view` AS SELECT u.* FROM `r_order_info` `o`  LEFT JOIN `r_person_user` `u` ON u.`user_id`=o.`user_id`  WHERE `last_time` >=$start_time AND `last_time`< $end_time AND o.`status`='yes' GROUP BY u.`user_id`";
+            if(!empty($user_status)){
+                $view_sql = "CREATE VIEW `r_user_view` AS SELECT u.* FROM `r_order_info` `o` LEFT JOIN `r_person_user` `u` ON u.`user_id`=o.`user_id`  WHERE `last_time` >=$start_time AND `last_time`< $end_time AND o.`status`='yes' AND `u`.`status`=$user_status GROUP BY u.`user_id`";
+
+            }
+        }
+        $view_rs = Yii::app()->db->createCommand($view_sql)->execute();
+
+        $user_order= Yii::app()->db->createCommand()
+             ->select('u.id,u.user_id,u.tel,u.email,u.addtime,u.last_time,u.status,IFNULL(sum(o.money),0) as total_money,IFNULL(o.status,"no") as status_o')
+            ->from('r_user_view u')
+            ->leftjoin('r_order_info o','o.user_id=u.user_id')
+            //->where('o.`status`="yes"')
+            ->group('u.user_id,o.status')
+            ->order('u.addtime DESC')
+            ->queryAll();
+
+        foreach ($user_order as $k=>$v){
+            foreach ($user_order as $key=>$vel){
+                if($v['status_o'] =='yes'){
+                    if($vel['user_id'] == $v['user_id'] && $vel['status_o'] != 'yes'){
+                        unset($user_order[$key]);
+                    }
+                }
+            }
+        }
+
+        //$user_product_param_str = self::comParamsSelf2(['online'=>'online'],['=']);
+        $user_product = Yii::app()->db->createCommand()
+            ->select('u.id,u.user_id,online,IFNULL(COUNT(product_id),0) as total_product')
+            ->from('r_user_view u')
+            ->leftjoin('r_product p','u.user_id=p.user_id')
+            //->where($user_product_param_str['con'], $user_product_param_str['par'])
+            ->group('u.user_id,online')
+            ->order('u.addtime DESC')
+            ->queryAll();
+
+        foreach ($user_product as $k=>$v){
+            foreach ($user_product as $key=>$vel){
+                if($v['online'] =='online'){
+                    if($vel['user_id'] == $v['user_id'] && $vel['online'] != 'online'){
+                        unset($user_product[$key]);
+                    }
+                }
+            }
+        }
+        foreach ($user_product as $k=>$v){
+                if($v['online'] != 'online'){
+                    $user_product[$k]['online'] = 'notonline';
+                    $user_product[$k]['total_product'] = 0;
+                }
+        }
+        foreach ($user_order as $k=>$v){
+            foreach ($user_product as $key=>$vel){
+                if($v['user_id'] == $vel['user_id']){
+                    $user_order[$k]['total_product'] =$vel['total_product'];
+                }
+            }
+        }
+
+        dump($user_order);
+
+    }
+
+    public static function comParamsSelfArr($params,$symbol) {
+        $con = '';
+        $par = [];
+        $symbol_index = 0;
+        foreach ($params as $k => $v) {
+            $con.=$k . "$symbol[$symbol_index]:" . $k . " and ";
+            $par[":" . $k] = $v;
+            $symbol_index++;
+        }
+        $con = substr($con, 0, -5);
+
+        return ['con' => $con, 'par' => $par];
+    }
+
+    public static function comParamsSelfStr($params ,$symbol){
+        if(is_array($params) && is_array($symbol)){
+            $symbol_index = 0;
+            $str = '';
+            foreach ($params as $key=>$value){
+                if(!empty($symbol[$symbol_index+1])){
+                    $str .= $key.$symbol[$symbol_index].$value.' and ';
+                }else{
+                    $str .= $key.$symbol[$symbol_index].$value;
+                }
+                $symbol_index++;
+            }
+            return $str;
+        }
+    }
+
+    //组合字段2
+    public static function comParams6($params = []) {
+        $con = '';
+        $par = [];
+        foreach ($params as $k => $v) {
+            $con.=$k . "=:" . $k . " and ";
+            $par[":" . $k] = $v;
+        }
+        $con = substr($con, 0, -5);
+
+        return ['con' => $con, 'par' => $par];
     }
 
 }

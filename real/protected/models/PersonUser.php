@@ -22,6 +22,10 @@ class PersonUser extends CActiveRecord {
     public $last_ip; //最后一次登录的IP
     public $addtime; //添加时间
     public $status; //状态
+    public $is_looked_edit; //是否看过编辑页引导层
+    public $is_looked_work; //是否看过工作台引导层
+    public $reason; //封杀原因
+
 
     //Model静态方法为必须有的方法
 
@@ -40,7 +44,7 @@ class PersonUser extends CActiveRecord {
 
     public function rules() {
         return array(
-            array('id,user_id,pwd,type,company_id,tel,email,nickname,sex,headimg,province,city,birthdate,signature,last_time,last_ip,addtime,status', 'safe'),
+            array('id,user_id,pwd,type,company_id,tel,email,nickname,sex,headimg,province,city,birthdate,signature,last_time,last_ip,addtime,status,is_looked_edit,is_looked_work,reason', 'safe'),
         );
     }
 

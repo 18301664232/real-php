@@ -17,6 +17,7 @@ define('REAL', 'http://test.realplus.cc');
 define('NODE', 'http://59.110.28.109:5080');  
 define('STATICS', $siteUrl.'statics/user/');		//前台网站静态文件路径 css js images
 define('STATICSADMIN', $siteUrl.'statics/admin/');		//后台网站静态文件路径 css js images
+define('STATICSCOMMON', $siteUrl.'statics/common/');		//公共网站静态文件路径 css js images
 //define('STATICS', $siteUrl.'/statics/user/');		//前台网站静态文件路径 css js images
 //define('STATICSADMIN', $siteUrl.'/statics/admin/');		//后台网站静态文件路径 css js images
 define('WTEDITOR', 'http://test.realplus.cc/wteditor/wteditor.html');  

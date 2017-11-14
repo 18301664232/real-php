@@ -52,13 +52,14 @@ section>div{
 	border-radius:4px;
 }
 .btn-area{
-	padding-top:20px;
+	padding-top:10px;
+	margin-top: 20px
 }
 .btn-query{
 	margin-right:10px;
 }
 .table-box{
-	padding-top:30px;
+	padding-top:20px;
 }
 /*日期插件*/
 .datePicker{

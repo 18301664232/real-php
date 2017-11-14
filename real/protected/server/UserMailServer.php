@@ -183,6 +183,28 @@ class UserMailServer extends BaseServer
 
     }
 
+    //给用户发送邮箱
+    public static function SendInternetEmail($address,$body){
+
+        $mail = new EMailer(); //建立邮件发送类
+        $mail->IsSMTP(); // 使用SMTP方式发送
+        $mail->Host = "smtp.exmail.qq.com"; // 您的企业邮局域名
+        $mail->Port = 465;
+        $mail->SMTPSecure = 'ssl';
+        $mail->CharSet = "UTF-8"; //字符集
+        $mail->Encoding = "base64"; //编码方式
+        $mail->SMTPAuth = true; // 启用SMTP验证功能
+        $mail->Username = "realh5@moneplus.cn"; // 邮局用户名(请填写完整的email地址)
+        $mail->Password = "QWqw123"; // 邮局密码
+        $mail->From = 'realh5@moneplus.cn'; //邮件发送者email地址
+        $mail->FromName = "RealApp";
+        $mail->Subject = "邮箱验证码"; //邮件标题
+        $mail->Body = $body; //邮件内容
+        $mail->AddAddress($address, "RealApp"); //添加收件人（地址，昵称）
+        $mail->Send();
+
+    }
+
 
 
 }

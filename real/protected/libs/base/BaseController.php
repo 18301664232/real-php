@@ -87,6 +87,8 @@ class BaseController extends CController {
     public function userInsession($data, $type = 'user') {
         $data = json_decode(json_encode($data), true);
         if ($type == 'user') {
+            $lifeTime = 24 * 3600;
+            ini_set('session.gc_maxlifetime', '864000');
             Yii::app()->session[$type] = array(
                 'user_id' => isset($data['user_id']) ? $data['user_id'] : '',
                 'tel' => isset($data['tel']) ? $data['tel'] : '',

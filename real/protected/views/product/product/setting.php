@@ -199,7 +199,7 @@
             })
         });
 
-
+var product_flag = true;
 
 //项目设置
         var product_self_id = '';
@@ -230,6 +230,8 @@
                         $('.Lwtl_list_5 .Lwtl_fd').find('h1').html(data.result.wechat_title);
                         $('#textarea3').val(data.result.wechat_content);
                         $('.Lwtl_list_5 .Lwtl_fd').find('p').html(data.result.wechat_content);
+
+
 
                         (function(color){
                             var f = $.farbtastic('#picker');
@@ -294,6 +296,14 @@
                         $('#max_textlengnum3').html('0/26');
                         $('#max_textlengnum3').html(data.result.wechat_title.length + '/26');
 
+                        if(!(data.result.is_add_link)){
+                            $('#L_save_qudao').addClass('disabled');
+                            product_flag = false;
+
+                        }else {
+                            product_flag = true;
+                        }
+
                     } else {
                         wtSlideBlock('设置打开失败', true);
                     }
@@ -318,6 +328,11 @@
 
 //点击追加
         $('#L_save_qudao').click(function () {
+            if(!product_flag){
+
+                return false;
+            }
+
             //如果只有默认的渠道，则可以继续添加
             if ($('.Lwtl_tab2_list_li').children().length <= 1) {
                 addChannel();
@@ -425,7 +440,7 @@
                         t.hide()
                         t.next().show();
                         //添加链接
-                        var content = '<?php echo REAL . U('product/index/index') ?>' + '&id=' + data.result.uid;
+                        var content = '<?php echo REAL . U('product/index/index') ?>'+'&url_type=pc'+'&id=' + data.result.uid;
 
                         t.parent().parent().find('.Lwtl_w417 em').html(content);
                         addClick();

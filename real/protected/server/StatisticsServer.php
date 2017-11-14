@@ -114,7 +114,6 @@ class StatisticsServer extends BaseServer {
             $rs_data[$v['uid']]['name'] = $v['name'];
             $rs_data[$v['uid']][$v['status']] = $v['total'];
         }
-
         //获取IP
         $sql = "select *,count(*)as total from (SELECT *,COUNT(`ip`)as`total` FROM `r_statistics` WHERE `product_id`='$params[product_id]'";
         if (!empty($params['starttime'])) {

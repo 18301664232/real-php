@@ -134,6 +134,8 @@ class StatisticsController extends CenterController {
             'list' => $list_data
         );
 
+
+
         //查看是否有单选多选图片
         $rs = ResourcesServer::selectjson(array('product_id' => $product_id, 'key' => 'preview_select.jpg'), 1, 999);
         if ($rs['code'] == 0) {
@@ -148,6 +150,7 @@ class StatisticsController extends CenterController {
             }
             $params['img'] = $name_list;
         }
+
         ExcelTool::postExcerpt($params);
     }
 

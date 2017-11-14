@@ -27,4 +27,18 @@ class BaseServer extends CComponent {
         return ['con' => $con, 'par' => $par];
     }
 
+    //@syl组合字段
+    public static function comParamsSelf($params,$symbol) {
+        $con = '';
+        $par = [];
+        $symbol_index = 0;
+        foreach ($params as $k => $v) {
+            $con.=$k . "$symbol[$symbol_index]:" . $k . " and ";
+            $par[":" . $k] = $v;
+            $symbol_index++;
+        }
+        $con = substr($con, 0, -5);
+
+        return ['con' => $con, 'par' => $par];
+    }
 }

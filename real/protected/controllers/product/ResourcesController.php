@@ -388,8 +388,10 @@ class ResourcesController extends CenterController {
     public function actionIndex() {
         // if(!$this->checkLogin())$this->out('100008','登录失效');
         $token = !empty($_REQUEST['token']) ? $_REQUEST['token'] : '';
-        if (empty($token))
+        if(empty($token)){
             $this->out('100005', '参数不能为空');
+        }
+
         //根据token换取信息
         $data = Yii::app()->redis->getClient()->get($token);
         if (!empty($data)) {
@@ -403,9 +405,12 @@ class ResourcesController extends CenterController {
             if ($rs['data']) {
                 $json = $rs['data'][0]['datas'];
             }
+            //获取用户引导状态
+            $user_data = UserServer::GetSelfUser(['user_id'=>$list['data'][0]['user_id']]);
+            $is_looked_edit = $user_data['data'][0]['is_looked_edit'];
             //返回后台系统数据
             $datas = $this->obj($list['data'][0]['product_id'], $json);
-            $this->out('0', '成功', array('pid' => $list['data'][0]['product_id'], 'path' => $list['data'][0]['path'], 'cloud' => $cloud, 'title' => $list['data'][0]['title'], 'data' => $datas));
+            $this->out('0', '成功', array('pid' => $list['data'][0]['product_id'], 'path' => $list['data'][0]['path'], 'cloud' => $cloud, 'title' => $list['data'][0]['title'], 'data' => $datas,'is_looked_edit' =>$is_looked_edit,'user_id'=>$list['data'][0]['user_id']));
         } else
             $this->out('100003', 'token失效');
     }
@@ -565,5 +570,36 @@ class ResourcesController extends CenterController {
         } else
             $this->out('100003', 'token失效');
     }
+
+    //修改引导层状态
+    public function actionEditLeadStatus(){
+        $lead_type = !empty($_REQUEST['lead_type']) ? $_REQUEST['lead_type'] : '';
+        $user_id = !empty($_REQUEST['user_id']) ? $_REQUEST['user_id'] : '';
+        if (empty($user_id) || empty($lead_type)){
+            $this->out('100005', '参数不能为空');
+        }
+        $rs = UserServer::updateUser(['user_id'=>$user_id],[$lead_type=>2]);
+        if($rs['code'] == 0){
+            $this->out('0', '修改成功');
+        }else{
+            $this->out('100444', '修改失败');
+        }
+    }
+    //查看引导层引导层状态
+    public function actionGetLeadStatus(){
+        $user_id = !empty($_REQUEST['user_id']) ? $_REQUEST['user_id'] : '';
+        if (empty($user_id)){
+            $this->out('100005', '参数不能为空');
+        }
+        $rs = UserServer::GetSelfUser(['user_id'=>$user_id]);
+        if($rs['code'] == 0){
+            $this->out('0', '查寻成功',['data'=>$rs['data']]);
+        }else{
+            $this->out('100444', '查询失败');
+        }
+
+
+    }
+
 
 }

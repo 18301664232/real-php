@@ -65,6 +65,8 @@ class RegisterController extends CenterController {
             $data['pwd'] = Tools::setpwd($params['password']);
             $data['type'] = $params['type'];
             $data['addtime'] = time();
+            $data['is_looked_edit'] = 1;
+            $data['is_looked_work'] = 1;
             //注册
             $rs = UserServer::addUser($data);
             if ($rs['code'] == 0) {
@@ -74,7 +76,8 @@ class RegisterController extends CenterController {
                     $this->userInsession($rs_user['data']);
                     //送迎新流量包
                     if ($params['type'] == 1)
-                        FlowServer::addFlow(array('user_id' => $_id, 'type_id' => 1, 'status' => 'use', 'use_water' => 0, 'addtime' => time()));
+
+                    lowServer::addFlow(array('user_id' => $_id, 'type_id' => 1, 'status' => 'use', 'use_water' => 0, 'addtime' => time()));
                 }
                 //销毁验证码
                 Yii::app()->session[$this->user_register_code] = '';

@@ -54,10 +54,11 @@ class UserServer extends BaseServer {
         return array('code' => '100003', 'msg' => '用户不存在');
     }
     //@syl2017年9月7日
+    //单独查询个人用户信息
     public static function getUserPhone($user_arr){
             $model = new  PersonUser();
             $criteria = new CDbCriteria;
-            $criteria->select = 'user_id,tel';
+            $criteria->select = 'user_id,tel,email';
             $criteria->addInCondition('user_id',$user_arr);
             $rs = $model->findAll($criteria);
            if($rs){
@@ -67,6 +68,37 @@ class UserServer extends BaseServer {
            }
 
         }
+
+    //单独查询个人用户信息
+    public static function GetSelfUser($params = array()){
+        //个人
+        if (isset($params['user_id']))
+            $Persondata['user_id'] = $params['user_id'];
+        if (isset($params['tel']))
+            $Persondata['tel'] = $params['tel'];
+        if (isset($params['email']))
+            $Persondata['email'] = $params['email'];
+        if (isset($params['password']))
+            $Persondata['pwd'] = $params['password'];
+
+        $model = new PersonUser();
+        $criteria = new CDbCriteria;
+        if(empty($Persondata)){
+            $criteria->select = '*';
+            $rs = $model->findAll($criteria);
+        }else{
+            $param = self::comParams2($Persondata);
+            $criteria->select = '*';
+            $criteria->condition = $param['con'];
+            $criteria->params = $param['par'];
+            $rs = $model->findAll($criteria);
+        }
+
+        if ($rs) {
+            return array('code' => '0', 'msg' => '查询成功', 'data' => $rs, 'type' => 'person');
+        }
+
+    }
 
     //查询用户信息
     public static function selUser($params = array()) {
@@ -192,6 +224,132 @@ class UserServer extends BaseServer {
         if ($result)
             return array('code' => '0', 'msg' => 'id已存在', 'data' => $result);
         return array('code' => '100001', 'msg' => '用户名不存在');
+    }
+
+    //查询后台用户管理数据
+
+    public static function getAdminManageDate($type,$user_status,$start_time,$end_time,$page_limit,$page_offset,$search_key,$need_excel){
+
+
+        //删除视图
+        $view_sql = "DROP VIEW IF EXISTS `r_user_view`";
+        $view_rs = Yii::app()->db->createCommand($view_sql)->execute();
+
+        //建立访问表person_user表视图
+        if($type == 'total'){
+            $view_sql = "CREATE VIEW `r_user_view` AS SELECT * FROM `r_person_user`";
+            if(!empty($search_key)){
+                $view_sql.=" WHERE `tel` like '%$search_key%' OR `email` like '%$search_key%' ";
+            }
+            if(!empty($user_status)){
+                $view_sql.=" WHERE `status`=$user_status";
+            }
+        }else if($type == 'register'){
+            $view_sql = "CREATE VIEW `r_user_view` AS SELECT * FROM `r_person_user` WHERE `addtime` >=$start_time AND `addtime`< $end_time";
+            if(!empty($user_status)){
+                $view_sql.=" AND `status`=$user_status";
+            }
+
+        }else if ($type == 'login'){
+            $view_sql = "CREATE VIEW `r_user_view` AS SELECT * FROM `r_person_user` WHERE `last_time` >=$start_time AND `last_time`< $end_time";
+            if(!empty($user_status)){
+                $view_sql.=" AND `status`=$user_status";
+            }
+        }else if ($type == 'issuance'){
+            $view_sql = "CREATE VIEW `r_user_view` AS SELECT u.* FROM `r_product_verify` `v` LEFT JOIN `r_product` `p` ON  v.`product_id` = p.`product_id` LEFT JOIN `r_person_user` `u` ON u.`user_id`=p.`user_id`  WHERE `v`.`addtime` >=$start_time AND `v`.`addtime`< $end_time  GROUP BY p.`user_id`";
+            if(!empty($user_status)){
+                $view_sql = "CREATE VIEW `r_user_view` AS SELECT u.* FROM `r_product_verify` `v` LEFT JOIN `r_product` `p` ON  v.`product_id` = p.`product_id` LEFT JOIN `r_person_user` `u` ON u.`user_id`=p.`user_id`  WHERE `v`.`addtime` >=$start_time AND `v`.`addtime`< $end_time AND `u`.`status`=$user_status GROUP BY p.`user_id`";
+            }
+        }else if ($type == 'pay'){
+            $view_sql = "CREATE VIEW `r_user_view` AS SELECT u.* FROM `r_order_info` `o`  LEFT JOIN `r_person_user` `u` ON u.`user_id`=o.`user_id`  WHERE `o`.`addtime`>=$start_time AND `o`.`addtime`< $end_time AND o.`status`='yes' GROUP BY u.`user_id`";
+            if(!empty($user_status)){
+                $view_sql = "CREATE VIEW `r_user_view` AS SELECT u.* FROM `r_order_info` `o` LEFT JOIN `r_person_user` `u` ON u.`user_id`=o.`user_id`  WHERE `o`.`addtime` >=$start_time AND `o`.`addtime`< $end_time AND o.`status`='yes' AND `u`.`status`=$user_status GROUP BY u.`user_id`";
+
+            }
+        }
+        $view_rs = Yii::app()->db->createCommand($view_sql)->execute();
+        //求出一共的数据条数
+        $c_count_sql = "SELECT COUNT(*) AS `c_count` FROM `r_user_view`";
+        $c_count = Yii::app()->db->createCommand($c_count_sql)->queryRow();
+        //查询订单金额
+        $user_order= Yii::app()->db->createCommand()
+            ->select('u.reason,u.id,u.user_id,u.tel,u.email,u.addtime,u.last_time,u.status,IFNULL(sum(o.money),0) as total_money,IFNULL(o.status,"no") as status_o')
+            ->from('r_user_view u')
+            ->leftjoin('r_order_info o','o.user_id=u.user_id')
+            //->where('o.`status`="yes"')
+            ->group('u.user_id,o.status')
+            ->order('u.addtime DESC')
+            ->queryAll();
+        //遍历数组
+        foreach ($user_order as $k=>$v){
+            foreach ($user_order as $key=>$vel){
+                if($v['status_o'] =='yes'){
+                    if($vel['user_id'] == $v['user_id'] && $vel['status_o'] != 'yes'){
+                        unset($user_order[$key]);
+                    }
+                }
+            }
+        }
+        //查询项目数据
+        //$user_product_param_str = self::comParamsSelf2(['online'=>'online'],['=']);
+        $user_product = Yii::app()->db->createCommand()
+            ->select('u.id,u.user_id,online,IFNULL(COUNT(product_id),0) as total_product')
+            ->from('r_user_view u')
+            ->leftjoin('r_product p','u.user_id=p.user_id')
+            //->where($user_product_param_str['con'], $user_product_param_str['par'])
+            ->group('u.user_id,online')
+            ->order('u.addtime DESC')
+            ->queryAll();
+        foreach ($user_product as $k=>$v){
+            foreach ($user_product as $key=>$vel){
+                if($v['online'] =='online'){
+                    if($vel['user_id'] == $v['user_id'] && $vel['online'] != 'online'){
+                        unset($user_product[$key]);
+                    }
+                }
+            }
+        }
+        foreach ($user_product as $k=>$v){
+            if($v['online'] != 'online'){
+                $user_product[$k]['online'] = 'notonline';
+                $user_product[$k]['total_product'] = 0;
+            }
+        }
+        foreach ($user_order as $k=>$v){
+            foreach ($user_product as $key=>$vel){
+                if($v['user_id'] == $vel['user_id']){
+                    $user_order[$k]['total_product'] =$vel['total_product'];
+                }
+            }
+        }
+        foreach ($user_order as $k =>$v){
+            foreach ($user_order[$k] as $key=>$vel){
+                if($key == 'status' && $vel==1){
+                    $user_order[$k][$key] = '正常';
+                }
+                if($key == 'status' && $vel==2){
+                    $user_order[$k][$key] = '已屏蔽';
+                }
+            }
+        }
+
+
+        //判断是否要导出数据
+        if(empty($need_excel)) {
+
+            //模拟分页从数组中获取数据
+            $user_order = array_slice($user_order, $page_offset, $page_limit);
+
+        }
+
+        if ($user_order) {
+            return array('code' => '0', 'msg' => '添加成功','data'=>$user_order,'c_count'=>$c_count['c_count']);
+        } else {
+            return array('code' => '100001', 'msg' => '添加失败');
+        }
+
+
+
     }
 
 }

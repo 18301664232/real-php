@@ -307,10 +307,10 @@
                    $('.pagein').after(btnstr);
 
                   }else {
-                      $('.isup').remove();
-                      $('.table-bordered tr:gt(0)').remove();
+                        $('.isup').remove();
+                        $('.table-bordered tr:gt(0)').remove();
 
-                  }
+                    }
                 }
             });
         }
