@@ -128,8 +128,8 @@
 									<img src="" alt="">
 								</div>
 								<div class="user-info">
-									<p class="user-name">弗朗西斯</p>
-									<p class="user-address"><span>上海</span><span>普陀区</span></p>
+									<p class="user-name"></p>
+									<p class="user-address"><span></span><span></span></p>
 								</div>
 							</div>
 						</div>
@@ -138,11 +138,11 @@
 								<h2 class="title">项目概况</h2>
 								<div class="project-info-box">
 									<div>
-										<p>线上项目</p>
+										<p>付费项目</p>
 										<em>23</em>
 									</div>
 									<div>
-										<p>公开项目</p>
+										<p>免费项目</p>
 										<em>23</em>
 									</div>
 									<div>
@@ -174,6 +174,7 @@
 									<td class="money">10</td>
 								</tr>
 							</table>
+                            <div class="order-record hidden" style="color:#0095cd;text-align: center">无购买记录</div>
 						</div>
 					</div>
 				</div>

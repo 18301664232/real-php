@@ -172,6 +172,7 @@ class ProductServer extends BaseServer {
     public static function updateProduct($condition, $params) {
         $param = self::comParams($condition);
         $rs = Product::model()->updateAll($params, $param);
+
         if ($rs) {
             return array('code' => '0', 'msg' => '修改成功');
         } else {
@@ -344,41 +345,10 @@ class ProductServer extends BaseServer {
     }
 
     //后台查询
-    public static function AdminList($params = array(), $page = 1, $pagesize = 8) {
-        $sql = 'select *,COUNT(*)as total from (select t1.`pstatus`,t1.`id`,t1.`online`,t1.`product_id`,t1.`title`,t1.`email`,t1.`tel`,t1.user_id,t2.status,t2.p_size from (select p.`online` as online,p.`status` as pstatus , p.product_id,p.id,p.title,p.user_id,u.tel as tel,u.email as email from r_product p JOIN r_person_user  u ON p.user_id=u.user_id';
-
+    public static function AdminList($params = array(), $page = 1, $pagesize = 20) {
+        $sql = 'select *,COUNT(*)as total from (select t1.`id`,t1.`product_id`,t1.`title`,t1.user_id,t2.status,t2.p_size from (select * from r_product';
         if ($params['keyword'] != '') {
-            switch ($params['status']){
-                case 'total':
-                    if(strpos($params['keyword'],'@')){
-                        $sql .= " where email like '%$params[keyword]%'";
-                    }elseif (preg_match('/^\d+$/i', $params['keyword'])){
-                        $sql .= " where tel like '%$params[keyword]%'";
-                    }else{
-                        $sql .= " where  CONCAT(`title`,`product_id`) like '%$params[keyword]%'";
-                    }
-                    break;
-                case 'online':
-                    if(strpos($params['keyword'],'@')){
-                        $sql .= " where email like '%$params[keyword]%' AND (online='online' or online='update')";
-                    }elseif (preg_match('/^\d+$/i', $params['keyword'])){
-                        $sql .= " where tel like '%$params[keyword]%' AND (online='online' or online='update')";
-                    }else{
-                        $sql .= " where  CONCAT(`title`,`product_id`) like '%$params[keyword]%' AND (online='online' or online='update')";
-                    }
-                    break;
-                case 'notonline':
-                    if(strpos($params['keyword'],'@')){
-                        $sql .= " where email like '%$params[keyword]%' AND online='notonline'";
-                    }elseif (preg_match('/^\d+$/i', $params['keyword'])){
-                        $sql .= " where tel like '%$params[keyword]%' AND online='notonline'";
-                    }else{
-                        $sql .= " where  CONCAT(`title`,`product_id`) like '%$params[keyword]%' AND online='notonline'";
-                    }
-                    break;
-
-
-            }
+            $sql .= " where  CONCAT(`title`,`product_id`) like '%$params[keyword]%'";
         }
         $min = ($page - 1) * $pagesize;
         $max = $pagesize;
@@ -392,10 +362,6 @@ class ProductServer extends BaseServer {
             $data[$v['product_id']]['product_id'] = $v['product_id'];
             $data[$v['product_id']]['title'] = $v['title'];
             $data[$v['product_id']]['user_id'] = $v['user_id'];
-            $data[$v['product_id']]['tel'] = $v['tel'];
-            $data[$v['product_id']]['email'] = $v['email'];
-            $data[$v['product_id']]['pstatus'] = $v['pstatus'];
-            $data[$v['product_id']]['online'] = $v['online'];
             if ($v['status'] == 'pv') {
                 $data[$v['product_id']]['pv'] = $v['total'];
             } elseif ($v['status'] == 'uv') {
@@ -404,7 +370,7 @@ class ProductServer extends BaseServer {
                 $data[$v['product_id']]['nv'] = $v['total'];
             }
         }
-        $sql = 'select t4.product_id,sum(t5.p_size)as sizesum from (select *,COUNT(*)as total from (select t1.`id`,t1.`product_id`,t1.`title`,t1.user_id,t2.status,t2.p_size from (select * from r_product LIMIT 0,10 )as t1 left join r_statistics as t2 on t1.product_id = t2.product_id) as t3 GROUP BY product_id,status ORDER BY t3.id) t4  left join r_statistics as t5 on t4.product_id = t5.product_id GROUP BY t4.`product_id`';
+        $sql = 'select t4.product_id,sum(t5.p_size)as sizesum from (select *,COUNT(*)as total from (select t1.`id`,t1.`product_id`,t1.`title`,t1.user_id,t2.status,t2.p_size from (select * from r_product LIMIT 0,20 )as t1 left join r_statistics as t2 on t1.product_id = t2.product_id) as t3 GROUP by product_id,status ORDER by t3.id) t4  left join r_statistics as t5 on t4.product_id = t5.product_id GROUP by t4.`product_id`';
         $sizelist = Statistics::model()->dbConnection->createCommand($sql)->queryAll();
         foreach ($data as $k => $v) {
             foreach ($sizelist as $kk => $vv) {
@@ -428,125 +394,11 @@ class ProductServer extends BaseServer {
 
     //后台查询数量
     public static function AdminListCount($params = array()) {
-        $sql = 'select count(*) as total from r_product p JOIN r_person_user  u ON p.user_id=u.user_id';
-        if ($params['keyword'] != '') {
-            switch ($params['status']){
-                case 'total':
-                    if(strpos($params['keyword'],'@')){
-                        $sql .= " where email like '%$params[keyword]%'";
-                    }elseif (preg_match('/^\d+$/i', $params['keyword'])){
-                        $sql .= " where tel like '%$params[keyword]%'";
-                    }else{
-                        $sql .= " where  CONCAT(`title`,`product_id`) like '%$params[keyword]%'";
-                    }
-                    break;
-                case 'online':
-                    if(strpos($params['keyword'],'@')){
-                        $sql .= " where email like '%$params[keyword]%' AND (online='online' or online='update')";
-                    }elseif (preg_match('/^\d+$/i', $params['keyword'])){
-                        $sql .= " where tel like '%$params[keyword]%' AND (online='online' or online='update')";
-                    }else{
-                        $sql .= " where  CONCAT(`title`,`product_id`) like '%$params[keyword]%' AND (online='online' or online='update')";
-                    }
-                    break;
-                case 'notonline':
-                    if(strpos($params['keyword'],'@')){
-                        $sql .= " where email like '%$params[keyword]%' AND online='notonline'";
-                    }elseif (preg_match('/^\d+$/i', $params['keyword'])){
-                        $sql .= " where tel like '%$params[keyword]%' AND online='notonline'";
-                    }else{
-                        $sql .= " where  CONCAT(`title`,`product_id`) like '%$params[keyword]%' AND online='notonline'";
-                    }
-                    break;
-
-
-            }
-        }
+        $sql = 'select count(*) as total from r_product';
+        if ($params['keyword'] != '')
+            $sql .= " where  CONCAT(`title`,`product_id`) like '%$params[keyword]%'";
         $count = Statistics::model()->dbConnection->createCommand($sql)->queryAll();
         return $count;
     }
-
-    //查询项目总的PV，UV,流量
-    public static function GetFlowStatistics(){
-        //当前天开始的时间戳
-        $today_start_time = strtotime(date(time(),'Y-m-d'));
-        //uv,pv,总流量
-        $sql ="SELECT `id`,`status`,COUNT(`status`) as `lookin`,SUM(`p_size`) as `total_flow` FROM `r_statistics` WHERE `source_name` != '测试地址' AND `addtime` > $today_start_time GROUP BY `status`";
-        $rs = Yii::app()->db->createCommand($sql)->queryAll();
-        $params['uv'] = 0;
-        $params['total_flow'] = 0;
-        if(empty($rs)){
-            $params['nv'] = 0;
-            $params['pv'] = 0;
-        }else{
-            foreach ( $rs as $k=>$v){
-                $params['total_flow'] =  $params['total_flow']+$v['total_flow'];
-                if($v['status'] == 'nv' || $v['status'] == 'uv'){
-                    $params['uv'] =  $params['uv']+$v['lookin'];
-                }
-                if($v['status'] =='nv'){
-                    $params['nv'] = $v['lookin'];
-                }
-                if($v['status'] =='pv'){
-                    $params['pv'] = $v['lookin'];
-                }
-            }
-        }
-
-        //注册用户数量
-        $sql = "SELECT `id`,COUNT(*) AS `register` FROM `r_person_user` WHERE `addtime` >=$today_start_time";
-        $rs = Yii::app()->db->createCommand($sql)->queryRow();
-        if(empty($rs)){
-            $params['register'] =0;
-        }else{
-            $params['register'] =$rs['register'];
-        }
-
-        //发布并有访问的用户数量
-        $sql = "SELECT s.id FROM `r_product_verify` `v` JOIN `r_statistics` `s` ON v.product_id=s.product_id WHERE v.addtime >= $today_start_time AND s.source_name != '测试地址' GROUP BY s.user_id";
-        $rs = Yii::app()->db->createCommand($sql)->queryAll();
-        $params['issuance_user'] = 0;
-        if(!empty($rs)){
-            foreach ($rs as $k=>$v){
-                $params['issuance_user']++;
-            }
-        }
-
-        //免费/付费发布项目数量
-        $sql = "SELECT p.id,p.pay FROM `r_product_verify` `v` JOIN `r_statistics` `s` ON v.product_id=s.product_id JOIN `r_product` `p` ON s.product_id=p.product_id WHERE v.addtime >= $today_start_time AND s.source_name != '测试地址' GROUP BY s.product_id";
-        $rs = Yii::app()->db->createCommand($sql)->queryAll();
-        $params['free_product'] =0;
-        $params['pay_product'] =0;
-        $params['issuance_product'] =0;
-        if(!empty($rs)){
-            foreach ($rs as $k=>$v){
-                    $params['issuance_product']++;
-                if($v['pay'] =='yes'){
-                    $params['pay_product']++;
-                }
-                if($v['pay'] =='no'){
-                    $params['free_product']++;
-                }
-            }
-        }
-        //订单数量和总额
-        $sql = "SELECT COUNT(*) AS `total_order`,SUM(money) AS `total_money` FROM `r_order_info` WHERE addtime >= $today_start_time AND status = 'yes'";
-        $rs = Yii::app()->db->createCommand($sql)->queryRow();
-        if(empty($rs)){
-            $params['total_order'] =0;
-            $params['total_money'] =0;
-        }else{
-            $params['total_order'] =$rs['total_order'];
-            $params['total_money'] =$rs['total_money'];
-        }
-
-
-        dump($params);
-
-
-    }
-
-
-
 
 }

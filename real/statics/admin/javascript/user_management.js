@@ -215,9 +215,12 @@ $(function() {
                              '<td>' + (parseInt(key) + 1) + '</td>' +
                              '<td>' +  data.result.data.user_order_info[key]['order_no'] + '</td>' +
                              '<td>' +  data.result.data.user_order_info[key]['detail'] + '</td>' +
-                             '<td>' +  data.result.data.user_order_info[key]['addtime'] + '</td>' +
+                             '<td>' +  getLocalTime(data.result.data.user_order_info[key]['addtime']) + '</td>' +
                              '<td class="money">' +  data.result.data.user_order_info[key]['money'] + '</td>' ;
                          column_str_detalil += '</tr>'
+                     }
+                     if(column_str_detalil==''){
+                         $('.order-record').removeClass('hidden');
                      }
                    $('.detail-table-box .table').append(column_str_detalil);
 

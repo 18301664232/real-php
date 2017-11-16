@@ -29,22 +29,15 @@ class UserController extends CenterController {
         //修改状态
         $rs = UserServer::updateUser(['user_id'=> $params['user_id']],['status'=>2,'reason'=>$params['reason']]);
         if($rs['code']==0){
-            //发送短信或者邮件
+            //发送短信或者邮件//等待测试
            $rs =  UserServer::getUserPhone([$params['user_id']]);
            if($rs['code'] ==0 ){
-               if(!empty($rs['data'][0]->tel)){
-                   CommonInterface::sendAliyunMsg($rs['data'][0]->tel, array('productname' =>$rs['data'][0]->tel,'productreason'=>$params['reason'] ),'SMS_110100029');
-               }
-               if(!empty($rs['data'][0]->email)){
-                  $body = "【动壹科技】您的账号“$rs[data][0]->email”，因“$params[reason]”被封停，已被禁止登陆，请联系官方人员进行申诉。（违反法律法规及网站规定满3次，将被封停账号)"; //邮件内容
-                  UserMailServer::SendInternetEmail($rs['data'][0]->email,$body);
-               }
-
+                CommonInterface::sendAliyunMsg($rs['data'][0]->tel, array('code' =>'10000' ),'SMS_85370060');
            }
 
-            $this->out('0', '封停成功');
+            $this->out('0', '修改成功');
         }
-        $this->out('100044', '封停失败');
+        $this->out('100044', '修改失败');
 
     }
 
@@ -57,18 +50,9 @@ class UserController extends CenterController {
             $this->out('100005', '参数不能为空');
         }
         //修改状态
-
         $rs = UserServer::updateUser(['user_id'=> $params['user_id']],['status'=>1,'reason'=>$params['reason']]);
         if($rs['code']==0){
             //发送短信或者邮件
-            $res =  UserServer::getUserPhone([$params['user_id']]);
-            if(!empty($res['data'][0]->tel)){
-              $rs =  CommonInterface::sendAliyunMsg($res['data'][0]->tel, array('productname' =>$res['data'][0]->tel,'productdate'=>date('Y-m-d H:i:s',time()) ),'SMS_110220058');
-            }
-            if(!empty($rs['data'][0]->email)){
-                $body = "【动壹科技】您的账号“$rs[data][0]->email”，已于".date('Y-m-d H:i:s',time())."解除封停，请您知晓。"; //邮件内容
-                UserMailServer::SendInternetEmail($rs['data'][0]->email,$body);
-            }
 
             $this->out('0', '修改成功');
         }
@@ -127,9 +111,6 @@ class UserController extends CenterController {
                 $end_time = time();
                 break;
             case 'self':
-                if(empty($params['start_time']) || empty($params['end_time'])){
-                    $this->out('100402','时间参数为空');
-                }
                 $start_time = strtotime($params['start_time']);
                 $end_time = strtotime($params['end_time']);
                 break;
@@ -241,18 +222,6 @@ class UserController extends CenterController {
 //        if($user_order_info['code'] != 0){
 //            $this->out('100010', '用用户订单列表信息查询失败');
 //        }
-
-        if($user_product_pay['data'] == ''){
-            $user_product_pay['data'] = [];
-        }
-        if($user_product_notpay['data']==''){
-            $user_product_notpay['data'] = [];
-        }
-        if($user_product_notonline['data']==''){
-            $user_product_notonline['data'] = [];
-        }
-
-
         //遍历数组
         $list = [
             'user_base_data'=>$user_base_data['data'],

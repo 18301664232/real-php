@@ -10,20 +10,6 @@
                         <button class="btn btn-default" type="button">搜索</button>
                     </span>
                 </div>
-
-            </div>
-        </div>
-
-        <div class="query-box">
-            <div class="row">
-                <div class="clearfix">
-                    <em>用户类别：</em>
-                    <ul class="clearfix">
-                        <li class="<?php if((!empty($_REQUEST['status'])?$_REQUEST['status']:'total') =='total'){echo 'active'; } ?>" >全部</li>
-                        <li  class="<?php if((!empty($_REQUEST['status'])?$_REQUEST['status']:'total') =='online'){echo 'active'; } ?>">已上线</li>
-                        <li class="<?php if((!empty($_REQUEST['status'])?$_REQUEST['status']:'total') =='notonline'){echo 'active'; } ?>">未上线</li>
-                    </ul>
-                </div>
             </div>
         </div>
         <!--	    		<div class="query-box">
@@ -51,30 +37,28 @@
         <div class="table-box">
             <table class="table table-bordered">
                 <tr>
-                    <th>序号</th>
+
                     <th>项目名称</th>
                     <th>PID</th>
-                    <th>用户账号</th>
-                    <th>项目状态</th>
+
+                    <th>账号</th>
+
                     <th>pv</th>
                     <th>uv</th>
                     <th>使用流量</th>
-	    					<th>项目操作</th>
+<!--	    					<th>项目操作</th>-->
                 </tr>
 
                 <?php if (!empty($data)) {
-                    $num = 1;
                     foreach ($data as $k => $v): ?>
                         <tr>
-                            <td><?php echo ($num) ?></td>
+
                             <td><?php echo $v['title'] ?></td>
                             <td><?php echo $v['product_id'] ?></td>
-                            <td><?php echo $v['tel'] ?></td>
-                            <td><?php echo $v['online'] ?></td>
+                            <td><?php echo $v['user_id'] ?></td>
                             <td><?php echo $v['pv'] + $v['nv'] + $v['uv'] ?></td>
                             <td><?php echo $v['nv'] + $v['uv'] ?></td>
                             <td><?php echo $v['water'] != null ? number_format(($v['water'] / 1024 / 1024), 2, '.', '') . 'MB' : 0 ?></td>
-                            <td><button class="btn btn-success btn-sm btn-looklink">查看</button></td>
 
         <!--	    					<td>
                 <button class="btn btn-info btn-detail" data-toggle="modal" data-target="#project">详情</button>
@@ -82,7 +66,6 @@
                 <button class="btn btn-danger relieve">解除</button>
         </td>-->
                         </tr>
-                        <?php $num++; ?>
     <?php endforeach;
 } ?>
             </table>
@@ -137,56 +120,11 @@
     </div>
 </div>
 <script>
-    var search_btn_status = 'total';
-    $('.query-box ul li').click(function () {
-        switch ($(this).index()){
-            case 0:
-                search_btn_status = 'total';
-                search_key_start();
-            break;
-            case 1:
-                search_btn_status = 'online';
-                search_key_start();
-                break;
-            case 2:
-                search_btn_status = 'notonline';
-                search_key_start();
-                break;
-        }
-
-    })
 
     $('.btn-default').on('click', function () {
-        search_key_start();
-    });
+        var keyword = $('.form-control').val();
+        window.location.href = '<?php echo U('admin/product/list') ?>&keyword=' + keyword;
 
-    function search_key_start() {
-        var keyword = $('.form-control').val() || 2;
-        if(keyword == 2){
-            window.location.href = '<?php echo U('admin/product/list') ?>&keyword=_'+'&status=' + search_btn_status;
-        }else {
-            window.location.href = '<?php echo U('admin/product/list') ?>&keyword=' + keyword+'&status=' + search_btn_status;
-        }
-    }
-    $('.form-control').val('');
-    //点击修改按钮
-    $('.table-box').delegate('.btn-looklink', 'click', function() {
-        $.ajax({
-            url:window_request_url.admin_product_getlink,
-            type:"post",
-            data:{
-               product_id: $(this).parent().siblings().eq(2).text()
-            },
-            success:function(data){
-                var obj=eval('(' + data + ')');
-                if(obj.code == 0) {
-                    window.open(window_request_url.product_index_index+'&url_type=pc'+'&id='+obj.result.data.uid);
-                }
-            },
-            error:function(e){
-                alert("代码提交错误！！");
-            }
-        });
-    })
+    });
 
 </script>

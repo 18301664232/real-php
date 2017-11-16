@@ -167,11 +167,7 @@
                         logonVerifySecIsTrue = true;
                         if (data.code == '100007' || data.code == '100003' || data.code == '100004') {
                             logonUserNameIsTrue = false;
-                            if(data.code == '100004'){
-                                $('.logonUserName > p').html('用户被屏蔽');
-                            }else {
-                                $('.logonUserName > p').html('账号与密码不匹配');
-                            }
+                            $('.logonUserName > p').html('账号与密码不匹配');
                             $('.logonUserName').addClass('logonResponse');
                             return false;
                         }

@@ -96,7 +96,8 @@ class CPagination extends CComponent
 	 */
 	public $validateCurrentPage=true;
 
-	private $_pageSize=self::DEFAULT_PAGE_SIZE;
+	//private $_pageSize=self::DEFAULT_PAGE_SIZE;
+	private $_pageSize=10;
 	private $_itemCount=0;
 	private $_currentPage;
 

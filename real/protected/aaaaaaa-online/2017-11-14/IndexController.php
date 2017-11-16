@@ -5,7 +5,6 @@ class IndexController extends CenterController {
 
     public function actionIndex() {
         $id = !empty($_REQUEST['id']) ? $_REQUEST['id'] : '';
-        $admin = !empty($_REQUEST['admin']) ? $_REQUEST['admin'] : '';
         if (empty($id))
             $this->out('100005', '数据不能为空');
         //id转换成链接
@@ -24,7 +23,7 @@ class IndexController extends CenterController {
             $starttime = strtotime(date('Ymd', time())) + date('H', time()) * 3600;
             $endtime = time();
             $count = StatisticsServer::getListCount(array('source_id' => $id, 'starttime' => $starttime, 'endtime' => $endtime));
-            if ($count >=900) {
+            if ($count >=20) {
                 $this->renderpartial('testerror');
                 exit;
             }
@@ -39,7 +38,7 @@ class IndexController extends CenterController {
         $token = md5($data['product_id'] . time());
         //项目下线后关闭
         if ($data['online'] == 'notonline') {
-            if ($data['status'] == 'online' || $data['status'] == 'other' ) {
+            if ($data['status'] == 'online') {
                 $this->renderpartial('over');
                 exit;
             }
@@ -59,7 +58,7 @@ class IndexController extends CenterController {
             $pageName = $_REQUEST['pageName'];
             $url = $data['link'] . '&token=' . $token. '&id='.$id. '&p_id='. $data['product_id']."&pageName=$pageName";
         }else{
-                $url = $data['link'] . '&token=' . $token. '&id='.$id. '&p_id='. $data['product_id'];
+            $url = $data['link'] . '&token=' . $token. '&id='.$id. '&p_id='. $data['product_id'];
         }
         //$url = 'http://test.realplus.cc/wteditor/browser_phone.html?'.'token=' . $token. '&id='.$id. '&pid='.$data['product_id']. '&p_link='.$url;
         //生成token用于前端
