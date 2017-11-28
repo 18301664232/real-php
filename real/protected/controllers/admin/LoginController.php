@@ -1,13 +1,14 @@
 <?php
 
 //后台登录
-class LoginController extends CenterController {
+class LoginController extends CenterController
+{
 
     //用户登录
-    public function actionLogin() {
+    public function actionLogin()
+    {
         if ($this->checkLogin('admin'))
             $this->showMessage('你已经登录', U('admin/index/index'));
-
         $isajax = Yii::app()->request->isAjaxRequest;
         if (!empty($_POST) && $isajax) {
             $username = !empty($_REQUEST['username']) ? $_REQUEST['username'] : '';
@@ -17,11 +18,14 @@ class LoginController extends CenterController {
             //登陆
             $rs = AdminServer::doLogin(array('username' => $username, 'password' => $password));
             if ($rs['code'] == 0) {
+                //查询该帐号权限
+                $prs = AdminServer::getPromissionsList([$rs['data']['id']]);
+                $rs['data'] = Tools::object2array($rs['data']);
+                $rs['data']['permissions'] = $prs['data'][$rs['data']['id']]['permissions_sign'];
                 //写入session
                 $this->userInsession($rs['data'], 'admin');
                 //修改最后一次登录信息
                 AdminServer::updateAdmin(array('id' => $rs['data']['id']), array('last_time' => time(), 'last_ip' => $_SERVER["REMOTE_ADDR"]));
-
                 $this->out('0', '登录成功');
             } elseif ($rs['code'] == 100002) {
                 $this->out('100002', '用户名或者密码错误');
@@ -30,8 +34,10 @@ class LoginController extends CenterController {
         $this->render('login');
     }
 
+
     //登出
-    public function actionLoginout() {
+    public function actionLoginout()
+    {
         //清除cookie，停止自动登陆
 
         unset(Yii::app()->session['admin']);

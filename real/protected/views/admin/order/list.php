@@ -49,7 +49,7 @@
                 <?php if (!empty($data)): ?>
                     <?php foreach ($data as $k => $v): ?>
                         <tr>
-                            <td><?php echo $v['id'] ?></td>
+                            <td><?php echo ($k+1) ?></td>
                             <td><?php echo $v['order_no'] ?></td>
                             <td><?php echo $v['_id'] ?></td>
                             <td><?php echo $v['title'] ?></td>

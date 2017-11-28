@@ -22,6 +22,29 @@ class ProductController extends CenterController {
         $rs = ProductServer::AdminList(array('keyword' => $keyword,'status'=>$status), $page);
         if ($rs['code'] == 0) {
             $list = $rs['data'];
+            //循环查询项目链接地址
+
+            if (is_array($list)) {
+                foreach ($list as $key => $v) {
+                    switch ($v['online']) {
+                        case 'online':
+                            $link_uid_list = ProductServer::selectLink(['product_id' => $v['product_id'], 'status' => 'online']);
+                            break;
+                        case 'update':
+                            $link_uid_list = ProductServer::selectLink(['product_id' => $v['product_id'], 'status' => 'online']);
+                            break;
+                        case 'notonline':
+                            $link_uid_list = ProductServer::selectLink(['product_id' => $v['product_id'], 'status' => 'notonline']);
+                            break;
+                    }
+                    if (empty($link_uid_list['data'][0])) {
+                        $list[$key]['looklink'] = 'javascript:void(0)';
+                    } else {
+                        $list[$key]['looklink'] = U('product/index/index') . '&url_type=pc&id=' . $link_uid_list['data'][0]['uid'];
+                    }
+
+                }
+            }
         }
         //$criteria=new CDbCriteria();
         $count = ProductServer::AdminListCount(array('keyword' => $keyword,'status'=>$status));
@@ -30,6 +53,8 @@ class ProductController extends CenterController {
         $pages = new CPagination($count);
         //$pages->pageSize = 10;
         //$pages->applyLimit($criteria);
+
+
 
 
         $this->render('list', array('data' => $list, 'pages' => $pages, 'keyword' => $keyword, 'count' => $count));
@@ -53,10 +78,11 @@ class ProductController extends CenterController {
             case 'update':
                 $link_uid_list = ProductServer::selectLink(['product_id'=>$product_id,'status'=>'online']);
                 break;
-            default:
-                $link_uid_list = ProductServer::selectLink(['product_id'=>$product_id,'status'=>'test']);
+            case 'notonline':
+                $link_uid_list = ProductServer::selectLink(['product_id'=>$product_id,'status'=>'notonline']);
+                break;
         }
-        if(empty($link_uid_list['data'])){
+        if(empty($link_uid_list['data'][0])){
             $this->out('1000405','读取链接失败');
         }
         $this->out('0','成功',['data'=>$link_uid_list['data'][0]]);

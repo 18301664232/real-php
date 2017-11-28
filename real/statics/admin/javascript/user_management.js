@@ -192,6 +192,7 @@ $(function() {
     $('.table-box').delegate('.btn-detail', 'click', function() {
         $('.detail-table table tr:gt(0)').remove();
     	var user_id =$(this).parent().parent().attr('data-selfuid');
+    	var user_tel =$(this).parent().parent().children().eq(1).text();
         $.ajax({
             type: "POST",
             url: window_request_url.admin_user_detail,
@@ -201,7 +202,7 @@ $(function() {
             },
             success: function (data) {
                  if(data.code ==0){
-
+                    $('.project-info h2 div').eq(2).text(user_tel);
 					$('.project-info-box em').eq(0).text(data.result.data.user_product_pay);
 					$('.project-info-box em').eq(1).text(data.result.data.user_product_notpay);
 					$('.project-info-box em').eq(2).text(data.result.data.user_product_notonline);
@@ -253,8 +254,15 @@ $(function() {
         $('#flow_true_btn').attr('data-userid',user_id);
         $('#flow_true_btn').attr('data-type','life');
         $('.self-reason').val($(this).parent().parent().attr('data-reason'));
+        $('.self-reason').attr('readonly','readonly');
 
     });
+
+    //点击详情跳转
+    $('.project-info h2 div').eq(1).click(function () {
+        window.location.href='?r=admin/product/list&keyword='+ $('.project-info h2 div').eq(2).text()+'&status=total'
+
+    })
 
     //执行解封或者封杀
 	$('#flow_del_true .btn-danger').click(function () {

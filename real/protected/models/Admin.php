@@ -1,15 +1,22 @@
+
 <?php
+/**
+ * Created by PhpStorm.
+ * User: syl
+ * Date: 2017-11-27 08:42:26
+ */
+//后台管理员表
 
-//后台管理员
+class Admin extends CActiveRecord{
 
-class Admin extends CActiveRecord {
-
-    public $id; //主键
+    public $id;
     public $username;
-    public $password; //密码
-    public $last_time; //密码
-    public $last_ip; //密码
+    public $password;
+    public $last_time;
+    public $last_ip;
     public $addtime;
+    public $department;
+
 
     //Model静态方法为必须有的方法
     public static function model($className = __CLASS__) {
@@ -27,7 +34,7 @@ class Admin extends CActiveRecord {
 
     public function rules() {
         return array(
-            array('id,username,password,last_time,last_ip,addtime', 'safe'),
+            array('id,username,password,last_time,last_ip,addtime,department,', 'safe'),
         );
     }
 

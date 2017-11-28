@@ -6,7 +6,10 @@
         <section class="help-box">
             <ul class="nav nav-tabs">
                 <li role="presentation" class="active">
-                    <a href="javascript:void(0)">类目管理</a>
+                    <a href="javascript:void(0)">
+                        <?php if($this->checkAuth('admin/index/list')){ echo '有权限';} ?> 类目管理
+                        <?php  dump(Yii::app()->session['admin'])  ?> 类目管理
+                    </a>
                 </li>
                 <li role="presentation">
                     <a href="javascript:void(0)" class="file_list">文档管理</a>
@@ -38,7 +41,7 @@
                                 <th>操作</th>
 
                                 <?php foreach ($data as $k => $v): ?>
-                                    <tr >
+                                    <tr>
                                         <td><?php echo $v['id'] ?></td>
                                         <td><?php echo $v['grade'] ?></td>
                                         <td><?php echo $v['title'] ?></td>
@@ -46,13 +49,15 @@
                                         <td><?php echo $v['childs'] ?></td>
                                         <td>
                                             <button class="btn btn-info look">查看</button>
-                                            <button class="btn btn-success one_xg" data-toggle="modal" data-target="#leimu1x">修改</button>
+                                            <button class="btn btn-success one_xg" data-toggle="modal"
+                                                    data-target="#leimu1x">修改
+                                            </button>
                                             <button class="btn btn-danger one_del">删除</button>
                                         </td>
                                     </tr>
-                                <?php endforeach; ?> 
+                                <?php endforeach; ?>
                             </table>
-                        </div>  
+                        </div>
                     </div>
                     <div class="erji">
                         <div class="clearfix">
@@ -78,7 +83,7 @@
                                 </tr>
 
                             </table>
-                        </div>  
+                        </div>
                     </div>
                 </div>
                 <div class="content clearfix">
@@ -109,7 +114,7 @@
                             </tr>
 
                         </table>
-                    </div>  
+                    </div>
                 </div>
             </div>
         </section>
@@ -119,11 +124,11 @@
             </div>
             <div class="form-group">
                 <label for="exampleInput">标题：</label>
-                <input type="email" class="form-control ueditor-title"  placeholder="请输入标题">
+                <input type="email" class="form-control ueditor-title" placeholder="请输入标题">
             </div>
             <div class="form-group">
                 <label for="exampleInput">权重：</label>
-                <input type="email" class="form-control ueditor-grade"  style="width: 1000px;" placeholder="请输入权重">
+                <input type="email" class="form-control ueditor-grade" style="width: 1000px;" placeholder="请输入权重">
             </div>
             <script id="editor" type="text/plain" style="height:500px;"></script>
             <script type="text/javascript">
@@ -137,15 +142,15 @@
                 <div class="ueditor-right">
                     <div class="select-category">
                         <h4>选择发布类目</h4>
-                        <form class="form-horizontal">      
+                        <form class="form-horizontal">
                         </form>
-                         <button type="button" class="btn btn-success threeadd">发布</button>
+                        <button type="button" class="btn btn-success threeadd">发布</button>
                     </div>
                 </div>
-               
+
             </div>
     </div>
-</section>
+    </section>
 </div>
 </div>
 <!-- 弹框 -->
@@ -302,6 +307,7 @@
                 $('#leimu1x .grade').val(grade);
             })
         }
+
         one_open();
 
         //修改一级类目
@@ -363,6 +369,7 @@
                 })
             })
         }
+
         look()
 
 
@@ -395,6 +402,7 @@
                 $('#leimu2x .grade').val(grade);
             })
         }
+
         //修改二级类目
         $('.leimu2x').on('click', function () {
             var id = $('#leimu2x').attr('str');
@@ -432,7 +440,7 @@
             var data = ajax('', 2);
             var nr = "<option value=''>全部</option>";
             var nr2 = '';
-            if (data.code == 0) {     
+            if (data.code == 0) {
                 for (var key in data.result) {
                     nr += "<option value=" + data.result[key].id + ">" + data.result[key].title + "</option>";
                     nr2 += " <div class='radio'><label><input type='radio' name='category'  value=" + data.result[key].id + ">" + data.result[key].title + " </label></div>";
@@ -454,7 +462,7 @@
             }
 
         })
-        
+
         //添加和修改三级类目
         $('.threeadd').on('click', function () {
             var title = $('.ueditor-title').val();
@@ -462,19 +470,19 @@
             var types = 3;
             var content = ue.getContent();
             var pid = $('input:radio:checked').val();
-           // console.log(pid);
+            // console.log(pid);
             if (typeof (pid) == 'undefined') {
                 alert('请选择类目');
                 return false;
             }
-            if($('.help-box').hasClass('update')){
+            if ($('.help-box').hasClass('update')) {
                 var id = $('.help-box, .ueditor-box').attr('str');
-                var data = updateajax(id,title, grade, types, pid, content);
-                 
-            }else{
-                 var data = addajax(title, grade, types, pid, content);
+                var data = updateajax(id, title, grade, types, pid, content);
+
+            } else {
+                var data = addajax(title, grade, types, pid, content);
             }
-          
+
             if (data.code == 0) {
                 $('.ueditor-title').val('');
                 $('.ueditor-grade').val('');
@@ -496,77 +504,77 @@
                 }
                 $('.three_list tr:not(tr:first)').remove();
                 $('.three_list tbody').append(nr3);
-               delclass();
+                delclass();
             }
         })
-         //下拉筛选
-        function option_list(){ 
-           $('.twoname').on('change',function(){  
+        //下拉筛选
+        function option_list() {
+            $('.twoname').on('change', function () {
                 var keyword = $('.three_input').val();
                 var pid = $('.twoname option:selected').attr('value');
-                var data = ajax(keyword, 3,pid);
+                var data = ajax(keyword, 3, pid);
                 if (data.code == 0) {
-                     var nr3 = '';
-                     for (var key in data.result) {
-                         nr3 += "<tr><td>" + data.result[key].id + "</td><td>" + data.result[key].grade + "</td><td>" + data.result[key].title + "</td><td>" + data.result[key].p_name + "</td><td> <button class='btn btn-success btn-ueditor'>详情</button> <button class='btn btn-danger del-btn one_del'>删除</button></td></tr>";
-                     }
-                     $('.three_list tr:not(tr:first)').remove();
-                     $('.three_list tbody').append(nr3);
-                     
-                 }   
+                    var nr3 = '';
+                    for (var key in data.result) {
+                        nr3 += "<tr><td>" + data.result[key].id + "</td><td>" + data.result[key].grade + "</td><td>" + data.result[key].title + "</td><td>" + data.result[key].p_name + "</td><td> <button class='btn btn-success btn-ueditor'>详情</button> <button class='btn btn-danger del-btn one_del'>删除</button></td></tr>";
+                    }
+                    $('.three_list tr:not(tr:first)').remove();
+                    $('.three_list tbody').append(nr3);
+
+                }
 
             })
         }
-         
- 
-        
-         //三级类详情
-    $('.content').on('click','.btn-ueditor', function() { 
-       var  id = $(this).parent().parent().find('td').eq(0).html();  
-       if(typeof(id)=== "string"){
-            var url = '<?php echo U('admin/help/info') ?>';
-            $.ajax({
-                type: "POST",
-                url: url,
-                dataType: "json",
-                async: false,
-                data: {
-                    id: id,
-                },
-                success: function (data) {
-                    if(data.code == 0){
-                        $('.ueditor-title').val(data.result.title);
-                        $('.ueditor-grade').val(data.result.grade);
-                        ue.setContent(data.result.content);
-                        $("input[value='"+data.result.pid+"'").attr('checked','true');
-                        $('.help-box, .ueditor-box').addClass('update');
-                        $('.help-box, .ueditor-box').attr('str',id);
-                        $('.help-box, .ueditor-box').addClass('active');
-                        $('.go-back').click(function() {
-                            $(this).unbind();
-                            $('.help-box, .ueditor-box').removeClass('active');
-                        })
+
+
+        //三级类详情
+        $('.content').on('click', '.btn-ueditor', function () {
+            var id = $(this).parent().parent().find('td').eq(0).html();
+            if (typeof(id) === "string") {
+                var url = '<?php echo U('admin/help/info') ?>';
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    dataType: "json",
+                    async: false,
+                    data: {
+                        id: id,
+                    },
+                    success: function (data) {
+                        if (data.code == 0) {
+                            $('.ueditor-title').val(data.result.title);
+                            $('.ueditor-grade').val(data.result.grade);
+                            ue.setContent(data.result.content);
+                            $("input[value='" + data.result.pid + "'").attr('checked', 'true');
+                            $('.help-box, .ueditor-box').addClass('update');
+                            $('.help-box, .ueditor-box').attr('str', id);
+                            $('.help-box, .ueditor-box').addClass('active');
+                            $('.go-back').click(function () {
+                                $(this).unbind();
+                                $('.help-box, .ueditor-box').removeClass('active');
+                            })
+                        }
+
                     }
-                        
-                }
-            });
-     
-       }else{
-            $('.ueditor-title').val('');
-            $('.ueditor-grade').val('');
-            ue.setContent('');
-            $('.help-box, .ueditor-box').removeClass('update');
-            $('.help-box, .ueditor-box').addClass('active');
-            $('.go-back').click(function() {
-                $(this).unbind();
-                $('.help-box, .ueditor-box').removeClass('active');
-            })
-       }
-    })
-    
-  
+                });
+
+            } else {
+                $('.ueditor-title').val('');
+                $('.ueditor-grade').val('');
+                ue.setContent('');
+                $('.help-box, .ueditor-box').removeClass('update');
+                $('.help-box, .ueditor-box').addClass('active');
+                $('.go-back').click(function () {
+                    $(this).unbind();
+                    $('.help-box, .ueditor-box').removeClass('active');
+                })
+            }
+        })
+
+
         //删除弹框
         var id = 0;
+
         function delclass() {
             $('.one_del').on('click', function () {
                 id = $(this).parent().parent().find('td').eq(0).html();
@@ -594,77 +602,76 @@
                 })
             }
         }
+
         delclass();
 
         function ajax(keyword, types, pid = '') {
-        var rs = '';
-        var url = '<?php echo U('admin/help/ajax') ?>';
-        $.ajax({
-            type: "POST",
-            url: url,
-            dataType: "json",
-            async: false,
-            data: {
-                keyword: keyword,
-                type: types,
-                pid: pid
-            },
-            success: function (data) {
-                rs = data;
-            }
-        })
-        return rs;
-        }
-        function updateajax(id, title, grade, types = '', pid = '', content = '') {
-        var rs = '';
-        var url = '<?php echo U('admin/help/update') ?>';
-        $.ajax({
-        type: "POST",
+            var rs = '';
+            var url = '<?php echo U('admin/help/ajax') ?>';
+            $.ajax({
+                type: "POST",
                 url: url,
                 dataType: "json",
                 async: false,
                 data: {
-                id: id,
-                        title: title,
-                        grade: grade,
-                        type: types,
-                        pid: pid,
-                        content: content
+                    keyword: keyword,
+                    type: types,
+                    pid: pid
+                },
+                success: function (data) {
+                    rs = data;
+                }
+            })
+            return rs;
+        }
+
+        function updateajax(id, title, grade, types = '', pid = '', content = '') {
+            var rs = '';
+            var url = '<?php echo U('admin/help/update') ?>';
+            $.ajax({
+                type: "POST",
+                url: url,
+                dataType: "json",
+                async: false,
+                data: {
+                    id: id,
+                    title: title,
+                    grade: grade,
+                    type: types,
+                    pid: pid,
+                    content: content
 
                 },
                 success: function (data) {
                     rs = data;
                 }
-        });
-                return rs;
+            });
+            return rs;
         }
 
         function addajax(title, grade, types, pid = '', content = '') {
-        var rs = '';
-        var url = '<?php echo U('admin/help/add') ?>';
-        $.ajax({
-            type: "POST",
-            url: url,
-            dataType: "json",
-            async: false,
-            data: {
-                title: title,
-                grade: grade,
-                type: types,
-                pid: pid,
-                content: content
+            var rs = '';
+            var url = '<?php echo U('admin/help/add') ?>';
+            $.ajax({
+                type: "POST",
+                url: url,
+                dataType: "json",
+                async: false,
+                data: {
+                    title: title,
+                    grade: grade,
+                    type: types,
+                    pid: pid,
+                    content: content
 
-            },
-            success: function (data) {
-                rs = data;
-            }
-        });
-        return rs;
-    }
-    
-     
+                },
+                success: function (data) {
+                    rs = data;
+                }
+            });
+            return rs;
+        }
 
-    
 
     })
 </script>

@@ -154,28 +154,65 @@ class ResourcesServer extends BaseServer {
         if($search_key==''){
             $search_key = '_';
         }
+//        $rs = Yii::app()->db->createCommand()
+//            ->select('p.status,p.title,t.product_id,u.tel,t.id,t.is_has_video,t.verify_status,t.verify_reason,p.user_id,p.description,p.cover,p.path')
+//            ->from('r_product_verify t')
+//            ->join('r_product p', 't.product_id=p.product_id')
+//            ->join('r_person_user u', 'p.user_id=u.user_id')
+//            ->andWhere(['like','CONCAT(p.title,t.product_id,u.user_id)','%'.$search_key.'%'])
+//            ->andWhere($str)
+//            ->group('t.product_id')
+//            ->order('t.addtime DESC')
+//            ->limit($page_limit)
+//            ->offset($page_offset)
+//            ->queryAll();
+//        $c_rs = Yii::app()->db->createCommand()
+//            ->select('p.status,p.title,t.product_id,u.tel,t.id,t.is_has_video,t.verify_status,t.verify_reason,p.user_id,p.description,p.cover,p.path')
+//            ->from('r_product_verify t')
+//            ->join('r_product p', 't.product_id=p.product_id')
+//            ->join('r_person_user u', 'p.user_id=u.user_id')
+//            ->andWhere(['like','CONCAT(p.title,t.product_id,u.user_id)','%'.$search_key.'%'])
+//            ->andWhere($str)
+//            ->group('t.product_id')
+//            ->queryAll();
+
         $rs = Yii::app()->db->createCommand()
+            ->select('max(t.id) as id')
+            ->from('r_product_verify t')
+            ->join('r_product p', 't.product_id=p.product_id')
+            ->join('r_person_user u', 'p.user_id=u.user_id')
+            ->group('t.product_id')
+            ->queryAll();
+        //得到最新的id取出对应信息
+        $search_id=[];
+        foreach ($rs as $key=>$vel){
+            $search_id[] = $vel['id'];
+        }
+
+        $res = Yii::app()->db->createCommand()
             ->select('p.status,p.title,t.product_id,u.tel,t.id,t.is_has_video,t.verify_status,t.verify_reason,p.user_id,p.description,p.cover,p.path')
             ->from('r_product_verify t')
             ->join('r_product p', 't.product_id=p.product_id')
             ->join('r_person_user u', 'p.user_id=u.user_id')
+            ->andWhere(array('in', 't.id', $search_id))
             ->andWhere(['like','CONCAT(p.title,t.product_id,u.user_id)','%'.$search_key.'%'])
             ->andWhere($str)
-            ->order('t.addtime DESC')
             ->limit($page_limit)
             ->offset($page_offset)
             ->queryAll();
+
         $c_rs = Yii::app()->db->createCommand()
             ->select('p.status,p.title,t.product_id,u.tel,t.id,t.is_has_video,t.verify_status,t.verify_reason,p.user_id,p.description,p.cover,p.path')
             ->from('r_product_verify t')
             ->join('r_product p', 't.product_id=p.product_id')
             ->join('r_person_user u', 'p.user_id=u.user_id')
+            ->andWhere(array('in', 't.id', $search_id))
             ->andWhere(['like','CONCAT(p.title,t.product_id,u.user_id)','%'.$search_key.'%'])
             ->andWhere($str)
             ->queryAll();
 
         if ($rs) {
-            return array('code' => '0', 'data' => $rs,'c_data'=>$c_rs);
+            return array('code' => '0', 'data' => $res,'c_data'=>$c_rs);
         } else {
             return array('code' => '100001', 'data' => '');
         }

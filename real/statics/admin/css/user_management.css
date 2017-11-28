@@ -99,6 +99,7 @@ section>div{
 	font-size:16px;
 	color:#5a657e;
 	line-height:30px;
+	height: 30px;
 	border-bottom:1px solid #cbd2e1;
 }
 .basic-info,.project-profile{
@@ -179,3 +180,15 @@ section>div{
 	margin:0;
 	padding:0;
 }
+.project-info h2 div:nth-child(1){
+  position: absolute;
+	left:12px;
+	top: 0;
+}
+.project-info h2 div:nth-child(2){
+	position: absolute;
+	right:12px;
+	top: 0;
+	color: #3eb2ea;
+}
+

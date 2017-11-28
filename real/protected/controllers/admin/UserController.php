@@ -33,10 +33,10 @@ class UserController extends CenterController {
            $rs =  UserServer::getUserPhone([$params['user_id']]);
            if($rs['code'] ==0 ){
                if(!empty($rs['data'][0]->tel)){
-                   CommonInterface::sendAliyunMsg($rs['data'][0]->tel, array('productname' =>$rs['data'][0]->tel,'productreason'=>$params['reason'] ),'SMS_110100029');
+                   CommonInterface::sendAliyunMsg($rs['data'][0]->tel, array('productname' =>$rs['data'][0]->tel,'productreason'=>$params['reason'] ),'SMS_111585387');
                }
                if(!empty($rs['data'][0]->email)){
-                  $body = "【动壹科技】您的账号“$rs[data][0]->email”，因“$params[reason]”被封停，已被禁止登陆，请联系官方人员进行申诉。（违反法律法规及网站规定满3次，将被封停账号)"; //邮件内容
+                  $body = "【动壹科技】您的账号“$rs[data][0]->email”，因“$params[reason]”被封停，已被禁止登陆，请联系官方人员进行申诉。"; //邮件内容
                   UserMailServer::SendInternetEmail($rs['data'][0]->email,$body);
                }
 
@@ -198,7 +198,7 @@ class UserController extends CenterController {
 
             $c_count = $rs['c_count'];
             $count = count($rs['data']);
-            $pages = floor($c_count/$page_limit);
+            $pages = ceil($c_count/$page_limit);
             if($pages == 0){
                 $pages=1;
             }

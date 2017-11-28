@@ -1,4 +1,3 @@
-
 <link rel="stylesheet" href="<?php echo STATICSADMIN ?>css/message_management.css">
 <script src="<?php echo STATICSADMIN ?>javascript/message_management.js"></script>
 <script src="<?php echo STATICSADMIN ?>javascript/My97DatePicker/WdatePicker.js"></script>
@@ -23,7 +22,7 @@
                 <div class="clearfix">
                     <em>消息类别：</em>
                     <ul class="clearfix">
-                        <li >全部消息</li>
+                        <li>全部消息</li>
                         <li class="active">系统公告</li>
                         <li>消息提醒</li>
                     </ul>
@@ -37,7 +36,6 @@
                 </div>
             </div>
         </div>
-
 
 
         <div class="table-box">
@@ -85,53 +83,53 @@
                     <em>消息类别：</em>
                     <ul class="clearfix">
                         <li class="active">系统公告</li>
-<!--                        <li>消息提醒</li>-->
+                        <!--                        <li>消息提醒</li>-->
                     </ul>
                 </div>
                 <div class="clearfix">
                     <em>时间筛选：</em>
                     <ul class="clearfix">
                         <li class="active">全部</li>
-<!--                        <li>近7日</li>-->
-<!--                        <li>近15日</li>-->
-<!--                        <li>近30日</li>-->
-<!--                        <li></li>-->
+                        <!--                        <li>近7日</li>-->
+                        <!--                        <li>近15日</li>-->
+                        <!--                        <li>近30日</li>-->
+                        <!--                        <li></li>-->
                     </ul>
-<!--                    <div class="datePicker">-->
-<!--                        <input class="Wdate" type="text" onfocus="WdatePicker()">-->
-<!--                        <span>至</span>-->
-<!--                        <input class="Wdate" type="text" onfocus="WdatePicker()">-->
-<!--                    </div>-->
+                    <!--                    <div class="datePicker">-->
+                    <!--                        <input class="Wdate" type="text" onfocus="WdatePicker()">-->
+                    <!--                        <span>至</span>-->
+                    <!--                        <input class="Wdate" type="text" onfocus="WdatePicker()">-->
+                    <!--                    </div>-->
                 </div>
                 <div class="clearfix">
                     <em>用户类别：</em>
                     <ul class="clearfix">
                         <li class="active">全部</li>
-<!--                        <li>新用户（3日内）</li>-->
-<!--                        <li>老用户</li>-->
+                        <!--                        <li>新用户（3日内）</li>-->
+                        <!--                        <li>老用户</li>-->
                     </ul>
                 </div>
                 <div class="clearfix">
                     <em>登陆情况：</em>
                     <ul class="clearfix">
                         <li class="active">全部</li>
-<!--                        <li>有登陆</li>-->
-<!--                        <li>未登录</li>-->
+                        <!--                        <li>有登陆</li>-->
+                        <!--                        <li>未登录</li>-->
                     </ul>
                 </div>
                 <div class="clearfix">
                     <em>消费情况：</em>
                     <ul class="clearfix">
                         <li class="active">全部</li>
-<!--                        <li>未消费</li>-->
-<!--                        <li>已消费</li>-->
+                        <!--                        <li>未消费</li>-->
+                        <!--                        <li>已消费</li>-->
                     </ul>
                 </div>
             </div>
         </div>
         <div class="form-group">
             <label for="exampleInput">标题：</label>
-            <input type="email" class="form-control ueditor-title"  placeholder="请输入标题">
+            <input type="email" class="form-control ueditor-title" placeholder="请输入标题">
         </div>
         <div class="ueditor_a">
             <script id="editor" type="text/plain" style="width:100%;height:500px;float:left"></script>
@@ -149,8 +147,8 @@
                 </div>
             </div>
             <script type="text/javascript">
-                document.addEventListener('readystatechange', function(){
-                    if(document.readyState === 'complete'){
+                document.addEventListener('readystatechange', function () {
+                    if (document.readyState === 'complete') {
                         document.getElementById('edui1').style.width = "100%";
                     }
                 }, false)

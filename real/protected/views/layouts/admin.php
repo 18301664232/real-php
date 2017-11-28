@@ -22,8 +22,6 @@
         <script src='<?php echo STATICSADMIN ?>js/toggle_column.js'></script>
         <script src='<?php echo STATICSADMIN ?>javascript/product_common_url.js'></script>
         <script src='<?php echo STATICSADMIN ?>javascript/DateFormat.js'></script>
-
-
     </head>
     <body>
         <nav class="nav navbar-default navbar-mystyle navbar-fixed-top">
@@ -52,7 +50,7 @@
             <div class="left-main left-full">
                 <div class="subNavBox">
                     <div class="sBox">
-                        <div class="subNav sublist-down active"><span class="title-icon glyphicon"></span><span class="sublist-title "><a href="<?php echo U('admin/index/index') ?>">网站分析</a></span>
+                        <div class="subNav sublist-down "><span class="title-icon glyphicon"></span><span class="sublist-title "><a href="<?php echo U('admin/index/index') ?>">网站分析</a></span>
                         </div>
                     </div>
                 </div>
@@ -64,10 +62,12 @@
                 </div>
                 <div class="subNavBox">
                     <div class="sBox">
-                        <div class="subNav sublist-down"><span class="title-icon glyphicon glyphicon-chevron-down"></span><span class="sublist-title">效果配置</span>
+                        <div class="subNav sublist-down">
+                            <span class="title-icon glyphicon glyphicon-chevron-down"></span>
+                            <span class="sublist-title">效果配置</span>
                         </div>
                         <ul class="navContent" style="display:none">
-                            <li class="active">
+                            <li class="">
                                 <a href="<?php echo U('admin/switchover/list') ?>"><span class="sub-title">切换栏目</span></a>
                             </li>
                             <li>
@@ -84,8 +84,8 @@
                         <div class="subNav sublist-down"><span class="title-icon glyphicon glyphicon-chevron-down"></span><span class="sublist-title">项目管理</span>
                         </div>
                         <ul class="navContent" style="display:none">
-                            <li class="active">
-                                <a href="<?php echo U('admin/product/list') ?>"><span class="sub-title">线上项目</span></a>
+                            <li class="">
+                                <a href="<?php echo U('admin/product/list') ?>"><span class="sub-title">查看项目</span></a>
                             </li>
                             <li >
                                 <a href="<?php echo U('admin/video/list') ?>"><span class="sub-title">项目审核</span></a>
@@ -154,6 +154,49 @@
             });
         }
     });
+
+    switch ('<?php echo $this->id ?>'){
+        case 'admin/product':
+        $('.down-main li').eq(2).addClass('active').siblings().removeClass('active');
+        $('.subNav').eq(3).addClass('sublist-up');
+        $('.navContent').eq(1).show();
+        break;
+        case 'admin/video':
+            $('.down-main li').eq(3).addClass('active').siblings().removeClass('active');
+            $('.subNav').eq(3).addClass('sublist-up');
+            $('.navContent').eq(1).show();
+            break;
+        case 'admin/switchover':
+            $('.down-main li').eq(0).addClass('active').siblings().removeClass('active');
+            $('.subNav').eq(2).addClass('sublist-up');
+            $('.navContent').eq(0).show();
+            break;
+        case 'admin/music':
+            $('.down-main li').eq(1).addClass('active').siblings().removeClass('active');
+            $('.subNav').eq(2).addClass('sublist-up');
+            $('.navContent').eq(0).show();
+            break;
+        case 'admin/index':
+            $('.subNav').eq(0).addClass('sublist-up');
+            break;
+        case 'admin/user':
+            $('.subNav').eq(1).addClass('sublist-up');
+            break;
+        case 'admin/order':
+            $('.subNav').eq(4).addClass('sublist-up');
+            break;
+        case 'admin/flow':
+        $('.subNav').eq(5).addClass('sublist-up');
+            break;
+        case 'admin/mail':
+            $('.subNav').eq(6).addClass('sublist-up');
+            break;
+        case 'admin/help':
+            $('.subNav').eq(7).addClass('sublist-up');
+            break;
+    }
+
+
 </script>
 
 

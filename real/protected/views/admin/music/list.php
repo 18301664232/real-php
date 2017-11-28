@@ -1,30 +1,48 @@
-<div class="mu_add" id="icon_add2" >
+<div class="mu_add" id="icon_add2">
     <div class="tit_up">修改<span>X</span></div>
     <ul>
         <li>
-            <ul><li>位置:</li><li><input type="text" class="name"></li></ul>
+            <ul>
+                <li>位置:</li>
+                <li><input type="text" class="name"></li>
+            </ul>
         </li>
         <li>
-            <ul><li>权重:</li><li><input type="text" class="quanzhong"></li></ul>
+            <ul>
+                <li>权重:</li>
+                <li><input type="text" class="quanzhong"></li>
+            </ul>
         </li>
         <li>
-            <ul><li>KEY值:</li><li><input type="text" class="key"></li></ul>
+            <ul>
+                <li>KEY值:</li>
+                <li><input type="text" class="key"></li>
+            </ul>
         </li>
     </ul>
     <div class="btn1 btns">取消</div>
     <div class="btn2 btns">确定</div>
 </div>
-<div class="mu_add" id="icon_add1" >
+<div class="mu_add" id="icon_add1">
     <div class="tit_up">添加<span>X</span></div>
     <ul>
         <li>
-            <ul><li>位置:</li><li><input type="text" class="name"></li></ul>
+            <ul>
+                <li>位置:</li>
+                <li><input type="text" class="name"></li>
+            </ul>
         </li>
         <li>
-            <ul><li>权重:</li><li><input type="text" class="quanzhong"></li></ul>
+            <ul>
+                <li>权重:</li>
+                <li><input type="text" class="quanzhong"></li>
+            </ul>
         </li>
         <li>
-            <ul><li>KEY值:</li><li><input type="text" class="key"></li></ul>
+            <ul>
+                <li>KEY值:</li>
+                <li><input type="text" class="key"></li>
+            </ul>
         </li>
     </ul>
     <div class="btn1 btns">取消</div>
@@ -34,10 +52,16 @@
     <div class="tit_up">修改<span>X</span></div>
     <ul>
         <li>
-            <ul><li>音效名称:</li><li><input type="text" class="name"></li></ul>
+            <ul>
+                <li>音效名称:</li>
+                <li><input type="text" class="name"></li>
+            </ul>
         </li>
         <li>
-            <ul><li>KEY值:</li><li><input type="text" class="key"></li></ul>
+            <ul>
+                <li>KEY值:</li>
+                <li><input type="text" class="key"></li>
+            </ul>
         </li>
     </ul>
     <div class="btn1 btns">取消</div>
@@ -58,7 +82,8 @@
         <div class="tab-pane fade in active" id="home">
             <div class="tit_">官方音效列表</div>
             <div class="true" id="true3x">
-                添加<form class="weUploadForm" enctype="multipart/form-data">
+                添加
+                <form class="weUploadForm" enctype="multipart/form-data">
                     <input class="weUploadMusic" name="music" type="file"/>
                 </form>
             </div>
@@ -114,7 +139,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="divs mianlist" id="mianlist2" >
+            <div class="divs mianlist" id="mianlist2">
                 <ul>
                     <!--<li>
                         <ul>
@@ -189,6 +214,7 @@
             function delmulist(the) {
                 the.parent().parent().parent().remove();
             }
+
             var the
             $('#mianlist1 .xiugai').each(function (i, div) {
                 $(this).click(function () {
@@ -215,6 +241,7 @@
                 $(this).parent().parent().parent().remove()
             })
         }
+
         ADDicon()
         function ADDicon() { //ICON  添加
             var the
@@ -233,8 +260,7 @@
 
                 if ($('#icon_add1 .quanzhong').val().length < 0 || $('#icon_add1 .quanzhong').val() == null || $('#icon_add1 .quanzhong').val() == undefined || $('#icon_add1 .quanzhong').val() == '') {
                     alert('请输入正确权重值')
-                } else
-                if ($('#icon_add1 .name').val().length < 0 || $('#icon_add1 .name').val() == null || $('#icon_add1 .name').val() == undefined || $('#icon_add1 .name').val() == '') {
+                } else if ($('#icon_add1 .name').val().length < 0 || $('#icon_add1 .name').val() == null || $('#icon_add1 .name').val() == undefined || $('#icon_add1 .name').val() == '') {
                     alert('请输入名称')
                 } else {
                     var thum = '<li><ul><li class="long1">&nbsp;</li><li class="long2">' + $('#icon_add1 .quanzhong').val() + '</li><li class="long3">' + $('#icon_add1 .name').val() + '</li><li class="long4"><span class="xiugai">修改</span><span class="del">删除</span></li></ul></li>'

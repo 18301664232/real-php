@@ -135,7 +135,12 @@
 						</div>
 						<div class="col-sm-7 project-profile">
 							<div class="project-info">
-								<h2 class="title">项目概况</h2>
+								<h2 class="title">
+                                    <div>项目概况</div>
+                                    <div>详情查看>></div>
+                                    <div style="display:none"></div>
+                                </h2>
+
 								<div class="project-info-box">
 									<div>
 										<p>付费项目</p>

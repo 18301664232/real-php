@@ -15,7 +15,6 @@ class HelpController extends CenterController {
 
     //主页
     public function actionList() {
-
         $rs = HelpServer::select();
         if ($rs['code'] == 0) {
             $data = json_decode(json_encode($rs['data']), true);

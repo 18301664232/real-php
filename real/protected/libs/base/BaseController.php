@@ -2,7 +2,8 @@
 
 //基类控制器
 
-class BaseController extends CController {
+class BaseController extends CController
+{
 
     public $ValidateCodeKey = 'loginValidateCode'; //登陆时图片验证码的sessionKey
     public $ValidateCodeExpTimes = 10; //注册/找回密码 验证码有效时间  10分钟
@@ -12,13 +13,15 @@ class BaseController extends CController {
 
     //跨域源资源共享
 
-    public function init() {
+    public function init()
+    {
         parent::init();
-      
+
     }
 
     //输出
-    function out($code = '', $content = '', $data = '') {
+    function out($code = '', $content = '', $data = '')
+    {
         if (is_array($code)) {
             $re = $code;
         } else {
@@ -33,7 +36,8 @@ class BaseController extends CController {
     }
 
     //提示页面
-    function showMessage($content, $url = '', $time = 1550) {
+    function showMessage($content, $url = '', $time = 1550)
+    {
         if (is_array($content)) {
             $re = array(
                 'content' => $content['content'],
@@ -59,7 +63,8 @@ class BaseController extends CController {
      * 加密通过配置项进行,所以验证时应在渲染模版的控制器进行
      * -----------------------------------------------
      */
-    function tokenCreate() {
+    function tokenCreate()
+    {
         $key = uniqid();         //令牌 id值
         $hash = 'HASH';
         $value = sha1($key . $hash); //令牌value//
@@ -71,7 +76,8 @@ class BaseController extends CController {
      * 根据id验证表单令牌
      * @param string $id
      */
-    function tokenCheck($id) {
+    function tokenCheck($id)
+    {
         if (!isset($_SESSION[$id]))
             return false;
         $hash = 'HASH';
@@ -84,7 +90,8 @@ class BaseController extends CController {
     }
 
     //把用户信息保存在SESSION里
-    public function userInsession($data, $type = 'user') {
+    public function userInsession($data, $type = 'user')
+    {
         $data = json_decode(json_encode($data), true);
         if ($type == 'user') {
             $lifeTime = 24 * 3600;
@@ -111,12 +118,14 @@ class BaseController extends CController {
                 'last_time' => isset($data['last_time']) ? $data['last_time'] : '',
                 'last_ip' => isset($data['last_ip']) ? $data['last_ip'] : '',
                 'addtime' => isset($data['addtime']) ? $data['addtime'] : '',
+                'permissions' => isset($data['permissions']) ? $data['permissions'] : [],
             );
         }
     }
 
     //检查前后台是否登陆
-    public function checkLogin($type = 'user') {
+    public function checkLogin($type = 'user')
+    {
         if ($type == 'user') {
             if (!empty(Yii::app()->session[$type]['user_id'])) {
                 return true;
@@ -141,13 +150,15 @@ class BaseController extends CController {
     }
 
     //设置cookie
-    public function setCookie($key, $val, $time = 60) {
+    public function setCookie($key, $val, $time = 60)
+    {
         $cookie = new CHttpCookie($key, $val);
         $cookie->expire = time() + $time;
         Yii::app()->request->cookies[$key] = $cookie;
     }
 
-    public function postCurl($url, $post = '', $json = false) {
+    public function postCurl($url, $post = '', $json = false)
+    {
         $header = array(
             'Content-Type: application/json',
             'Content-Length:' . strlen($post),
@@ -170,5 +181,20 @@ class BaseController extends CController {
             return json_decode($data, true);
         return $data;
     }
+
+    //查看权限
+
+    public function checkAuth($auth_type)
+    {
+        if (!$this->checkLogin('admin')) {
+            $this->showMessage('未登录', U('admin/login/login'));
+        }
+        if (!empty(Yii::app()->session['admin'])) {
+            //查询当前管理人员角色权限
+            return (in_array($auth_type, Yii::app()->session['admin']['permissions']));
+        }
+
+    }
+
 
 }

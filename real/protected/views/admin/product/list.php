@@ -5,7 +5,7 @@
         <div class="search-box">
             <div class="row">
                 <div class="input-group col-sm-4">
-                    <input type="text" class="form-control" placeholder="PID,项目名" value="<?php echo isset($_GET['keyword']) ? $_GET['keyword'] : '' ?>">
+                    <input type="text" class="form-control" placeholder="PID.用户帐号" value="<?php echo isset($_REQUEST['keyword']) ? $_REQUEST['keyword'] : '' ?>">
                     <span class="input-group-btn">
                         <button class="btn btn-default" type="button">搜索</button>
                     </span>
@@ -69,12 +69,12 @@
                             <td><?php echo ($num) ?></td>
                             <td><?php echo $v['title'] ?></td>
                             <td><?php echo $v['product_id'] ?></td>
-                            <td><?php echo $v['tel'] ?></td>
+                            <td><?php echo !empty($v['tel'] )?$v['tel']:$v['email'] ?></td>
                             <td><?php echo $v['online'] ?></td>
                             <td><?php echo $v['pv'] + $v['nv'] + $v['uv'] ?></td>
                             <td><?php echo $v['nv'] + $v['uv'] ?></td>
                             <td><?php echo $v['water'] != null ? number_format(($v['water'] / 1024 / 1024), 2, '.', '') . 'MB' : 0 ?></td>
-                            <td><button class="btn btn-success btn-sm btn-looklink">查看</button></td>
+                            <td><a target="_blank" href="<?php echo $v['looklink'] ?>"><button class="btn btn-success btn-sm btn-looklink">查看</button></a></td>
 
         <!--	    					<td>
                 <button class="btn btn-info btn-detail" data-toggle="modal" data-target="#project">详情</button>
@@ -168,25 +168,56 @@
             window.location.href = '<?php echo U('admin/product/list') ?>&keyword=' + keyword+'&status=' + search_btn_status;
         }
     }
-    $('.form-control').val('');
-    //点击修改按钮
-    $('.table-box').delegate('.btn-looklink', 'click', function() {
-        $.ajax({
-            url:window_request_url.admin_product_getlink,
-            type:"post",
-            data:{
-               product_id: $(this).parent().siblings().eq(2).text()
-            },
-            success:function(data){
-                var obj=eval('(' + data + ')');
-                if(obj.code == 0) {
-                    window.open(window_request_url.product_index_index+'&url_type=pc'+'&id='+obj.result.data.uid);
-                }
-            },
-            error:function(e){
-                alert("代码提交错误！！");
-            }
-        });
-    })
+
+    if($('.form-control').val()=="_"){
+        $('.form-control').val('');
+    }
+
+//    //点击修改按钮
+//    $('.table-box').delegate('.btn-looklink', 'click', function() {
+//        $.ajax({
+//            url:window_request_url.admin_product_getlink,
+//            type:"post",
+//            data:{
+//               product_id: $(this).parent().siblings().eq(2).text()
+//            },
+//            success:function(data){
+//                var obj=eval('(' + data + ')');
+//                if(obj.code == 0) {
+//                    var tempwindow=window.open();
+//                    tempwindow.location.href=window_request_url.product_index_index+'&url_type=pc'+'&id='+obj.result.data.uid;
+//                    //window.open(window_request_url.product_index_index+'&url_type=pc'+'&id='+obj.result.data.uid);
+//                }
+//            },
+//            error:function(e){
+//                alert("代码提交错误！！");
+//            }
+//        });
+//    })
+
+    //函数触发链接
+//
+//    function LookLinkUrl(self) {
+//        $.ajax({
+//            url:window_request_url.admin_product_getlink,
+//            async: false,
+//            type:"post",
+//            data:{
+//                product_id: self.parent().siblings().eq(2).text()
+//            },
+//            success:function(data){
+//                var obj=eval('(' + data + ')');
+//                if(obj.code == 0) {
+//                    //var tempwindow=window.open();
+//                  //  tempwindow.location.href=window_request_url.product_index_index+'&url_type=pc'+'&id='+obj.result.data.uid;
+//                    //window.open(window_request_url.product_index_index+'&url_type=pc'+'&id='+obj.result.data.uid);
+//                    return obj.result.data.uid;
+//                }
+//            },
+//            error:function(e){
+//                alert("代码提交错误！！");
+//            }
+//        });
+//    }
 
 </script>

@@ -154,4 +154,42 @@ class StatisticsController extends CenterController {
         ExcelTool::postExcerpt($params);
     }
 
+    //按钮统计数据
+    public function actionBtnData(){
+
+        $btn_name = !empty($_REQUEST['btn_name']) ? $_REQUEST['btn_name'] : '';
+        if (empty($btn_name)){
+            $this->out('100005', '参数不能为空');
+        }
+        $params['btn_name'] = $btn_name;
+        $params['ip'] = $_SERVER['REMOTE_ADDR'];
+        $params['addtime'] = time();
+        //判断当前有没有用户登录
+        if( Yii::app()->session['user']){
+            $params['user_id'] = Yii::app()->session['user']['user_id'];
+        }
+        //判断浏览器有没有cookie
+        if(Yii::app()->request->cookies[$btn_name]){
+            //有cookie是PV
+            $params['status'] = 'pv';
+        }else{
+            //设置cookie为一天
+            $this->setCookie($btn_name,uniqid(),3600*24);
+            $params['status'] = 'uv';
+        }
+            //保存数据
+        if($params['status']=='uv'){
+            //保存两条(uv=pv)
+
+        }else{
+            //保存一条
+
+        }
+
+
+
+
+    }
+
+
 }

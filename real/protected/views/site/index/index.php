@@ -101,61 +101,61 @@
             <div class="index-s6-showbase index-s6-show50">
                 <img class="index-s6-showimg" src="<?php echo STATICS ?>images/index-s6-img1.jpg"/>
                 <div class="index-s6-showmask">
-                    <img class="index-s6-showqrcode" src="<?php echo STATICS ?>images/index-s6-qrcode.png"/>
+                    <img class="index-s6-showqrcode" src="<?php echo STATICS ?>images/index-s6-qrcode1.jpg"/>
                 </div>
             </div>
             <div class="index-s6-showbase index-s6-show25">
                 <img class="index-s6-showimg" src="<?php echo STATICS ?>images/index-s6-img2.jpg"/>
                 <div class="index-s6-showmask">
-                    <img class="index-s6-showqrcode" src="<?php echo STATICS ?>images/index-s6-qrcode.png"/>
+                    <img class="index-s6-showqrcode" src="<?php echo STATICS ?>images/index-s6-qrcode2.jpg"/>
                 </div>
             </div>
             <div class="index-s6-showbase index-s6-show25">
                 <img class="index-s6-showimg" src="<?php echo STATICS ?>images/index-s6-img3.jpg"/>
                 <div class="index-s6-showmask">
-                    <img class="index-s6-showqrcode" src="<?php echo STATICS ?>images/index-s6-qrcode.png"/>
+                    <img class="index-s6-showqrcode" src="<?php echo STATICS ?>images/index-s6-qrcode3.jpg"/>
                 </div>
             </div>
 
             <div class="index-s6-showbase index-s6-show25">
                 <img class="index-s6-showimg" src="<?php echo STATICS ?>images/index-s6-img4.jpg"/>
                 <div class="index-s6-showmask">
-                    <img class="index-s6-showqrcode" src="<?php echo STATICS ?>images/index-s6-qrcode.png"/>
+                    <img class="index-s6-showqrcode" src="<?php echo STATICS ?>images/index-s6-qrcode4.jpg"/>
                 </div>
             </div>
             <div class="index-s6-showbase index-s6-show25">
                 <img class="index-s6-showimg" src="<?php echo STATICS ?>images/index-s6-img5.jpg"/>
                 <div class="index-s6-showmask">
-                    <img class="index-s6-showqrcode" src="<?php echo STATICS ?>images/index-s6-qrcode.png"/>
+                    <img class="index-s6-showqrcode" src="<?php echo STATICS ?>images/index-s6-qrcode5.jpg"/>
                 </div>
             </div>
             <div class="index-s6-showbase index-s6-show25">
                 <img class="index-s6-showimg" src="<?php echo STATICS ?>images/index-s6-img6.jpg"/>
                 <div class="index-s6-showmask">
-                    <img class="index-s6-showqrcode" src="<?php echo STATICS ?>images/index-s6-qrcode.png"/>
+                    <img class="index-s6-showqrcode" src="<?php echo STATICS ?>images/index-s6-qrcode6.jpg"/>
                 </div>
             </div>
             <div class="index-s6-showbase index-s6-show25">
                 <img class="index-s6-showimg" src="<?php echo STATICS ?>images/index-s6-img7.jpg"/>
                 <div class="index-s6-showmask">
-                    <img class="index-s6-showqrcode" src="<?php echo STATICS ?>images/index-s6-qrcode.png"/>
+                    <img class="index-s6-showqrcode" src="<?php echo STATICS ?>images/index-s6-qrcode7.jpg"/>
                 </div>
             </div>
 
             <div class="index-s6-showbase index-s6-show25">
                 <img class="index-s6-showimg" src="<?php echo STATICS ?>images/index-s6-img8.jpg"/>
                 <div class="index-s6-showmask">
-                    <img class="index-s6-showqrcode" src="<?php echo STATICS ?>images/index-s6-qrcode.png"/>
+                    <img class="index-s6-showqrcode" src="<?php echo STATICS ?>images/index-s6-qrcode8.jpg"/>
                 </div>
             </div>
             <div class="index-s6-showbase index-s6-show50">
                 <img class="index-s6-showimg" src="<?php echo STATICS ?>images/index-s6-img9.jpg"/>
                 <div class="index-s6-showmask">
-                    <img class="index-s6-showqrcode" src="<?php echo STATICS ?>images/index-s6-qrcode.png"/>
+                    <img class="index-s6-showqrcode" src="<?php echo STATICS ?>images/index-s6-qrcode9.jpg"/>
                 </div>
             </div>
             <div class="index-s6-showbase index-s6-show25">
-                <a class='index-s6-more' href='javascript:;'></a>
+                <a  target="_blank" class='index-s6-more' href='http://www.moneplus.cn/'></a>
             </div>
         </div>
     </div>

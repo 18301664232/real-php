@@ -28,6 +28,15 @@ class MyyController extends BaseController
     }
 
 
+    public function actionQuanxian(){
+
+      // $rs = AdminServer::getPromissionsList(['2']);
+        //dump(AuthServer::getRolePermissionsList(['\'超级管理员\''])['data']);
+        //dump(AuthServer::getRolePermissionsList([]));
+
+    }
+
+
     public function actionLi(){
 
 // 设置GatewayWorker服务的Register服务ip和端口，请根据实际情况改成实际值
