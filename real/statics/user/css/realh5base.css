@@ -186,9 +186,10 @@ p{
 }
 /*qq_qrcode*/
 .QQ-QRcode-box {
+	z-index: 99;
 	position: fixed;
 	bottom: 5%;
-	right: 5%;
+	right: 2%;
 	background: url(../images/QR_box.png) center center no-repeat;
 	background-size:22px 22px;
 	background-color:#219ee8;

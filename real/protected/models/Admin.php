@@ -16,6 +16,7 @@ class Admin extends CActiveRecord{
     public $last_ip;
     public $addtime;
     public $department;
+    public $name;
 
 
     //Model静态方法为必须有的方法
@@ -34,7 +35,7 @@ class Admin extends CActiveRecord{
 
     public function rules() {
         return array(
-            array('id,username,password,last_time,last_ip,addtime,department,', 'safe'),
+            array('id,username,password,last_time,last_ip,addtime,department,name', 'safe'),
         );
     }
 

@@ -47,7 +47,7 @@ return array(
 		'urlManager'=>array(
 			'caseSensitive'=>true,//大小写不敏感
 			'showScriptName' => false,//隐藏INDEX.PHP
-			/* 'urlFormat'=>'path',
+		/*	 'urlFormat'=>'path',
 			'rules'=>array(
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',

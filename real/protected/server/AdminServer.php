@@ -83,18 +83,45 @@ class AdminServer extends BaseServer {
 
 
     //获取后台管理员表数据
-    public static function getAdmin($params = array(),$search_key='')
+    public static function getAdmin($params = array(),$search_key='',$page)
     {
-
+        $pagesize = 4;
+        $offset = ($page - 1) * $pagesize;
         $param = self::comParams2($params);
         $model = new Admin();
         $criteria = new CDbCriteria;
         $criteria->select = '*';
         if(!empty($search_key)){
-            $criteria->addSearchCondition('CONCAT(username,name)', '%xiaoming%');
+
+            $criteria->addSearchCondition('CONCAT(username,IFNULL(name,""))', "$search_key");
         }else{
              $criteria->condition = $param['con'];
              $criteria->params = $param['par'];
+        }
+        $criteria->order = 'addtime DESC';
+        $criteria->limit = $pagesize;   //取1条数据，如果小于0，则不作处理
+        $criteria->offset = $offset;   //两条合并起来，则表示 limit 10
+        $rs = $model->findAll($criteria);
+        if ($rs) {
+            return array('code' => '0', 'data' => $rs);
+        } else {
+            return array('code' => '100001', 'data' => '');
+        }
+
+    }
+    public static function getAdminCount($params = array(),$search_key='',$page)
+    {
+        $pagesize = 4;
+        $offset = ($page - 1) * $pagesize;
+        $param = self::comParams2($params);
+        $model = new Admin();
+        $criteria = new CDbCriteria;
+        $criteria->select = '*';
+        if(!empty($search_key)){
+            $criteria->addSearchCondition('CONCAT(username,IFNULL(name,""))',  "$search_key");
+        }else{
+            $criteria->condition = $param['con'];
+            $criteria->params = $param['par'];
         }
         $criteria->order = 'addtime DESC';
         $rs = $model->findAll($criteria);
@@ -127,7 +154,7 @@ class AdminServer extends BaseServer {
         $model->attributes = $params;
         $rs = $model->save();
         if ($rs) {
-            return array('code' => '0', 'msg' => '添加成功',['data']=>$model->id);
+            return array('code' => '0', 'msg' => '添加成功','data'=>$model->attributes['id']);
         } else {
             return array('code' => '100001', 'msg' => '添加失败');
         }

@@ -216,7 +216,7 @@ class AuthServer extends BaseServer
         $model->attributes = $params;
         $rs = $model->save();
         if ($rs) {
-            return array('code' => '0', 'msg' => '添加成功','data'=>$model->id);
+            return array('code' => '0', 'msg' => '添加成功','data'=>$model->attributes['id']);
         } else {
             return array('code' => '100001', 'msg' => '添加失败');
         }

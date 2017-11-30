@@ -15,4 +15,7 @@ window_request_url = {
     admin_user_life:'?r=/admin/user/LifeUser',//解封用户
     admin_product_getlink:'?r=/admin/product/ReturnLookLink',//获取项目链接
     product_index_index:'?r=/product/index/index',//项目访问链接
+    admin_auth_list:'?r=/admin/auth/GetList',//读取全部的帐号
+    admin_auth_creat:'?r=/admin/auth/GrantRight',//创建后台帐号
+    admin_auth_delete:'?r=/admin/auth/DelAccount',//删除后台帐号
 };

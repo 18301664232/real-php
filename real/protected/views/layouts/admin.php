@@ -78,6 +78,24 @@
                         </ul>
                     </div>
                 </div>
+                <div class="subNavBox">
+                    <div class="sBox">
+                        <div class="subNav sublist-down">
+                            <span class="title-icon glyphicon glyphicon-chevron-down"></span>
+                            <span class="sublist-title">员工管理</span>
+                        </div>
+                        <ul class="navContent" style="display:none">
+                            <li class="">
+                                <a href="<?php echo U('admin/Auth/list') ?>"><span class="sub-title">帐号管理</span></a>
+                            </li>
+                            <li>
+                                <a href="<?php echo U('admin/Role/list') ?>"><span class="sub-title">角色管理</span></a>
+                            </li>
+
+
+                        </ul>
+                    </div>
+                </div>
 
                 <div class="subNavBox">
                     <div class="sBox">

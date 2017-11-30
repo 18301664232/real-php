@@ -16,14 +16,15 @@ class RoleController extends BaseController
         //查询所有的角色
 
         //查询所有的权限
-        $rs = AuthServer::getAuthPermissions();
-        if($rs['code']!=0){
-            $this->out('100444','数据获取失败');
-        }
-        foreach ($rs['data'] as $key=>$vel){
-            $data_arr["$vel[permissions_main]"][] = ['permissions_name'=>$vel['permissions_name'],'permissions_id'=>$vel['permissions_id']];
-        }
-        $this->render('list',['data'=>$data_arr]);
+//        $rs = AuthServer::getAuthPermissions();
+//        if($rs['code']!=0){
+//            $this->out('100444','数据获取失败');
+//        }
+//        foreach ($rs['data'] as $key=>$vel){
+//            $data_arr["$vel[permissions_main]"][] = ['permissions_name'=>$vel['permissions_name'],'permissions_id'=>$vel['permissions_id']];
+//        }
+      //  $this->render('list',['data'=>$data_arr]);
+        $this->render('list');
     }
 
     //输出列表
