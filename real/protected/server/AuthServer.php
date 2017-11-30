@@ -20,7 +20,7 @@ class AuthServer extends BaseServer
             $search_key = '_';
         }
         $rs = Yii::app()->db->createCommand()
-            ->select('r.role_name as name,p.permissions_main,p.permissions_name,p.permissions_sign')
+            ->select('r.role_name as name,r.id as id,p.permissions_main,p.permissions_name,p.permissions_sign')
             ->from('r_auth_role r')
             ->join('r_role_permissions s', 's.role_id=r.id')
             ->join('r_auth_permissions p', 'p.id=s.permissions_id')

@@ -1,6 +1,3 @@
-
-<script type="text/javascript" src="<?php echo STATICS ?>js/qqrcode.js"></script>
-
 <!-- 第一屏 -->
 <div id="index-s1-box" class="index-s1 carousel slide" data-ride="carousel">
     <div class="carousel-inner index-s1-inner" role="listbox">

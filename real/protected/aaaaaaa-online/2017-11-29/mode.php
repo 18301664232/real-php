@@ -1,6 +1,6 @@
 <div class="wrapper scrollbar-macosx">
 	<!-- 头部 -->
-    <script type="text/javascript" src="<?php echo STATICS ?>js/qqrcode.js"></script>
+
 	<div class='bm-pane1'>
 		<div class='bm-pane1-inner clearfix'>
 			<div class='bm-pane1-left'></div>

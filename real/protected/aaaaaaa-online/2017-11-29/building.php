@@ -1,4 +1,4 @@
-<script type="text/javascript" src="<?php echo STATICS ?>js/qqrcode.js"></script>
+
 
 
 <!-- 工具下载 -->

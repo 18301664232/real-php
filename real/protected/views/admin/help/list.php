@@ -7,8 +7,7 @@
             <ul class="nav nav-tabs">
                 <li role="presentation" class="active">
                     <a href="javascript:void(0)">
-                        <?php if($this->checkAuth('admin/index/list')){ echo '有权限';} ?> 类目管理
-                        <?php  dump(Yii::app()->session['admin'])  ?> 类目管理
+                         类目管理
                     </a>
                 </li>
                 <li role="presentation">

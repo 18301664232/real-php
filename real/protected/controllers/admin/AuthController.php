@@ -20,8 +20,9 @@ class AuthController extends BaseController
 
     //输出列表
     public function actionGetList(){
+        $search_key = !empty($_REQUEST['search_key']) ? $_REQUEST['search_key'] : '';
         //读取全部的帐号
-        $rs = AdminServer::getAdmin();
+        $rs = AdminServer::getAdmin([],$search_key);
         var_dump($rs);die;
         if($rs['code'] == 0){
             $admin_id_arr = [];

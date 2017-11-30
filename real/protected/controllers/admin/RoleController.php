@@ -29,8 +29,12 @@ class RoleController extends BaseController
     //输出列表
     public function actionGetList(){
 
-
-
+        $rs = AuthServer::getRolePermissionsList([],$search_key='');
+        if($rs['code']!=0){
+            $this->out('100444','数据获取失败');
+        }else{
+            $this->out('0','数据获取成功',['data'=>$rs['data']]);
+        }
 
 
     }

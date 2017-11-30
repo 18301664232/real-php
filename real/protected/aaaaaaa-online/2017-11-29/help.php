@@ -1,5 +1,4 @@
 <link rel="stylesheet" type="text/css" href="<?php echo STATICS ?>css/help.css">
-<script type="text/javascript" src="<?php echo STATICS ?>js/qqrcode.js"></script>
 <!-- 搜索区域 -->
 <div class='hp_se_sec'>
     <div class='hp_se_box clearfix'>

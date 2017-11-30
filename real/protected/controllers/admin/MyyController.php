@@ -45,7 +45,7 @@ class MyyController extends BaseController
 // 假设用户已经登录，用户uid和群组id在session中
        // $uid      = $_SESSION['uid'];
        // $group_id = $_SESSION['group'];
-        $uid      = 999;
+        $uid = 999;
        // $group_id = $_SESSION['group'];
 // client_id与uid绑定
         Gateway::bindUid($client_id, $uid);
