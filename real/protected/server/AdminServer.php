@@ -54,7 +54,7 @@ class AdminServer extends BaseServer {
             ->join('r_auth_role r', 'r.id=e.role_id')
             ->join('r_role_permissions s', 's.role_id=r.id')
             ->join('r_auth_permissions p', 'p.id=s.permissions_id')
-            //->andWhere(['like','CONCAT(p.title,t.product_id,u.user_id)','%'.$search_key.'%'])
+            //->andWhere(['like','r.role_name','%'.$search_key.'%'])
             ->Where(['in','a.id',$params])
            // ->group('t.product_id')
            // ->order('t.addtime DESC')

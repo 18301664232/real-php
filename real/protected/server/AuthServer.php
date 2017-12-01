@@ -9,8 +9,11 @@ class AuthServer extends BaseServer
 {
     
     //获取全部角色的权限
-    public static function getRolePermissionsList($params=[],$search_key=''){
-        //        $param = self::comParams($params);
+    public static function getRolePermissionsList($params=[],$search_key='',$page){
+
+        $pagesize = 4;
+        $offset = ($page - 1) * $pagesize;
+//        $param = self::comParams($params);
 //        if($param){
 //            $str=$param;
 //        }else{
@@ -19,26 +22,42 @@ class AuthServer extends BaseServer
         if($search_key==''){
             $search_key = '_';
         }
-        $rs = Yii::app()->db->createCommand()
-            ->select('r.role_name as name,r.id as id,p.permissions_main,p.permissions_name,p.permissions_sign')
-            ->from('r_auth_role r')
-            ->join('r_role_permissions s', 's.role_id=r.id')
-            ->join('r_auth_permissions p', 'p.id=s.permissions_id')
-            //->andWhere(['like','r.role_name','%'.$search_key.'%'])
-           // ->andWhere(['in','r.role_name',$params])
-            ->queryAll();
+        if(empty($params)){
+            $rs = Yii::app()->db->createCommand()
+                ->select('r.role_name as name,r.id as id,r.addtime as addtime,p.id as pid,p.permissions_main,p.permissions_name,p.permissions_sign')
+                ->from('r_auth_role r')
+                ->join('r_role_permissions s', 's.role_id=r.id')
+                ->join('r_auth_permissions p', 'p.id=s.permissions_id')
+                ->andWhere(['like','r.role_name','%'.$search_key.'%'])
+                ->queryAll();
+        }else{
+            $rs = Yii::app()->db->createCommand()
+                ->select('r.role_name as name,r.id as id,r.addtime as addtime,p.id as pid,p.permissions_main,p.permissions_name,p.permissions_sign')
+                ->from('r_auth_role r')
+                ->join('r_role_permissions s', 's.role_id=r.id')
+                ->join('r_auth_permissions p', 'p.id=s.permissions_id')
+                ->andWhere(['in','r.id',$params])
+                ->queryAll();
+        }
+
         $permissions_arr = [];
         foreach ($rs as $key =>$vel){
             if(!empty($permissions_arr[$vel['name']]['permissions_main'])){
                 if(!in_array($vel['permissions_main'],$permissions_arr[$vel['name']]['permissions_main'])){
                     $permissions_arr[$vel['name']]['permissions_main'][]=$vel['permissions_main'];
+                    $permissions_arr[$vel['name']]['id']=$vel['id'];
+                    $permissions_arr[$vel['name']]['name']=$vel['name'];
+                    $permissions_arr[$vel['name']]['addtime']=$vel['addtime'];
                 }
             }else{
                 $permissions_arr[$vel['name']]['permissions_main'][]=$vel['permissions_main'];
             }
-            $permissions_arr[$vel['name']]['permissions_name'][]=$vel['permissions_name'];
-            $permissions_arr[$vel['name']]['permissions_sign'][]=$vel['permissions_sign'];
+
+            $permissions_arr[$vel['name']]['permissions_name'][$vel['pid']]=$vel['permissions_name'];
+            $permissions_arr[$vel['name']]['permissions_sign'][$vel['pid']]=$vel['permissions_sign'];
         }
+
+
 
         if ($permissions_arr) {
             return array('code' => '0', 'data' => $permissions_arr);

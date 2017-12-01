@@ -18,4 +18,8 @@ window_request_url = {
     admin_auth_list:'?r=/admin/auth/GetList',//读取全部的帐号
     admin_auth_creat:'?r=/admin/auth/GrantRight',//创建后台帐号
     admin_auth_delete:'?r=/admin/auth/DelAccount',//删除后台帐号
+    admin_role_list:'?r=/admin/role/GetList',//读取全部角色和单独
+    admin_role_delete:'?r=/admin/role/DelRole',//读取全部角色
+    admin_role_create:'?r=/admin/role/CreateRole',//读取全部角色
+    admin_role_update:'?r=/admin/role/UpdateRole',//更新角色权限
 };
