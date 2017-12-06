@@ -44,9 +44,13 @@ $(function () {
             contentType: false,
             success: function (data) {
                 var obj = eval('(' + data + ')');
-                if (obj.code == 0) {
-                    datainit(1, self_status);
+                if(obj.code == 0) {
+                    datainit(1,self_status);
                     saveTip('创建成功');
+                }else if(obj.code == '100444'){
+                    saveTip('请完成添加');
+                }else {
+                    saveTip('创建失败');
                 }
             },
             error: function (e) {
@@ -80,6 +84,9 @@ $(function () {
                 if (obj.code == 0) {
                     datainit(1, self_status);
                     saveTip('修改成功');
+                }else {
+                    saveTip('修改失败');
+
                 }
             },
             error: function (e) {
@@ -138,11 +145,12 @@ $(function () {
                         column_str += '</tr>'
                     }
                     $('.table1 .table-bordered').append(column_str);
-                    $('.total span').html(data.result.c_count);
-                    //$('.pageend').attr('pageattr', data.result.pages);
-                    //$('.pageend').attr('pageattr', data.result.pages);
-                    // //执行分页
-                    // ajaxPages(page,data);
+                    checkAuth();
+                    $('.total span').html(data.result.count);
+                    $('.pageend').attr('pageattr', data.result.pages);
+                    $('.pageend').attr('pageattr', data.result.pages);
+                    //执行分页
+                    ajaxPages(page,data);
                 } else {
                     $('.isup').remove();
                     $('.table1 .table-bordered tr:gt(0)').remove();
@@ -151,7 +159,7 @@ $(function () {
         })
     }
 
-    //  bindPagesEvent(datainit,self_status);
+      bindPagesEvent(datainit,self_status);
     //点击详情按钮
     $('.table-box').delegate('.btndetail', 'click', function () {
         var role_id = $(this).parent().parent().attr('admin_id');

@@ -541,7 +541,7 @@ class ProductServer extends BaseServer {
         }
 
 
-        dump($params);
+
 
 
     }

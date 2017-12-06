@@ -17911,3 +17911,113 @@ Stack trace:
 REQUEST_URI=/real-copy/real/?r=/admin/role/CreateRole
 in C:\wamp\www\real-copy\real\protected\controllers\admin\RoleController.php (66)
 in C:\wamp\www\real-copy\real\index.php (13)
+2017/12/04 05:16:39 [error] [php] Undefined offset: 1 (C:\wamp\www\real-copy\real\protected\controllers\admin\LoginController.php:24)
+Stack trace:
+#0 C:\wamp\www\real-copy\framework\web\CController.php(286): LoginController->runAction()
+#1 C:\wamp\www\real-copy\framework\web\CController.php(265): LoginController->runActionWithFilters()
+#2 C:\wamp\www\real-copy\framework\web\CWebApplication.php(282): LoginController->run()
+#3 C:\wamp\www\real-copy\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#4 C:\wamp\www\real-copy\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#5 C:\wamp\www\real-copy\real\index.php(13): CWebApplication->run()
+REQUEST_URI=/real-copy/real/?r=admin/login/login
+in C:\wamp\www\real-copy\real\protected\controllers\admin\LoginController.php (24)
+in C:\wamp\www\real-copy\real\index.php (13)
+2017/12/04 05:16:41 [error] [php] Undefined offset: 1 (C:\wamp\www\real-copy\real\protected\controllers\admin\LoginController.php:24)
+Stack trace:
+#0 C:\wamp\www\real-copy\framework\web\CController.php(286): LoginController->runAction()
+#1 C:\wamp\www\real-copy\framework\web\CController.php(265): LoginController->runActionWithFilters()
+#2 C:\wamp\www\real-copy\framework\web\CWebApplication.php(282): LoginController->run()
+#3 C:\wamp\www\real-copy\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#4 C:\wamp\www\real-copy\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#5 C:\wamp\www\real-copy\real\index.php(13): CWebApplication->run()
+REQUEST_URI=/real-copy/real/?r=admin/login/login
+in C:\wamp\www\real-copy\real\protected\controllers\admin\LoginController.php (24)
+in C:\wamp\www\real-copy\real\index.php (13)
+2017/12/04 05:16:42 [error] [php] Undefined offset: 1 (C:\wamp\www\real-copy\real\protected\controllers\admin\LoginController.php:24)
+Stack trace:
+#0 C:\wamp\www\real-copy\framework\web\CController.php(286): LoginController->runAction()
+#1 C:\wamp\www\real-copy\framework\web\CController.php(265): LoginController->runActionWithFilters()
+#2 C:\wamp\www\real-copy\framework\web\CWebApplication.php(282): LoginController->run()
+#3 C:\wamp\www\real-copy\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#4 C:\wamp\www\real-copy\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#5 C:\wamp\www\real-copy\real\index.php(13): CWebApplication->run()
+REQUEST_URI=/real-copy/real/?r=admin/login/login
+in C:\wamp\www\real-copy\real\protected\controllers\admin\LoginController.php (24)
+in C:\wamp\www\real-copy\real\index.php (13)
+2017/12/04 05:16:42 [error] [php] Undefined offset: 1 (C:\wamp\www\real-copy\real\protected\controllers\admin\LoginController.php:24)
+Stack trace:
+#0 C:\wamp\www\real-copy\framework\web\CController.php(286): LoginController->runAction()
+#1 C:\wamp\www\real-copy\framework\web\CController.php(265): LoginController->runActionWithFilters()
+#2 C:\wamp\www\real-copy\framework\web\CWebApplication.php(282): LoginController->run()
+#3 C:\wamp\www\real-copy\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#4 C:\wamp\www\real-copy\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#5 C:\wamp\www\real-copy\real\index.php(13): CWebApplication->run()
+REQUEST_URI=/real-copy/real/?r=admin/login/login
+in C:\wamp\www\real-copy\real\protected\controllers\admin\LoginController.php (24)
+in C:\wamp\www\real-copy\real\index.php (13)
+2017/12/04 05:16:47 [error] [php] Undefined offset: 1 (C:\wamp\www\real-copy\real\protected\controllers\admin\LoginController.php:24)
+Stack trace:
+#0 C:\wamp\www\real-copy\framework\web\CController.php(286): LoginController->runAction()
+#1 C:\wamp\www\real-copy\framework\web\CController.php(265): LoginController->runActionWithFilters()
+#2 C:\wamp\www\real-copy\framework\web\CWebApplication.php(282): LoginController->run()
+#3 C:\wamp\www\real-copy\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#4 C:\wamp\www\real-copy\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#5 C:\wamp\www\real-copy\real\index.php(13): CWebApplication->run()
+REQUEST_URI=/real-copy/real/?r=admin/login/login
+in C:\wamp\www\real-copy\real\protected\controllers\admin\LoginController.php (24)
+in C:\wamp\www\real-copy\real\index.php (13)
+2017/12/04 05:16:47 [error] [php] Undefined offset: 1 (C:\wamp\www\real-copy\real\protected\controllers\admin\LoginController.php:24)
+Stack trace:
+#0 C:\wamp\www\real-copy\framework\web\CController.php(286): LoginController->runAction()
+#1 C:\wamp\www\real-copy\framework\web\CController.php(265): LoginController->runActionWithFilters()
+#2 C:\wamp\www\real-copy\framework\web\CWebApplication.php(282): LoginController->run()
+#3 C:\wamp\www\real-copy\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#4 C:\wamp\www\real-copy\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#5 C:\wamp\www\real-copy\real\index.php(13): CWebApplication->run()
+REQUEST_URI=/real-copy/real/?r=admin/login/login
+in C:\wamp\www\real-copy\real\protected\controllers\admin\LoginController.php (24)
+in C:\wamp\www\real-copy\real\index.php (13)
+2017/12/04 05:16:55 [error] [php] Undefined offset: 2 (C:\wamp\www\real-copy\real\protected\controllers\admin\LoginController.php:24)
+Stack trace:
+#0 C:\wamp\www\real-copy\framework\web\CController.php(286): LoginController->runAction()
+#1 C:\wamp\www\real-copy\framework\web\CController.php(265): LoginController->runActionWithFilters()
+#2 C:\wamp\www\real-copy\framework\web\CWebApplication.php(282): LoginController->run()
+#3 C:\wamp\www\real-copy\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#4 C:\wamp\www\real-copy\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#5 C:\wamp\www\real-copy\real\index.php(13): CWebApplication->run()
+REQUEST_URI=/real-copy/real/?r=admin/login/login
+in C:\wamp\www\real-copy\real\protected\controllers\admin\LoginController.php (24)
+in C:\wamp\www\real-copy\real\index.php (13)
+2017/12/04 05:16:56 [error] [php] Undefined offset: 2 (C:\wamp\www\real-copy\real\protected\controllers\admin\LoginController.php:24)
+Stack trace:
+#0 C:\wamp\www\real-copy\framework\web\CController.php(286): LoginController->runAction()
+#1 C:\wamp\www\real-copy\framework\web\CController.php(265): LoginController->runActionWithFilters()
+#2 C:\wamp\www\real-copy\framework\web\CWebApplication.php(282): LoginController->run()
+#3 C:\wamp\www\real-copy\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#4 C:\wamp\www\real-copy\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#5 C:\wamp\www\real-copy\real\index.php(13): CWebApplication->run()
+REQUEST_URI=/real-copy/real/?r=admin/login/login
+in C:\wamp\www\real-copy\real\protected\controllers\admin\LoginController.php (24)
+in C:\wamp\www\real-copy\real\index.php (13)
+2017/12/04 05:16:56 [error] [php] Undefined offset: 2 (C:\wamp\www\real-copy\real\protected\controllers\admin\LoginController.php:24)
+Stack trace:
+#0 C:\wamp\www\real-copy\framework\web\CController.php(286): LoginController->runAction()
+#1 C:\wamp\www\real-copy\framework\web\CController.php(265): LoginController->runActionWithFilters()
+#2 C:\wamp\www\real-copy\framework\web\CWebApplication.php(282): LoginController->run()
+#3 C:\wamp\www\real-copy\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#4 C:\wamp\www\real-copy\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#5 C:\wamp\www\real-copy\real\index.php(13): CWebApplication->run()
+REQUEST_URI=/real-copy/real/?r=admin/login/login
+in C:\wamp\www\real-copy\real\protected\controllers\admin\LoginController.php (24)
+in C:\wamp\www\real-copy\real\index.php (13)
+2017/12/04 05:16:57 [error] [php] Undefined offset: 2 (C:\wamp\www\real-copy\real\protected\controllers\admin\LoginController.php:24)
+Stack trace:
+#0 C:\wamp\www\real-copy\framework\web\CController.php(286): LoginController->runAction()
+#1 C:\wamp\www\real-copy\framework\web\CController.php(265): LoginController->runActionWithFilters()
+#2 C:\wamp\www\real-copy\framework\web\CWebApplication.php(282): LoginController->run()
+#3 C:\wamp\www\real-copy\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#4 C:\wamp\www\real-copy\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#5 C:\wamp\www\real-copy\real\index.php(13): CWebApplication->run()
+REQUEST_URI=/real-copy/real/?r=admin/login/login
+in C:\wamp\www\real-copy\real\protected\controllers\admin\LoginController.php (24)
+in C:\wamp\www\real-copy\real\index.php (13)

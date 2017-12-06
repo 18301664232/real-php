@@ -181,6 +181,7 @@
                         }
                         $('.table-box tr:gt(0)').remove();
                         $('#flow-box').append(flow_str);
+                        checkAuth();
                     }else{
                         alert('读取失败');
                     }
@@ -296,7 +297,22 @@
         })
 
 
+        //执行权限--以下是在没有权限的情况下操作
+        function checkAuth() {
+            if(<?php echo $this->checkAuth($this->id.'/add') ?>){
+
+                $('#btn-add').attr('disabled','disabled');
+
+            }
+            if(<?php echo $this->checkAuth($this->id.'/edit') ?>){
+                $('.table-box tr button').attr('disabled','disabled');
+            }
+        };
+
+
     });
+
+
 
 
 

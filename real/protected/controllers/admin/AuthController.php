@@ -1,13 +1,13 @@
 <?php
 //用户授权类
-class AuthController extends BaseController
+class AuthController extends  CenterController
 
 {
-    public $layout = 'admin';
+    public $layout = 'admin'; //定义布局
     public function init() {
         parent::init();
-        if (!$this->checkLogin('admin'))
-            $this->showMessage('未登录', U('admin/login/login'));
+//        if (!$this->checkLogin('admin'))
+//            $this->showMessage('未登录', U('admin/login/login'));
     }
 
     //输出页面
@@ -16,6 +16,7 @@ class AuthController extends BaseController
         //读取全部的角色
         $rs = AuthServer::getAuthRole();
         $this->render('list',['data'=>$rs['data']]);
+
     }
 
     //输出列表

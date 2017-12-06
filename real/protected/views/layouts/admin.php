@@ -50,27 +50,30 @@
             <div class="left-main left-full">
                 <div class="subNavBox">
                     <div class="sBox">
-                        <div class="subNav sublist-down "><span class="title-icon glyphicon"></span><span class="sublist-title "><a href="<?php echo U('admin/index/index') ?>">网站分析</a></span>
+                        <div class="subNav subNav0 sublist-down "><span class="title-icon glyphicon"></span><span class="sublist-title "><a href="<?php echo U('admin/index/index') ?>">网站分析</a></span>
                         </div>
                     </div>
                 </div>
-                <div class="subNavBox">
+
+
+                <div class="subNavBox <?php if (($this->checkAuth('admin/user/list')) && ($this->checkAuth('admin/user/edit')) && ($this->checkAuth('admin/user/data'))){echo 'hide';}?>">
                     <div class="sBox">
-                        <div class="subNav sublist-down"><span class="title-icon glyphicon"></span><span class="sublist-title"><a href="<?php echo U('admin/user/list') ?>">用户管理</a></span>
+                        <div class="subNav subNav1 sublist-down"><span class="title-icon glyphicon"></span><span class="sublist-title"><a href="<?php echo U('admin/user/list') ?>">用户管理</a></span>
                         </div>
                     </div>
                 </div>
-                <div class="subNavBox">
+
+                <div class="subNavBox <?php if (($this->checkAuth('admin/switchover/add')) && ($this->checkAuth('admin/switchover/edit'))){echo 'hide';}?>">
                     <div class="sBox">
-                        <div class="subNav sublist-down">
+                        <div class="subNav subNav11 sublist-down">
                             <span class="title-icon glyphicon glyphicon-chevron-down"></span>
                             <span class="sublist-title">效果配置</span>
                         </div>
-                        <ul class="navContent" style="display:none">
-                            <li class="">
+                        <ul class="navContent navContent0 " style="display:none">
+                            <li class="selfli0">
                                 <a href="<?php echo U('admin/switchover/list') ?>"><span class="sub-title">切换栏目</span></a>
                             </li>
-                            <li>
+                            <li class="selfli1">
                                 <a href="<?php echo U('admin/music/list') ?>"><span class="sub-title">音效栏目</span></a>
                             </li>
 
@@ -78,17 +81,17 @@
                         </ul>
                     </div>
                 </div>
-                <div class="subNavBox">
+                <div class="subNavBox <?php if (($this->checkAuth('admin/auth/edit')) && ($this->checkAuth('admin/auth/list')) && ($this->checkAuth('admin/auth/add'))){echo 'hide';}?>">
                     <div class="sBox">
-                        <div class="subNav sublist-down">
+                        <div class="subNav subNav2 sublist-down">
                             <span class="title-icon glyphicon glyphicon-chevron-down"></span>
                             <span class="sublist-title">员工管理</span>
                         </div>
-                        <ul class="navContent" style="display:none">
-                            <li class="">
+                        <ul class="navContent navContent11 " style="display:none">
+                            <li class="selfli2">
                                 <a href="<?php echo U('admin/Auth/list') ?>"><span class="sub-title">帐号管理</span></a>
                             </li>
-                            <li>
+                            <li class="selfli3">
                                 <a href="<?php echo U('admin/Role/list') ?>"><span class="sub-title">角色管理</span></a>
                             </li>
 
@@ -97,43 +100,42 @@
                     </div>
                 </div>
 
-                <div class="subNavBox">
+                <div class="subNavBox <?php if (($this->checkAuth('admin/product/edit')) && ($this->checkAuth('admin/product/list'))){echo 'hide';}?>">
                     <div class="sBox">
-                        <div class="subNav sublist-down"><span class="title-icon glyphicon glyphicon-chevron-down"></span><span class="sublist-title">项目管理</span>
+                        <div class="subNav subNav3 sublist-down"><span class="title-icon glyphicon glyphicon-chevron-down"></span><span class="sublist-title">项目管理</span>
                         </div>
-                        <ul class="navContent" style="display:none">
-                            <li class="">
+                        <ul class="navContent navContent2" style="display:none">
+                            <li class="selfli4">
                                 <a href="<?php echo U('admin/product/list') ?>"><span class="sub-title">查看项目</span></a>
                             </li>
-                            <li >
+                            <li class="selfli5">
                                 <a href="<?php echo U('admin/video/list') ?>"><span class="sub-title">项目审核</span></a>
                             </li>
-
 
                         </ul>
                     </div>
                 </div>
-                <div class="subNavBox">
+                <div class="subNavBox <?php if (($this->checkAuth('admin/order/list')) && ($this->checkAuth('admin/order/edit'))){echo 'hide';}?>">
                     <div class="sBox">
-                        <div class="subNav sublist-down"><span class="title-icon glyphicon"></span><span class="sublist-title"><a href="<?php echo U('admin/order/list', array('type' => '会员账号', 'status' => 1)) ?>">工单管理</a></span>
+                        <div class="subNav subNav4 sublist-down"><span class="title-icon glyphicon"></span><span class="sublist-title"><a href="<?php echo U('admin/order/list', array('type' => '会员账号', 'status' => 1)) ?>">工单管理</a></span>
                         </div>
                     </div>
                 </div>
-                <div class="subNavBox">
+                <div class="subNavBox  <?php if (($this->checkAuth('admin/flow/edit')) && ($this->checkAuth('admin/flow/add'))){echo 'hide';}?>">
                     <div class="sBox">
-                        <div class="subNav sublist-down"><span class="title-icon glyphicon"></span><span class="sublist-title"><a href="<?php echo U('admin/flow/list') ?>">流量包管理</a></span>
+                        <div class="subNav subNav5 sublist-down"><span class="title-icon glyphicon"></span><span class="sublist-title"><a href="<?php echo U('admin/flow/list') ?>">流量包管理</a></span>
                         </div>
                     </div>
                 </div>
-                <div class="subNavBox">
+                <div class="subNavBox  <?php if (($this->checkAuth('admin/mail/list')) && ($this->checkAuth('admin/mail/edit')) && ($this->checkAuth('admin/mail/add'))){echo 'hide';}?>">
                     <div class="sBox">
-                        <div class="subNav sublist-down"><span class="title-icon glyphicon"></span><span class="sublist-title"><a href="<?php echo U('admin/mail/list') ?>">消息管理</a></span>
+                        <div class="subNav subNav6 sublist-down"><span class="title-icon glyphicon"></span><span class="sublist-title"><a href="<?php echo U('admin/mail/list') ?>">消息管理</a></span>
                         </div>
                     </div>
                 </div>
-                <div class="subNavBox">
+                <div class="subNavBox <?php if (($this->checkAuth('admin/help/list')) && ($this->checkAuth('admin/help/edit')) && ($this->checkAuth('admin/help/add'))){echo 'hide';}?>">
                     <div class="sBox">
-                        <div class="subNav sublist-down"><span class="title-icon glyphicon"></span><span class="sublist-title"><a href="<?php echo U('admin/help/list') ?>">帮助中心管理</a></span>
+                        <div class="subNav subNav7 sublist-down"><span class="title-icon glyphicon"></span><span class="sublist-title"><a href="<?php echo U('admin/help/list') ?>">帮助中心管理</a></span>
                         </div>
                     </div>
                 </div>
@@ -175,42 +177,52 @@
 
     switch ('<?php echo $this->id ?>'){
         case 'admin/product':
-        $('.down-main li').eq(2).addClass('active').siblings().removeClass('active');
-        $('.subNav').eq(3).addClass('sublist-up');
-        $('.navContent').eq(1).show();
+            $('.selfli4').addClass('active').siblings().removeClass('active');
+            $('.subNav3').addClass('sublist-up');
+            $('.navContent2').show();
         break;
         case 'admin/video':
-            $('.down-main li').eq(3).addClass('active').siblings().removeClass('active');
-            $('.subNav').eq(3).addClass('sublist-up');
-            $('.navContent').eq(1).show();
+            $('.selfli5').addClass('active').siblings().removeClass('active');
+            $('.subNav3').addClass('sublist-up');
+            $('.navContent2').show();
             break;
         case 'admin/switchover':
-            $('.down-main li').eq(0).addClass('active').siblings().removeClass('active');
-            $('.subNav').eq(2).addClass('sublist-up');
-            $('.navContent').eq(0).show();
+            $('.selfli0').addClass('active').siblings().removeClass('active');
+            $('.subNav11').addClass('sublist-up');
+            $('.navContent0').show();
             break;
         case 'admin/music':
-            $('.down-main li').eq(1).addClass('active').siblings().removeClass('active');
-            $('.subNav').eq(2).addClass('sublist-up');
-            $('.navContent').eq(0).show();
+            $('.selfli1').addClass('active').siblings().removeClass('active');
+            $('.subNav11').addClass('sublist-up');
+            $('.navContent0').show();
             break;
         case 'admin/index':
-            $('.subNav').eq(0).addClass('sublist-up');
+            $('.subNav0').addClass('sublist-up');
             break;
         case 'admin/user':
-            $('.subNav').eq(1).addClass('sublist-up');
+            $('.subNav1').addClass('sublist-up');
             break;
         case 'admin/order':
-            $('.subNav').eq(4).addClass('sublist-up');
+            $('.subNav4').addClass('sublist-up');
             break;
         case 'admin/flow':
-        $('.subNav').eq(5).addClass('sublist-up');
+            $('.subNav5').addClass('sublist-up');
             break;
         case 'admin/mail':
-            $('.subNav').eq(6).addClass('sublist-up');
+            $('.subNav6').addClass('sublist-up');
             break;
         case 'admin/help':
-            $('.subNav').eq(7).addClass('sublist-up');
+            $('.subNav7').addClass('sublist-up');
+            break;
+        case 'admin/auth':
+            $('.selfli2').addClass('active').siblings().removeClass('active');
+            $('.subNav2').addClass('sublist-up');
+            $('.navContent11').show();
+            break;
+        case 'admin/role':
+            $('.selfli3').addClass('active').siblings().removeClass('active');
+            $('.subNav2').addClass('sublist-up');
+            $('.navContent11').show();
             break;
     }
 

@@ -191,7 +191,11 @@ class BaseController extends CController
         }
         if (!empty(Yii::app()->session['admin'])) {
             //查询当前管理人员角色权限
-            return (in_array($auth_type, Yii::app()->session['admin']['permissions']));
+          if(in_array($auth_type, Yii::app()->session['admin']['permissions'])){
+              return 0;
+          }else{
+              return 1;
+          }
         }
 
     }

@@ -158,3 +158,22 @@
     </section>
 </div>
 </div>
+
+<script>
+
+        function checkAuth() {
+            //执行权限--以下是在没有权限的情况下操作
+            if (<?php echo $this->checkAuth($this->id .'/add') ?>) {
+                $('.add-message').attr('disabled', 'disabled');
+            }
+            if (<?php echo $this->checkAuth($this->id . '/list') ?>) {
+                $('.query-box .row li').unbind();
+            }
+            if (<?php echo $this->checkAuth($this->id . '/edit') ?>) {
+                $('.table-box tr button').attr('disabled', 'disabled');
+            }
+        }
+
+
+
+</script>

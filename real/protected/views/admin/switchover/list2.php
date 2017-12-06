@@ -410,6 +410,7 @@
                         $('#effect-table-one').append(effect_one);
                         $('#effect-table-two').append(effect_two);
                         $('#trigger-table').append(trigger);
+                        checkAuth();
 
                     }
                 }
@@ -730,6 +731,24 @@
                     });
             }
         });
+
+
+        //执行权限--以下是在没有权限的情况下操作
+        function checkAuth() {
+            if(<?php echo $this->checkAuth($this->id.'/add') ?>){
+
+                $('.effectadd').attr('disabled','disabled');
+                $('.triggeradd').attr('disabled','disabled');
+                $('.diradd').attr('disabled','disabled');
+
+            }
+            if(<?php  echo $this->checkAuth($this->id.'/edit') ?>){
+                $('.table-box tr button').attr('disabled','disabled');
+            }
+        };
+
+
+
 
 
 

@@ -58,7 +58,7 @@
 	    			<div class="text-right btn-area ">
                         <p class="total" style="line-height:30px;">当前条件共有数据：<span style="color:#0099FF"></span>条</p>
 <!--	    				<button class="btn btn-primary btn-query">查询</button>-->
-	    				<button class="btn btn-success excel-ok">导出数据</button>
+	    				<button <?php if( $this->checkAuth($this->id.'/data')){echo 'disabled';} ?>  class="btn btn-success excel-ok">导出数据</button>
 	    			</div>
 	    		</div>
 	    		<div class="table-box">
@@ -208,3 +208,20 @@
           </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
+
+  <script>
+      //执行权限--以下是在没有权限的情况下操作
+      function checkAuth() {
+          if(<?php echo $this->checkAuth($this->id.'/list') ?>){
+              $('.query-box .row li').unbind();
+              $('.search-key').attr('disabled','disabled');
+              $('.date-search-btn').attr('disabled','disabled');
+
+          }
+          if(<?php echo $this->checkAuth($this->id.'/edit') ?>){
+              $('.table-box tr button').attr('disabled','disabled');
+          }
+      };
+
+
+  </script>

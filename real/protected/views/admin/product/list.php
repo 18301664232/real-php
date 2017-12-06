@@ -74,7 +74,7 @@
                             <td><?php echo $v['pv'] + $v['nv'] + $v['uv'] ?></td>
                             <td><?php echo $v['nv'] + $v['uv'] ?></td>
                             <td><?php echo $v['water'] != null ? number_format(($v['water'] / 1024 / 1024), 2, '.', '') . 'MB' : 0 ?></td>
-                            <td><a target="_blank" href="<?php echo $v['looklink'] ?>"><button class="btn btn-success btn-sm btn-looklink">查看</button></a></td>
+                            <td><a target="_blank" href="<?php echo $v['looklink'] ?>"><button  <?php if( $this->checkAuth($this->id.'/edit')){echo 'disabled';} ?> class="btn btn-success btn-sm btn-looklink">查看</button></a></td>
 
         <!--	    					<td>
                 <button class="btn btn-info btn-detail" data-toggle="modal" data-target="#project">详情</button>
@@ -219,5 +219,14 @@
 //            }
 //        });
 //    }
+
+    //执行权限--以下是在没有权限的情况下操作
+    if(<?php echo $this->checkAuth($this->id.'/list') ?>){
+        $('.query-box .row .clearfix li').unbind();
+        $('.input-group-btn button').attr('disabled','disabled');
+
+
+   }
+
 
 </script>

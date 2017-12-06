@@ -22,7 +22,7 @@ $(function () {
                 }
             }
         });
-        detail();
+
     });
 
     //点击保存按钮
@@ -62,7 +62,7 @@ $(function () {
     //显示模块
     $(".add-ok").click(function () {
         $("#type_button").modal({show: true});
-       // $('#musform input').val('');
+        $('#musform input').val('');
     });
     //下拉框赋值
     $('.dropdown-menu').delegate('li', 'click', function() {
@@ -112,6 +112,7 @@ $(function () {
                         column_str += '</tr>'
                     }
                     $('.table-bordered').append(column_str);
+                    checkAuth();
                     $('.total span').html(data.result.c_count);
                     $('.pageend').attr('pageattr', data.result.pages);
                     //执行分页

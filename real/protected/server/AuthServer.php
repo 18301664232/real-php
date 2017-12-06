@@ -49,18 +49,23 @@ class AuthServer extends BaseServer
                     $permissions_arr[$vel['name']]['name']=$vel['name'];
                     $permissions_arr[$vel['name']]['addtime']=$vel['addtime'];
                 }
+
             }else{
+                $permissions_arr[$vel['name']]['id']=$vel['id'];
+                $permissions_arr[$vel['name']]['name']=$vel['name'];
+                $permissions_arr[$vel['name']]['addtime']=$vel['addtime'];
                 $permissions_arr[$vel['name']]['permissions_main'][]=$vel['permissions_main'];
             }
 
             $permissions_arr[$vel['name']]['permissions_name'][$vel['pid']]=$vel['permissions_name'];
             $permissions_arr[$vel['name']]['permissions_sign'][$vel['pid']]=$vel['permissions_sign'];
         }
-
-
+        $count = count($permissions_arr);
+        $pages = ceil($count/$pagesize);
+        $permissions_arr = array_slice($permissions_arr, $offset,$pagesize );
 
         if ($permissions_arr) {
-            return array('code' => '0', 'data' => $permissions_arr);
+            return array('code' => '0', 'data' => $permissions_arr,'count'=>$count,'pages'=>$pages);
         } else {
             return array('code' => '100001', 'data' => []);
         }

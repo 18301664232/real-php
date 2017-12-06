@@ -22,7 +22,7 @@ $(function () {
                 }
             }
         });
-        detail();
+
     });
 
     //点击保存按钮
@@ -51,6 +51,10 @@ $(function () {
                 if(obj.code == 0) {
                     datainit(1,self_status);
                     saveTip('创建成功');
+                }else if(obj.code == '100444'){
+                    saveTip('请完成添加');
+                }else {
+                    saveTip('创建失败');
                 }
             },
             error:function(e){
@@ -112,6 +116,7 @@ $(function () {
                         column_str += '</tr>'
                     }
                     $('.table-bordered').append(column_str);
+                    checkAuth();
                     $('.total span').html(data.result.c_count);
                     $('.pageend').attr('pageattr', data.result.pages);
                     //执行分页

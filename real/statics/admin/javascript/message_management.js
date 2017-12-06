@@ -27,7 +27,7 @@ $(function() {
             },
             success: function (data) {
                 $('.table-bordered tr:gt(0)').remove();
-                console.log(data);
+
                 if (data.code == '0') {
                     var column_str = '';
                     for (var key in data.result.data.mail) {
@@ -57,6 +57,7 @@ $(function() {
                     }
 
                     $('.table-bordered').append(column_str);
+                    checkAuth();
                     //$('.current-nownum').html(data.result.c_count);
                   //  $('.pageend').attr('pageattr', data.result.pages);
 

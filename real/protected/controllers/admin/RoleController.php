@@ -1,9 +1,9 @@
 <?php
 //用户授权类
-class RoleController extends BaseController
+class RoleController extends  CenterController
 
 {
-    public $layout = 'admin';
+    public $layout = 'admin'; //定义布局
     public function init() {
         parent::init();
         if (!$this->checkLogin('admin'))
@@ -36,8 +36,8 @@ class RoleController extends BaseController
         if($rs['code']!=0){
             $this->out('100444','数据获取失败');
         }else{
-           // $this->out('0','查询成功',['data'=> $rs['data'],'c_count'=>$c_count,'count'=>$count,'pages'=>$pages]);
-            $this->out('0','查询成功',['data'=> $rs['data'],'c_count'=>$c_count]);
+           $this->out('0','查询成功',['data'=> $rs['data'],'c_count'=>$c_count,'count'=>$rs['count'],'pages'=>$rs['pages']]);
+            //$this->out('0','查询成功',['data'=> $rs['data'],'c_count'=>$c_count]);
         }
 
     }

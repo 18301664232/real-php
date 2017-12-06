@@ -22,7 +22,7 @@ class LoginController extends CenterController
                 $prs = AdminServer::getPromissionsList([$rs['data']['id']]);
                 $rs['data'] = Tools::object2array($rs['data']);
                 $rs['data']['permissions'] = $prs['data'][$rs['data']['id']]['permissions_sign'];
-                //写入session
+               // 写入session
                 $this->userInsession($rs['data'], 'admin');
                 //修改最后一次登录信息
                 AdminServer::updateAdmin(array('id' => $rs['data']['id']), array('last_time' => time(), 'last_ip' => $_SERVER["REMOTE_ADDR"]));

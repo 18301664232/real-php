@@ -69,3 +69,15 @@
         </section>
     </section>
 </div>
+
+
+<script>
+    //执行权限--以下是在没有权限的情况下操作
+        if(<?php echo $this->checkAuth($this->id.'/list') ?>){
+            $('.flow-tab nav nav-tabs li').unbind();
+
+
+        }
+
+
+</script>

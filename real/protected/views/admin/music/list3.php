@@ -378,6 +378,7 @@
                         $('#icon_location tr:gt(0)').remove();
                         $('#system_music').append(system);
                         $('#icon_location').append(location);
+                        checkAuth();
                     }
                 }
             });
@@ -403,6 +404,23 @@
                     });
                }
         });
+
+        //执行权限--以下是在没有权限的情况下操作
+        function checkAuth() {
+            if(<?php echo $this->checkAuth($this->id.'/add') ?>){
+
+                $('.add-btn button').attr('disabled','disabled');
+                $('#iconadd').attr('disabled','disabled');
+
+            }
+            if(<?php  echo $this->checkAuth($this->id.'/edit') ?>){
+                $('.table-box tr button').attr('disabled','disabled');
+            }
+            if(<?php  echo $this->checkAuth($this->id.'/list') ?>){
+                $('.nav-tabs li').unbind();
+            }
+        };
+
 
         //增加系统音乐列表项
 
