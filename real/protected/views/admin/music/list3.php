@@ -407,16 +407,16 @@
 
         //执行权限--以下是在没有权限的情况下操作
         function checkAuth() {
-            if(<?php echo $this->checkAuth($this->id.'/add') ?>){
+            if(<?php echo $this->checkAuth('admin/switchover/add') ?>){
 
                 $('.add-btn button').attr('disabled','disabled');
                 $('#iconadd').attr('disabled','disabled');
 
             }
-            if(<?php  echo $this->checkAuth($this->id.'/edit') ?>){
+            if(<?php  echo $this->checkAuth('admin/switchover/edit') ?>){
                 $('.table-box tr button').attr('disabled','disabled');
             }
-            if(<?php  echo $this->checkAuth($this->id.'/list') ?>){
+            if(<?php  echo $this->checkAuth('admin/switchover/list') ?>){
                 $('.nav-tabs li').unbind();
             }
         };

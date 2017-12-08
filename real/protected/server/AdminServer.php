@@ -102,6 +102,7 @@ class AdminServer extends BaseServer {
         $criteria->limit = $pagesize;   //取1条数据，如果小于0，则不作处理
         $criteria->offset = $offset;   //两条合并起来，则表示 limit 10
         $rs = $model->findAll($criteria);
+
         if ($rs) {
             return array('code' => '0', 'data' => $rs);
         } else {

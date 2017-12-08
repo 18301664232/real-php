@@ -52,7 +52,10 @@ class LoginController extends CenterController {
                     $updateData['company_id'] = $rs['data']['company_id'];
                     $id = $rs['data']['company_id'];
                 }
-                UserServer::updateUser($updateData, array('last_time' => time(), 'last_ip' => $_SERVER["REMOTE_ADDR"]));
+                $up_rs = UserServer::updateUser($updateData, array('last_time' => time(), 'last_ip' => $_SERVER["REMOTE_ADDR"]));
+                if($up_rs['code']!=0){
+                    $this->out('100002', '登录信息未修改');
+                }
                 //是否保存cookie
                 if ($is_login == 'true') {
                     $this->setCookie(COOKIE_KEY, $id, 60 * 60 * 24 * $this->IsKeepTime);

@@ -1,4 +1,5 @@
 <?php
+
 //用户授权类
 class AuthController extends CenterController
 

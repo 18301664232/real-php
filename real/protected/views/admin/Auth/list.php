@@ -32,6 +32,7 @@
                 <tr>
                     <th>序号</th>
                     <th>账号名称</th>
+                    <th>角色</th>
                     <th>部门</th>
                     <th>姓名</th>
                     <th>创建日期</th>
@@ -41,6 +42,8 @@
                 <tr>
                     <td>1</td>
                     <td>12342425435@qq.com</td>
+                    <td>12342425435@qq.com</td>
+
                     <td>43</td>
                     <td>2015-08-07</td>
                     <td>35</td>
@@ -87,7 +90,7 @@
         <div class='modal-content'>
             <div class='modal-header'>
                 <button class='close' data-dismiss='modal'>
-                    <span>&times;</span>
+                    <span class="clear_input">&times;</span>
                 </button>
                 <h4 class="modal-title text-center">添加帐号</h4>
             </div>

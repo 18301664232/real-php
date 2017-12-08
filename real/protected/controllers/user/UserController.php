@@ -12,7 +12,7 @@ class UserController extends CenterController {
         if (!$this->checkLogin())
             $this->showMessage('未登录', U('user/login/login'));
     }
-
+    
 
     //获取用户信息
     public function actionInfo() {

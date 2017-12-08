@@ -681,6 +681,7 @@
             if(<?php echo $this->checkAuth($this->id.'/list') ?>){
 
                 $('.nav-tabs li').unbind();
+                $('.one_ss').attr('disabled','disabled');
 
             }
             if(<?php echo $this->checkAuth($this->id.'/edit') ?>){
